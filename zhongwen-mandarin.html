@@ -1,0 +1,3062 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中文 — Apprendre le mandarin</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#232323">
+<meta name="description" content="Apprendre le mandarin — vocabulaire, grammaire, audio et exercices, du niveau débutant.">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="中文">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3EFE6;
+  --paper-2:#E8E1D0;
+  --ink:#232323;
+  --ink-soft:#5A564D;
+  --cinnabar:#B7282E;
+  --cinnabar-dark:#8C1F24;
+  --jade:#2F6F4E;
+  --jade-light:#5C9C7C;
+  --gold:#C9A24B;
+  --gold-light:#E0C179;
+  --ok:#2E7D46;
+  --bad:#A83232;
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+}
+h1,h2,h3,.display{
+  font-family:'Noto Serif SC',serif;
+  color:var(--ink);
+  letter-spacing:-0.01em;
+}
+.han{font-family:'Noto Sans SC',sans-serif;}
+.py{font-family:'Inter',sans-serif;font-style:italic;color:var(--cinnabar);}
+
+.topbar{
+  background:linear-gradient(180deg,#1A1A1A,var(--ink));
+  color:var(--paper);
+  padding:22px 24px 26px;
+  position:relative;
+  border-bottom:4px solid var(--cinnabar);
+}
+.topbar::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:-4px;height:2px;
+  background:var(--gold);
+}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1180px;margin:0 auto;}
+.brand{display:flex;align-items:center;gap:14px;}
+.seal{
+  width:44px;height:44px;flex-shrink:0;background:var(--cinnabar);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;transform:rotate(-4deg);
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+.seal span{font-family:'Noto Serif SC',serif;color:var(--paper);font-size:1.5rem;font-weight:700;}
+.brand h1{color:var(--paper);font-size:1.6rem;margin:0;font-weight:600;}
+.brand p{margin:3px 0 0;color:var(--gold-light);font-size:.88rem;}
+.menu-btn{
+  display:none;background:var(--cinnabar);color:var(--paper);border:none;
+  padding:9px 14px;border-radius:10px;font-weight:600;cursor:pointer;font-family:inherit;
+}
+
+.layout{display:flex;max-width:1180px;margin:0 auto;align-items:flex-start;}
+.sidebar{
+  width:280px;flex-shrink:0;padding:26px 14px 60px 6px;position:sticky;top:0;
+  max-height:100vh;overflow-y:auto;
+}
+.level-label{
+  font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--cinnabar);
+  font-weight:700;margin:22px 0 8px 18px;
+}
+.level-label:first-child{margin-top:0;}
+.unit-track{position:relative;padding-left:26px;}
+.unit-track::before{
+  content:"";position:absolute;left:9px;top:6px;bottom:6px;width:3px;
+  background:linear-gradient(var(--jade-light),var(--paper-2));
+  border-radius:3px;
+}
+.unit-item{
+  position:relative;display:block;width:100%;text-align:left;background:none;border:none;
+  font-family:inherit;padding:9px 10px 9px 6px;margin-bottom:2px;border-radius:10px;cursor:pointer;
+  color:var(--ink-soft);font-size:.87rem;line-height:1.25;
+}
+.unit-item::before{
+  content:"";position:absolute;left:-21px;top:14px;width:11px;height:11px;border-radius:50%;
+  background:var(--paper);border:2.5px solid var(--jade-light);
+}
+.unit-item.done::before{background:var(--jade);border-color:var(--jade);}
+.unit-item.active{background:var(--gold-light);color:var(--ink);font-weight:600;}
+.unit-item.active::before{background:var(--cinnabar);border-color:var(--cinnabar-dark);width:13px;height:13px;left:-22px;top:13px;}
+.unit-item small{display:block;color:var(--ink-soft);font-weight:400;font-size:.75rem;}
+.unit-item.active small{color:var(--ink);}
+.unit-check{position:absolute;right:8px;top:10px;font-size:.72rem;color:var(--jade);}
+
+main{flex:1;padding:34px 30px 90px;min-width:0;}
+.unit-header{margin-bottom:26px;}
+.eyebrow{
+  display:inline-block;background:var(--ink);color:var(--gold-light);
+  padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:600;letter-spacing:.05em;
+  text-transform:uppercase;margin-bottom:10px;
+}
+.unit-header h2{font-size:2rem;margin:0 0 6px;}
+.unit-header .sub{color:var(--ink-soft);font-size:1rem;margin:0;}
+
+section.block{
+  background:#fff;border:1px solid var(--paper-2);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:22px;
+}
+section.block h3{
+  margin:0 0 14px;font-size:1.15rem;display:flex;align-items:center;gap:8px;
+}
+section.block h3::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cinnabar);}
+
+.vocab-table{width:100%;border-collapse:collapse;font-size:.93rem;}
+.vocab-table th{
+  text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--cinnabar);padding:6px 10px;border-bottom:2px solid var(--paper-2);
+}
+.vocab-table td{padding:9px 10px;border-bottom:1px solid var(--paper-2);vertical-align:top;}
+.vocab-table tr:last-child td{border-bottom:none;}
+.han-cell{display:flex;align-items:center;gap:7px;}
+.han-word{font-weight:700;color:var(--ink);font-size:1.15rem;}
+.note{color:var(--ink-soft);font-size:.81rem;}
+.audio-btn{
+  border:none;background:var(--paper);color:var(--cinnabar);width:26px;height:26px;border-radius:50%;
+  cursor:pointer;font-size:.85rem;flex-shrink:0;line-height:1;
+}
+.audio-btn:hover{background:var(--gold-light);color:var(--ink);}
+.audio-note{
+  background:var(--paper);border-left:3px solid var(--jade-light);padding:9px 14px;
+  border-radius:0 8px 8px 0;font-size:.83rem;color:var(--ink-soft);margin-bottom:16px;
+}
+
+.grammar-body p{line-height:1.6;margin:0 0 12px;}
+.grammar-body ul{line-height:1.6;padding-left:20px;margin:0 0 12px;}
+.callout{
+  background:var(--paper);border-left:3px solid var(--gold);
+  padding:10px 14px;border-radius:0 8px 8px 0;font-size:.9rem;margin:12px 0;
+}
+
+.dialogue-line{display:flex;gap:10px;margin-bottom:12px;align-items:baseline;flex-wrap:wrap;}
+.speaker{flex-shrink:0;width:64px;font-weight:700;color:var(--cinnabar);font-size:.85rem;}
+.dialogue-line .h{font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:6px;}
+.dialogue-line .fr{color:var(--ink-soft);font-size:.86rem;width:100%;padding-left:74px;}
+
+.exercise{margin-bottom:20px;padding-bottom:18px;border-bottom:1px dashed var(--paper-2);}
+.exercise:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.exercise .q{font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.options{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{
+  text-align:left;padding:10px 14px;border-radius:9px;border:1.5px solid var(--paper-2);
+  background:var(--paper);cursor:pointer;font-family:inherit;font-size:.92rem;color:var(--ink);
+}
+.opt-btn:hover{border-color:var(--jade-light);}
+.opt-btn.correct{background:#E4F3E7;border-color:var(--ok);color:var(--ok);font-weight:600;}
+.opt-btn.wrong{background:#F7E7E5;border-color:var(--bad);color:var(--bad);}
+.opt-btn:disabled{cursor:default;}
+.fill-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.fill-row input{
+  padding:9px 12px;border-radius:9px;border:1.5px solid var(--paper-2);font-family:inherit;
+  font-size:.92rem;min-width:180px;
+}
+.fill-row input.correct{border-color:var(--ok);background:#E4F3E7;}
+.fill-row input.wrong{border-color:var(--bad);background:#F7E7E5;}
+.check-btn{
+  background:var(--cinnabar);color:#fff;border:none;padding:9px 16px;border-radius:9px;
+  cursor:pointer;font-family:inherit;font-weight:600;font-size:.88rem;
+}
+.check-btn:hover{background:var(--cinnabar-dark);}
+.check-btn:disabled{background:var(--paper-2);color:var(--ink-soft);cursor:not-allowed;}
+.fb{font-size:.85rem;margin-top:6px;font-weight:600;}
+.fb.ok-fb{color:var(--ok);}
+.fb.bad-fb{color:var(--bad);}
+.big-audio-btn{
+  border:none;background:var(--ink);color:#fff;padding:8px 16px;border-radius:9px;
+  cursor:pointer;font-family:inherit;font-weight:600;font-size:.88rem;margin-bottom:12px;
+}
+.big-audio-btn:hover{background:var(--cinnabar-dark);}
+
+.score-bar{
+  display:flex;justify-content:space-between;align-items:center;background:var(--ink);
+  color:var(--paper);padding:14px 20px;border-radius:var(--radius);margin-top:6px;
+}
+.score-bar .num{font-family:'Noto Serif SC',serif;font-size:1.4rem;color:var(--gold-light);}
+
+@media(max-width:880px){
+  .layout{flex-direction:column;}
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;background:var(--paper);z-index:20;
+    transform:translateX(-100%);transition:transform .25s ease;width:82%;max-width:320px;
+    box-shadow:4px 0 18px rgba(0,0,0,.15);padding-top:70px;
+  }
+  .sidebar.open{transform:translateX(0);}
+  .menu-btn{display:inline-block;}
+  main{padding:24px 16px 80px;}
+  .dialogue-line .fr{padding-left:0;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="seal"><span>中</span></div>
+      <div>
+        <h1>中文 · Mandarin</h1>
+        <p>Vocabulaire, grammaire, audio et exercices</p>
+      </div>
+    </div>
+    <button class="menu-btn" id="menuBtn">☰ Unités</button>
+  </div>
+</div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <div id="unitListWrap"></div>
+  </nav>
+
+  <main id="main"></main>
+</div>
+
+<script>
+/* ---------------------------------------------------------
+   AUDIO — synthèse vocale du navigateur (Web Speech API)
+--------------------------------------------------------- */
+function speak(text){
+  if(!('speechSynthesis' in window)){ alert("La synthèse vocale n'est pas disponible sur ce navigateur."); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'zh-CN';
+  u.rate = 0.85;
+  const voices = window.speechSynthesis.getVoices();
+  const zhVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('zh'));
+  if(zhVoice) u.voice = zhVoice;
+  window.speechSynthesis.speak(u);
+}
+
+/* ---------------------------------------------------------
+   DONNÉES DES UNITÉS
+   Caractères simplifiés (norme de Chine continentale) + pinyin.
+--------------------------------------------------------- */
+const units = [
+{
+  id:1, level:1,
+  title:"声调与拼音基础",
+  sub:"Les tons et le système pinyin",
+  intro:"Le mandarin utilise 4 tons (+ un ton neutre) : la même syllabe change complètement de sens selon le ton. C'est la première difficulté à dompter, et la plus importante.",
+  vocab:[
+    {han:"妈",py:"mā",fr:"maman (1er ton, plat et haut)",note:"illustre le 1er ton"},
+    {han:"麻",py:"má",fr:"chanvre / engourdi (2e ton, montant)",note:"illustre le 2e ton"},
+    {han:"马",py:"mǎ",fr:"cheval (3e ton, descendant-montant)",note:"illustre le 3e ton"},
+    {han:"骂",py:"mà",fr:"insulter, gronder (4e ton, descendant net)",note:"illustre le 4e ton — même syllabe, 4 sens différents !"},
+    {han:"吗",py:"ma",fr:"particule interrogative (ton neutre)",note:"illustre le ton neutre, atone"},
+    {han:"你好",py:"nǐ hǎo",fr:"bonjour",note:"deux 3e tons de suite : le premier se prononce comme un 2e ton (sandhi)"},
+    {han:"谢谢",py:"xièxie",fr:"merci",note:""},
+    {han:"对不起",py:"duìbuqǐ",fr:"pardon, désolé",note:""},
+    {han:"不",py:"bù",fr:"non, ne...pas",note:"devient bú devant un 4e ton (不是 búshì)"},
+    {han:"是",py:"shì",fr:"être / oui",note:""},
+    {han:"请",py:"qǐng",fr:"s'il vous plaît, je vous prie",note:""},
+    {han:"再见",py:"zàijiàn",fr:"au revoir",note:""}
+  ],
+  grammar:`
+    <p>Le mandarin est une langue à tons : la hauteur/mélodie de la voix sur une syllabe en change le sens, pas juste l'intonation comme en français.</p>
+    <ul>
+      <li><b>1er ton (ā)</b> : plat et haut, comme si on tenait une note de chant.</li>
+      <li><b>2e ton (á)</b> : montant, comme une question courte en français ("Hein ?").</li>
+      <li><b>3e ton (ǎ)</b> : descend puis remonte légèrement, souvent plus bas et plus long.</li>
+      <li><b>4e ton (à)</b> : descend fort et net, comme un ordre bref.</li>
+      <li><b>Ton neutre</b> : atone, léger, sans hauteur marquée (吗 ma, 了 le...).</li>
+    </ul>
+    <p><b>Règle de sandhi du 3e ton :</b> quand deux 3e tons se suivent, le premier se prononce comme un 2e ton à l'oral (l'écrit pinyin ne change pas). C'est le cas de 你好 (nǐ hǎo), en réalité prononcé "ní hǎo".</p>
+    <div class="callout">Astuce : entraînez-vous d'abord sur le mot 妈/麻/马/骂 (mā/má/mǎ/mà) — c'est l'exemple classique pour sentir la différence entre les 4 tons.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你好！",fr:"Bonjour !"},
+    {sp:"B",han:"你好，谢谢！",fr:"Bonjour, merci !"}
+  ],
+  ex:{
+    mcq:[
+      {q:"Combien de tons compte le mandarin standard (ton neutre inclus) ?",options:["3","5","6"],a:1},
+      {q:"Le 4e ton (à) se prononce :",options:["plat et haut","montant","descendant, net et bref"],a:2},
+      {q:"« 你好 » (nǐ hǎo) illustre :",options:["le ton neutre","la règle de sandhi du 3e ton","le 1er ton"],a:1}
+    ],
+    listen:[
+      {word:"妈",options:["maman (1er ton)","cheval (3e ton)","insulter (4e ton)"],a:0},
+      {word:"谢谢",options:["merci","pardon","au revoir"],a:0}
+    ],
+    fill:[
+      {sentence:"« Merci » se dit ___ ___ (pinyin : xièxie).",answer:"xie xie",hint:"2 syllabes identiques"},
+      {sentence:"« Non, ne pas » se dit ___ (pinyin).",answer:"bu",hint:"1 syllabe, 4e ton"},
+      {sentence:"« Pardon, désolé » se dit duì___qǐ.",answer:"bu",hint:"1 syllabe"}
+    ]
+  }
+},
+{
+  id:2, level:1,
+  title:"打招呼与人称代词",
+  sub:"Salutations et pronoms personnels",
+  intro:"Bonne nouvelle : en mandarin, les pronoms ne changent jamais le verbe (pas de conjugaison !). Il suffit d'apprendre la liste de base.",
+  vocab:[
+    {han:"我",py:"wǒ",fr:"je, moi",note:""},
+    {han:"你",py:"nǐ",fr:"tu, toi",note:""},
+    {han:"您",py:"nín",fr:"vous (poli, singulier)",note:"forme respectueuse de 你"},
+    {han:"他",py:"tā",fr:"il, lui",note:"même prononciation que 她/它"},
+    {han:"她",py:"tā",fr:"elle",note:"caractère différent, prononciation identique à 他"},
+    {han:"我们",py:"wǒmen",fr:"nous",note:"pronom + 们 = pluriel"},
+    {han:"你们",py:"nǐmen",fr:"vous (pluriel)",note:""},
+    {han:"他们",py:"tāmen",fr:"ils, eux",note:""},
+    {han:"先生",py:"xiānsheng",fr:"monsieur",note:""},
+    {han:"小姐",py:"xiǎojiě",fr:"mademoiselle",note:""},
+    {han:"叫",py:"jiào",fr:"s'appeler",note:""},
+    {han:"名字",py:"míngzi",fr:"le nom, le prénom",note:""}
+  ],
+  grammar:`
+    <p>Les pronoms ne modifient jamais le verbe : <span class="han">我是</span>, <span class="han">你是</span>, <span class="han">他是</span> utilisent tous exactement le même verbe 是 (shì, être).</p>
+    <ul>
+      <li>Le pluriel se forme en ajoutant <span class="han">们</span> (men) après un pronom ou un nom de personne : <span class="han">我们</span> (nous), <span class="han">朋友们</span> (les amis). On ne l'ajoute jamais à un objet.</li>
+      <li>À l'oral, 他/她/它 (il/elle/ça) se prononcent tous <i>tā</i> — seul le caractère écrit change selon le genre/l'animé.</li>
+      <li>Demander le nom de quelqu'un : <span class="han">你叫什么名字？</span> (Nǐ jiào shénme míngzi ? — Comment tu t'appelles ?, litt. « tu t'appelles quel nom ? »).</li>
+    </ul>
+    <div class="callout">您 (nín) est la forme polie de 你, utilisée avec un supérieur, une personne âgée ou un client — un bon réflexe de politesse dès le début.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你叫什么名字？",fr:"Comment tu t'appelles ?"},
+    {sp:"B",han:"我叫王明。你呢？",fr:"Je m'appelle Wang Ming. Et toi ?"},
+    {sp:"A",han:"我叫Léa，很高兴认识你。",fr:"Moi c'est Léa, ravie de te rencontrer."}
+  ],
+  ex:{
+    mcq:[
+      {q:"Comment se forme le pluriel d'un pronom en mandarin ?",options:["en changeant le ton","en ajoutant 们","en redoublant le mot"],a:1},
+      {q:"« Nín » (您) s'utilise :",options:["entre amis proches","avec un supérieur/une personne âgée, par politesse","seulement au pluriel"],a:1},
+      {q:"他 et 她 se prononcent :",options:["différemment","de façon identique (tā)","seulement 她 se prononce"],a:1}
+    ],
+    listen:[
+      {han:"我们",options:["nous","vous (pluriel)","ils"],a:0},
+      {han:"名字",options:["le nom, le prénom","monsieur","s'appeler"],a:0}
+    ],
+    fill:[
+      {sentence:"« Comment tu t'appelles ? » se dit 你___什么名字？(pinyin : jiào)",answer:"jiao",hint:"1 mot"},
+      {sentence:"« Vous » poli (singulier) se dit ___ (pinyin).",answer:"nin",hint:"1 mot"},
+      {sentence:"« Ils, eux » se dit 他___ (pinyin men).",answer:"men",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:3, level:1,
+  title:"数字与价钱",
+  sub:"Les nombres et demander un prix",
+  intro:"Les nombres chinois suivent une logique très régulière — beaucoup plus simple qu'en français une fois le principe compris.",
+  vocab:[
+    {han:"一 二 三 四 五",py:"yī èr sān sì wǔ",fr:"1, 2, 3, 4, 5",note:""},
+    {han:"六 七 八 九 十",py:"liù qī bā jiǔ shí",fr:"6, 7, 8, 9, 10",note:""},
+    {han:"十五",py:"shíwǔ",fr:"15",note:"10+5 = quinze, logique additive"},
+    {han:"二十一",py:"èrshíyī",fr:"21",note:"2×10+1"},
+    {han:"百",py:"bǎi",fr:"cent",note:""},
+    {han:"千",py:"qiān",fr:"mille",note:""},
+    {han:"块 / 元",py:"kuài / yuán",fr:"unité monétaire (kuài = oral, yuán = écrit/formel)",note:""},
+    {han:"多少钱",py:"duōshao qián",fr:"combien ça coûte",note:""},
+    {han:"贵",py:"guì",fr:"cher",note:""},
+    {han:"便宜",py:"piányi",fr:"pas cher, bon marché",note:""},
+    {han:"打折",py:"dǎzhé",fr:"faire une réduction, solder",note:""}
+  ],
+  grammar:`
+    <p>Formation des nombres : <span class="mono">dizaine × 十 + unité</span> — extrêmement régulier.</p>
+    <ul>
+      <li>11 = <span class="han">十一</span> (10+1) ; 20 = <span class="han">二十</span> (2×10) ; 35 = <span class="han">三十五</span> (3×10+5).</li>
+      <li>Demander un prix : <span class="han">这个多少钱？</span> (Zhège duōshao qián ? — Ça coûte combien, celui-ci ?)</li>
+      <li><span class="han">块</span> (kuài) est la forme parlée courante du yuan, <span class="han">元</span> (yuán) la forme écrite/formelle — comme "balle" vs "euro" en français familier.</li>
+    </ul>
+    <div class="callout">Contrairement au vietnamien ou au français, les nombres chinois n'ont presque aucune irrégularité — une fois 1 à 10 appris, le reste se déduit logiquement.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"这个多少钱？",fr:"Ça coûte combien, celui-ci ?"},
+    {sp:"B",han:"三十块。",fr:"30 kuài."},
+    {sp:"A",han:"太贵了！便宜一点吧！",fr:"C'est trop cher ! Fais un prix, s'il te plaît !"}
+  ],
+  ex:{
+    mcq:[
+      {q:"Comment dit-on 35 ?",options:["三十五 (3×10+5)","五十三","三五十"],a:0},
+      {q:"« 便宜 » (piányi) signifie :",options:["cher","pas cher, bon marché","gratuit"],a:1},
+      {q:"« 块 » (kuài) est :",options:["la forme écrite/formelle du yuan","la forme orale courante du yuan","une autre monnaie"],a:1}
+    ],
+    listen:[
+      {han:"多少钱",options:["combien ça coûte","quelle heure est-il","où est-ce"],a:0},
+      {han:"打折",options:["faire une réduction","augmenter le prix","payer comptant"],a:0}
+    ],
+    fill:[
+      {sentence:"« Combien ça coûte ? » se dit 多少___？(pinyin qián)",answer:"qian",hint:"1 mot"},
+      {sentence:"« Cher » se dit ___ (pinyin guì).",answer:"gui",hint:"1 mot"},
+      {sentence:"21 se dit 二十___.",answer:"yi",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:4, level:1,
+  title:"量词入门",
+  sub:"Introduction aux classificateurs (measure words)",
+  intro:"En mandarin, on ne peut presque jamais compter un nom directement : il faut un « classificateur » entre le nombre et le nom. C'est l'un des points de grammaire les plus caractéristiques de la langue.",
+  vocab:[
+    {han:"个",py:"gè",fr:"classificateur générique (par défaut)",note:"utilisable pour la plupart des noms si on hésite"},
+    {han:"本",py:"běn",fr:"classificateur pour les livres/cahiers",note:"一本书 = un livre"},
+    {han:"张",py:"zhāng",fr:"classificateur pour les objets plats",note:"一张纸 = une feuille de papier"},
+    {han:"只",py:"zhī",fr:"classificateur pour les animaux",note:"一只猫 = un chat"},
+    {han:"件",py:"jiàn",fr:"classificateur pour les vêtements/affaires",note:"一件衣服 = un vêtement"},
+    {han:"杯",py:"bēi",fr:"classificateur pour les verres/tasses (contenu)",note:"一杯茶 = une tasse de thé"},
+    {han:"瓶",py:"píng",fr:"classificateur pour les bouteilles",note:""},
+    {han:"辆",py:"liàng",fr:"classificateur pour les véhicules",note:"一辆车 = une voiture"},
+    {han:"这",py:"zhè",fr:"ce, cette, celui-ci",note:"nécessite aussi un classificateur : 这个"},
+    {han:"那",py:"nà",fr:"ce...-là, celui-là",note:"nécessite aussi un classificateur : 那本"}
+  ],
+  grammar:`
+    <p>Structure obligatoire : <span class="mono">Nombre + Classificateur + Nom</span> — on ne peut pas dire "trois livres" sans classificateur, contrairement au français.</p>
+    <ul>
+      <li><i>三本书</i> (sān běn shū) = trois livres, littéralement "trois [classificateur-livres] livre".</li>
+      <li><span class="mono">个</span> est le classificateur passe-partout : en cas de doute, il fonctionne dans la majorité des situations informelles (一个人, 一个问题...).</li>
+      <li>Les démonstratifs <span class="mono">这/那</span> suivent la même règle : <i>这本书</i> (ce livre-ci), <i>那杯茶</i> (cette tasse de thé-là).</li>
+    </ul>
+    <div class="callout">Le choix du classificateur dépend souvent de la forme de l'objet : plat et fin → 张, allongé/animé → 只, relié en volume → 本. Ce sont des réflexes qui s'acquièrent avec la pratique.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"我要买一本书和一杯咖啡。",fr:"Je voudrais acheter un livre et un café."},
+    {sp:"B",han:"这本还是那本？",fr:"Celui-ci ou celui-là ?"}
+  ],
+  ex:{
+    mcq:[
+      {q:"La structure obligatoire pour compter un nom est :",options:["Nombre + Nom","Nombre + Classificateur + Nom","Classificateur + Nombre + Nom"],a:1},
+      {q:"Le classificateur passe-partout, utilisable par défaut, est :",options:["本","个","张"],a:1},
+      {q:"« 一只猫 » (yī zhī māo) signifie :",options:["un livre","un chat","une voiture"],a:1}
+    ],
+    listen:[
+      {han:"一辆车",options:["une voiture","un vêtement","une bouteille"],a:0},
+      {han:"一件衣服",options:["un vêtement","un animal","un verre"],a:0}
+    ],
+    fill:[
+      {sentence:"« Un livre » se dit 一___书 (pinyin běn).",answer:"ben",hint:"1 mot"},
+      {sentence:"Le classificateur générique par défaut est ___ (pinyin gè).",answer:"ge",hint:"1 mot"},
+      {sentence:"« Une tasse de thé » se dit 一___茶 (pinyin bēi).",answer:"bei",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:5, level:1,
+  title:"语气助词与基本句子结构",
+  sub:"Particules modales et structure de phrase de base",
+  intro:"Le mandarin utilise de petites particules en fin de phrase pour transformer une affirmation en question, adoucir une suggestion, ou marquer un changement d'état.",
+  vocab:[
+    {han:"吗",py:"ma",fr:"particule interrogative (oui/non)",note:"transforme une affirmation en question fermée"},
+    {han:"呢",py:"ne",fr:"et toi/lui ? (question de reprise) / particule de continuité",note:""},
+    {han:"了",py:"le",fr:"particule d'achèvement / de changement d'état",note:""},
+    {han:"吧",py:"ba",fr:"particule de suggestion/supposition",note:"adoucit un ordre ou exprime une quasi-certitude"},
+    {han:"没",py:"méi",fr:"négation du passé / de la possession",note:"没有 = ne pas avoir / ne pas avoir fait"},
+    {han:"也",py:"yě",fr:"aussi",note:""},
+    {han:"都",py:"dōu",fr:"tous, tout",note:""}
+  ],
+  grammar:`
+    <p>Structure de base : <span class="mono">Sujet + Verbe + Complément</span>, très proche du français — pas d'inversion pour les questions.</p>
+    <ul>
+      <li>Question fermée : ajouter <span class="mono">吗</span> en fin de phrase affirmative — <i>你是学生吗？</i> (Tu es étudiant ?)</li>
+      <li><span class="mono">呢</span> reprend une question déjà posée : <i>我很好，你呢？</i> (Je vais bien, et toi ?)</li>
+      <li><span class="mono">了</span> marque soit une action achevée (<i>我吃了</i>, j'ai mangé), soit un changement d'état (<i>天冷了</i>, il fait froid maintenant [alors qu'avant non]).</li>
+      <li><span class="mono">吧</span> adoucit une suggestion (<i>走吧！</i>, allons-y !) ou marque une quasi-certitude (<i>你是法国人吧？</i>, t'es français, non ?).</li>
+      <li>Négation : <span class="mono">不</span> pour le général/habituel/futur (<i>我不吃</i>, je ne mange pas) vs <span class="mono">没(有)</span> pour le passé/la possession (<i>我没吃</i>, je n'ai pas mangé ; <i>我没有钱</i>, je n'ai pas d'argent).</li>
+    </ul>
+    <div class="callout">Le choix entre 不 et 没 est un des pièges classiques du débutant : 不 nie une intention/habitude, 没 nie un fait accompli ou une possession.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你吃了吗？",fr:"T'as déjà mangé ?"},
+    {sp:"B",han:"还没，你呢？",fr:"Pas encore, et toi ?"},
+    {sp:"A",han:"我也没吃，我们去吃饭吧！",fr:"Moi non plus, allons manger !"}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 吗 » sert à :",options:["nier une action","transformer une affirmation en question fermée","exprimer le passé"],a:1},
+      {q:"Pour nier une action passée, on utilise :",options:["不","没","吧"],a:1},
+      {q:"« 吧 » sert notamment à :",options:["adoucir une suggestion","nier fermement","poser une question fermée"],a:0}
+    ],
+    listen:[
+      {han:"也",options:["aussi","tous","déjà"],a:0},
+      {han:"都",options:["tous, tout","aussi","pas encore"],a:0}
+    ],
+    fill:[
+      {sentence:"« Et toi ? » se dit 你___？(pinyin ne)",answer:"ne",hint:"1 mot"},
+      {sentence:"« Je n'ai pas d'argent » se dit 我___有钱 (pinyin méi).",answer:"mei",hint:"1 mot"},
+      {sentence:"« Allons-y ! » se dit 走___！(pinyin ba)",answer:"ba",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:6, level:1,
+  title:"在餐馆点菜",
+  sub:"Commander au restaurant",
+  intro:"Le vocabulaire essentiel pour commander dans un restaurant chinois et demander l'addition.",
+  vocab:[
+    {han:"米饭",py:"mǐfàn",fr:"riz (cuit)",note:""},
+    {han:"面条",py:"miàntiáo",fr:"nouilles",note:""},
+    {han:"饺子",py:"jiǎozi",fr:"raviolis chinois",note:""},
+    {han:"炒饭",py:"chǎofàn",fr:"riz frit",note:""},
+    {han:"茶",py:"chá",fr:"thé",note:""},
+    {han:"啤酒",py:"píjiǔ",fr:"bière",note:""},
+    {han:"服务员",py:"fúwùyuán",fr:"serveur/serveuse",note:""},
+    {han:"菜单",py:"càidān",fr:"le menu",note:""},
+    {han:"我要",py:"wǒ yào",fr:"je voudrais",note:"structure de commande de base"},
+    {han:"买单 / 结账",py:"mǎidān / jiézhàng",fr:"l'addition, s'il vous plaît",note:"买单 = oral courant, 结账 = plus formel"},
+    {han:"碗",py:"wǎn",fr:"classificateur pour les bols",note:"一碗米饭 = un bol de riz"}
+  ],
+  grammar:`
+    <p>Formule de commande : <span class="mono">我要 + (nombre + classificateur) + plat</span>.</p>
+    <ul>
+      <li><i>我要一碗米饭。</i> (Wǒ yào yī wǎn mǐfàn.) = Je voudrais un bol de riz.</li>
+      <li><i>请给我菜单。</i> (Qǐng gěi wǒ càidān.) = Le menu, s'il vous plaît (plus poli, litt. "donnez-moi").</li>
+    </ul>
+    <p>Pour demander l'addition : <span class="han">服务员，买单！</span> (Fúwùyuán, mǎidān ! — Serveur, l'addition !) — extrêmement courant à l'oral en Chine continentale.</p>
+    <div class="callout">« 碗 » (bol) rejoint les classificateurs de l'unité précédente : la soupe et le riz se comptent en bols, le thé et les boissons en tasses (杯).</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"服务员，我要一碗面条和一杯茶。",fr:"Serveur, je voudrais un bol de nouilles et une tasse de thé."},
+    {sp:"B",han:"好的，还要别的吗？",fr:"D'accord, autre chose ?"},
+    {sp:"A",han:"不用了，谢谢。买单！",fr:"Non merci, ça ira. L'addition !"}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 我要 » sert à :",options:["demander l'addition","exprimer une commande (je voudrais)","dire bonjour"],a:1},
+      {q:"« 买单 » signifie :",options:["le menu","l'addition, s'il vous plaît","le serveur"],a:1},
+      {q:"On compte le riz/la soupe avec le classificateur :",options:["杯","碗","张"],a:1}
+    ],
+    listen:[
+      {han:"饺子",options:["raviolis chinois","riz frit","bière"],a:0},
+      {han:"菜单",options:["le menu","le serveur","l'addition"],a:0}
+    ],
+    fill:[
+      {sentence:"« Je voudrais » se dit 我___ (pinyin yào).",answer:"yao",hint:"1 mot"},
+      {sentence:"« L'addition ! » (oral courant) se dit 买___！(pinyin dān)",answer:"dan",hint:"1 mot"},
+      {sentence:"« Thé » se dit ___ (pinyin chá).",answer:"cha",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:7, level:1,
+  title:"时间、日期与年龄",
+  sub:"L'heure, la date et l'âge (points officiels HSK1)",
+  intro:"Dire l'heure, une date ou son âge suit des structures très régulières en mandarin — des points de grammaire incontournables du programme HSK1.",
+  vocab:[
+    {han:"点",py:"diǎn",fr:"heure (pour dire l'heure)",note:""},
+    {han:"分",py:"fēn",fr:"minute",note:""},
+    {han:"年",py:"nián",fr:"année",note:""},
+    {han:"月",py:"yuè",fr:"mois",note:""},
+    {han:"号 / 日",py:"hào / rì",fr:"jour du mois (oral / écrit)",note:""},
+    {han:"星期",py:"xīngqī",fr:"semaine / jour de la semaine",note:"星期一 = lundi"},
+    {han:"岁",py:"suì",fr:"ans (âge)",note:""},
+    {han:"现在",py:"xiànzài",fr:"maintenant",note:""},
+    {han:"今天 / 明天 / 昨天",py:"jīntiān / míngtiān / zuótiān",fr:"aujourd'hui / demain / hier",note:""}
+  ],
+  grammar:`
+    <p>Dire l'heure : <span class="mono">Nombre + 点(钟) + Nombre + 分</span> — <i>现在三点二十分。</i> (Il est 3h20.)</p>
+    <ul>
+      <li>Date complète, du plus grand au plus petit (comme en français) : <span class="mono">年 + 月 + 号/日</span> — <i>今天是2024年5月10号。</i></li>
+      <li>Jours de la semaine : <span class="mono">星期 + numéro</span> (星期一 = lundi... star星期六 = samedi) ; dimanche est irrégulier : <span class="mono">星期天/星期日</span>.</li>
+      <li>Âge : <span class="mono">Sujet + Nombre + 岁</span> — <i>我二十岁。</i> (J'ai 20 ans.) — pas besoin du verbe « être » ici !</li>
+      <li>Les expressions de temps se placent avant le verbe, en début de phrase ou juste après le sujet : <i>我明天有空。</i> / <i>明天我有空。</i></li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"你今年多大了？",fr:"Quel âge as-tu cette année ?"},
+    {sp:"B",han:"我二十五岁。现在几点了？",fr:"J'ai 25 ans. Il est quelle heure là ?"},
+    {sp:"A",han:"三点半。",fr:"3h30."}
+  ],
+  ex:{
+    mcq:[
+      {q:"Pour dire son âge, on utilise :",options:["是","岁, sans verbe « être »","的"],a:1},
+      {q:"L'ordre d'une date en mandarin est :",options:["jour-mois-année","année-mois-jour","mois-jour-année"],a:1},
+      {q:"Dimanche se dit :",options:["星期七","星期天/星期日","星期八"],a:1}
+    ],
+    listen:[
+      {han:"现在",options:["maintenant","hier","demain"],a:0},
+      {han:"星期",options:["semaine","année","heure"],a:0}
+    ],
+    fill:[
+      {sentence:"« J'ai 20 ans » se dit 我二十___ (pinyin suì).",answer:"sui",hint:"1 mot"},
+      {sentence:"« Aujourd'hui » se dit ___天 (pinyin jīn).",answer:"jin",hint:"1 mot"},
+      {sentence:"« Minute » se dit ___ (pinyin fēn).",answer:"fen",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:8, level:1,
+  title:"程度副词与常用表达",
+  sub:"很/太/都/也/想/请 — points officiels HSK1",
+  intro:"Un lot de mots-outils extrêmement fréquents du programme HSK1, notamment le rôle très particulier de 很 devant un adjectif.",
+  vocab:[
+    {han:"很",py:"hěn",fr:"très (mais souvent juste un connecteur neutre)",note:"obligatoire avant un adjectif seul, sans « être »"},
+    {han:"太...了",py:"tài...le",fr:"trop... !",note:""},
+    {han:"都",py:"dōu",fr:"tous, tout",note:"se place avant le verbe"},
+    {han:"也",py:"yě",fr:"aussi",note:"se place avant le verbe"},
+    {han:"想",py:"xiǎng",fr:"avoir envie de, vouloir",note:""},
+    {han:"请",py:"qǐng",fr:"s'il vous plaît, je vous prie",note:""},
+    {han:"怎么样",py:"zěnmeyàng",fr:"comment ça, qu'en penses-tu",note:""},
+    {han:"和",py:"hé",fr:"et (entre deux noms)",note:""}
+  ],
+  grammar:`
+    <p>Point essentiel : un adjectif seul fonctionne déjà comme prédicat, sans « être » (是) — mais on ajoute presque toujours <span class="mono">很</span> devant, même sans intensifier vraiment le sens : <i>我很好。</i> (Je vais bien — pas forcément « très » bien.)</p>
+    <ul>
+      <li><span class="mono">太 + adjectif + 了</span> exprime l'excès, souvent avec emphase : <i>太贵了！</i> (C'est trop cher !)</li>
+      <li><span class="mono">都</span> et <span class="mono">也</span> se placent toujours avant le verbe, jamais après : <i>我们都是学生。</i> (Nous sommes tous étudiants.)</li>
+      <li><span class="mono">想 + verbe</span> exprime l'envie : <i>我想去。</i> (J'ai envie d'y aller.) — différent de 要 (vouloir/aller, plus affirmatif).</li>
+      <li><span class="mono">怎么样？</span> en fin de phrase demande un avis ou une proposition : <i>今天晚上吃火锅，怎么样？</i> (Ce soir, hotpot, ça te dit ?)</li>
+    </ul>
+    <div class="callout">Piège classique : « 我很好是学生 » est incorrect — on ne combine jamais 是 et un adjectif simple avec 很 dans la même prédication.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"这个包太贵了，我们去那家店看看，怎么样？",fr:"Ce sac est trop cher, on va voir dans cette autre boutique, ça te dit ?"},
+    {sp:"B",han:"好啊，我也想买一个新包。",fr:"Ok, moi aussi j'ai envie d'acheter un nouveau sac."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 我很好 » utilise 很 :",options:["pour intensifier fortement « bien »","souvent juste comme connecteur neutre avant l'adjectif","pour nier"],a:1},
+      {q:"« 都 » et « 也 » se placent :",options:["après le verbe","avant le verbe","en fin de phrase"],a:1},
+      {q:"« 想 » exprime :",options:["une obligation","une envie","une interdiction"],a:1}
+    ],
+    listen:[
+      {han:"怎么样",options:["comment ça, qu'en penses-tu","pourquoi","où ça"],a:0},
+      {han:"和",options:["et","ou","mais"],a:0}
+    ],
+    fill:[
+      {sentence:"« Trop cher ! » se dit 太贵___！(pinyin le)",answer:"le",hint:"1 mot"},
+      {sentence:"« J'ai envie d'y aller » se dit 我___去 (pinyin xiǎng).",answer:"xiang",hint:"1 mot"},
+      {sentence:"« S'il vous plaît, asseyez-vous » se dit ___坐 (pinyin qǐng).",answer:"qing",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:9, level:1,
+  title:"日常用品与地点",
+  sub:"Vocabulaire des objets et lieux du quotidien",
+  intro:"Un complément de vocabulaire concret pour arrondir le niveau 1 : les objets qu'on porte sur soi et les lieux qu'on fréquente tous les jours.",
+  vocab:[
+    {han:"家",py:"jiā",fr:"maison, foyer",note:""},
+    {han:"学校",py:"xuéxiào",fr:"école",note:""},
+    {han:"医院",py:"yīyuàn",fr:"hôpital",note:""},
+    {han:"商店",py:"shāngdiàn",fr:"magasin",note:""},
+    {han:"手机",py:"shǒujī",fr:"téléphone portable",note:""},
+    {han:"钱",py:"qián",fr:"argent",note:""},
+    {han:"钥匙",py:"yàoshi",fr:"clé",note:""},
+    {han:"钱包",py:"qiánbāo",fr:"portefeuille",note:""},
+    {han:"书",py:"shū",fr:"livre",note:""},
+    {han:"桌子",py:"zhuōzi",fr:"table",note:""},
+    {han:"椅子",py:"yǐzi",fr:"chaise",note:""},
+    {han:"哪儿 / 哪里",py:"nǎr / nǎlǐ",fr:"où",note:""}
+  ],
+  grammar:`
+    <p>Pour dire qu'une chose ou une personne se trouve quelque part : <span class="mono">Sujet + 在 + lieu</span> — <i>钥匙在桌子上。</i> (La clé est sur la table.)</p>
+    <ul>
+      <li>Pour demander où se trouve quelque chose : <span class="mono">...在哪儿？</span> — <i>钥匙在哪儿？</i> (Où est la clé ?)</li>
+      <li>Rappel : chaque nom compté nécessite un classificateur (unité 4) — <i>一张桌子</i>, <i>一把钥匙</i>.</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"我的钱包在哪儿？",fr:"Où est passé mon portefeuille ?"},
+    {sp:"B",han:"在桌子上呢。",fr:"Il est là, sur la table."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 在哪儿？» sert à demander :",options:["combien ça coûte","où se trouve quelque chose","quelle heure il est"],a:1},
+      {q:"« 医院 » signifie :",options:["école","hôpital","magasin"],a:1}
+    ],
+    listen:[
+      {han:"钥匙",options:["clé","portefeuille","sac"],a:0},
+      {han:"商店",options:["magasin","maison","hôpital"],a:0}
+    ],
+    fill:[
+      {sentence:"« Où est la clé ? » se dit 钥匙在___？(pinyin nǎr)",answer:"nar",hint:"1 mot"},
+      {sentence:"« École » se dit ___校 (pinyin xué).",answer:"xue",hint:"1 mot"},
+      {sentence:"« Argent » se dit ___ (pinyin qián).",answer:"qian",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:10, level:1,
+  title:"第一级测验",
+  sub:"Test de révision — tout le niveau HSK1",
+  intro:"Ce test reprend les points de grammaire des 9 unités du niveau HSK1 : tons/pinyin, pronoms, nombres/prix, classificateurs, particules de phrase, restaurant, objets du quotidien, heure/date/âge, adverbes de degré.",
+  vocab:[
+    {han:"你好 / 谢谢 / 对不起",py:"nǐ hǎo / xièxie / duìbuqǐ",fr:"bonjour / merci / pardon",note:"unité 1"},
+    {han:"我 / 你 / 他",py:"wǒ / nǐ / tā",fr:"pronoms personnels",note:"unité 2"},
+    {han:"多少钱",py:"duōshao qián",fr:"demander un prix",note:"unité 3"},
+    {han:"个 / 本 / 张",py:"gè / běn / zhāng",fr:"classificateurs",note:"unité 4"},
+    {han:"吗 / 了 / 吧",py:"ma / le / ba",fr:"particules modales",note:"unité 5"},
+    {han:"我要...",py:"wǒ yào...",fr:"structure de commande",note:"unité 6"},
+    {han:"点 / 号 / 岁",py:"diǎn / hào / suì",fr:"heure, date, âge",note:"unité 7"},
+    {han:"很 / 太...了 / 都 / 也",py:"",fr:"adverbes de degré",note:"unité 8"}
+  ],
+  grammar:`
+    <p>Récapitulatif des points clés du niveau HSK1 :</p>
+    <ul>
+      <li>4 tons + ton neutre ; sandhi du 3e ton (你好 → ní hǎo).</li>
+      <li>Pronoms sans conjugaison ; pluriel avec 们 ; 您 poli.</li>
+      <li>Nombres réguliers (dizaine×十+unité) ; demander un prix avec 多少钱.</li>
+      <li>Classificateur obligatoire : Nombre + Classificateur + Nom (个 par défaut).</li>
+      <li>吗 = question fermée ; 了 = achèvement/changement d'état ; 吧 = suggestion ; 不 (général) vs 没 (passé/possession).</li>
+      <li>Commander : 我要 + classificateur + plat ; demander l'addition : 买单.</li>
+      <li>Heure/date/âge : Nombre+点+分 ; année-mois-jour ; Sujet+Nombre+岁 sans « être ».</li>
+      <li>很 devant un adjectif seul (sans « être ») ; 太...了 (excès) ; 都/也 avant le verbe ; 想 (envie) ; 请 (politesse).</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"你好！这个多少钱？",fr:"Bonjour ! Ça coûte combien, celui-ci ?"},
+    {sp:"B",han:"二十块。你要买吗？",fr:"20 kuài. Tu veux l'acheter ?"},
+    {sp:"A",han:"太贵了，便宜一点吧！我现在没有很多钱。",fr:"C'est trop cher, fais un prix s'il te plaît ! J'ai pas beaucoup d'argent là."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 你好 » (nǐ hǎo) illustre :",options:["le ton neutre","la règle de sandhi du 3e ton","le 4e ton"],a:1},
+      {q:"Le classificateur par défaut est :",options:["本","个","张"],a:1},
+      {q:"« 了 » peut marquer :",options:["seulement le futur","l'achèvement ou un changement d'état","seulement la négation"],a:1},
+      {q:"Pour dire son âge, on utilise :",options:["是 + nombre","岁, sans « être »","的 + nombre"],a:1},
+      {q:"« 我很好 » utilise 很 :",options:["pour intensifier fortement","souvent juste comme connecteur neutre","pour nier"],a:1},
+      {q:"« 买单 » signifie :",options:["le menu","l'addition, s'il vous plaît","le serveur"],a:1}
+    ],
+    listen:[
+      {han:"便宜",options:["pas cher, bon marché","cher","gratuit"],a:0},
+      {han:"服务员",options:["serveur/serveuse","client","cuisinier"],a:0},
+      {han:"怎么样",options:["comment ça, qu'en penses-tu","pourquoi","où ça"],a:0}
+    ],
+    fill:[
+      {sentence:"« Merci » se dit ___谢 (pinyin xiè).",answer:"xie",hint:"1 mot"},
+      {sentence:"« Combien ça coûte ? » se dit 多少___？(pinyin qián)",answer:"qian",hint:"1 mot"},
+      {sentence:"« Un livre » se dit 一___书 (pinyin běn).",answer:"ben",hint:"1 mot"},
+      {sentence:"« J'ai 20 ans » se dit 我二十___ (pinyin suì).",answer:"sui",hint:"1 mot"},
+      {sentence:"« Trop cher ! » se dit 太贵___！(pinyin le)",answer:"le",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:11, level:2,
+  title:"比较句",
+  sub:"Les comparatifs",
+  intro:"Comparer deux éléments est l'une des premières vraies structures grammaticales à automatiser en mandarin, avec un ordre de mots bien différent du français.",
+  vocab:[
+    {han:"比",py:"bǐ",fr:"comparé à, plus...que (comparatif)",note:"A 比 B + adjectif"},
+    {han:"比较",py:"bǐjiào",fr:"relativement, comparer",note:""},
+    {han:"更",py:"gèng",fr:"encore plus",note:"renforce un comparatif"},
+    {han:"最",py:"zuì",fr:"le plus (superlatif)",note:""},
+    {han:"没有",py:"méiyǒu",fr:"ne pas être aussi...que (infériorité)",note:"A 没有 B + adjectif"},
+    {han:"一样",py:"yíyàng",fr:"pareil, identique",note:""},
+    {han:"跟...一样",py:"gēn...yíyàng",fr:"pareil que, aussi...que",note:"structure d'égalité"},
+    {han:"多了",py:"duō le",fr:"beaucoup plus (intensifie un comparatif)",note:""}
+  ],
+  grammar:`
+    <p>Comparatif de supériorité : <span class="mono">A + 比 + B + adjectif</span> — <i>他比我高。</i> (Tā bǐ wǒ gāo. — Il est plus grand que moi.)</p>
+    <ul>
+      <li>Intensifier le comparatif : <i>他比我高多了。</i> (Il est beaucoup plus grand que moi.) ou <i>他比我高一点。</i> (Il est un peu plus grand que moi.)</li>
+      <li>Infériorité : <span class="mono">A + 没有 + B + adjectif</span> — <i>我没有他高。</i> (Je ne suis pas aussi grand que lui.)</li>
+      <li>Égalité : <span class="mono">A + 跟 + B + 一样 (+ adjectif)</span> — <i>我跟你一样高。</i> (Je suis aussi grand que toi.)</li>
+      <li>Superlatif : <span class="mono">最 + adjectif</span> — <i>他最高。</i> (Il est le plus grand.)</li>
+    </ul>
+    <div class="callout">Piège classique : on ne peut pas dire « 他很比我高 » — 很 (très) et 比 sont incompatibles dans la même structure comparative.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你姐姐比你高吗？",fr:"Ta sœur est plus grande que toi ?"},
+    {sp:"B",han:"对，她比我高多了，但是我跟她一样聪明。",fr:"Oui, elle est beaucoup plus grande que moi, mais je suis aussi intelligent(e) qu'elle."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 他比我高 » veut dire :",options:["Il est aussi grand que moi","Il est plus grand que moi","Il est le plus grand"],a:1},
+      {q:"Pour exprimer l'infériorité, on utilise :",options:["比","没有","一样"],a:1},
+      {q:"Le superlatif se forme avec :",options:["更","最","跟"],a:1}
+    ],
+    listen:[
+      {han:"一样",options:["pareil, identique","différent","plus"],a:0},
+      {han:"更",options:["encore plus","le moins","pareil"],a:0}
+    ],
+    fill:[
+      {sentence:"« Aussi grand que » se construit avec 跟 + B + ___ (pinyin yíyàng).",answer:"yiyang",hint:"1 mot"},
+      {sentence:"« Le plus » (superlatif) se dit ___ (pinyin zuì).",answer:"zui",hint:"1 mot"},
+      {sentence:"« Beaucoup plus » (intensifie un comparatif) se dit ___了 (pinyin duō).",answer:"duo",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:12, level:2,
+  title:"时态与体标记",
+  sub:"Marqueurs temporels et aspect",
+  intro:"Comme le vietnamien, le mandarin ne conjugue jamais les verbes : le moment et le déroulement d'une action sont indiqués par de petites particules.",
+  vocab:[
+    {han:"了",py:"le",fr:"particule d'achèvement / changement d'état",note:"déjà vu à l'unité 5"},
+    {han:"在 / 正在",py:"zài / zhèngzài",fr:"être en train de (progressif)",note:""},
+    {han:"要",py:"yào",fr:"aller (futur proche), vouloir",note:"要 + verbe (+了) = sur le point de"},
+    {han:"快...了",py:"kuài...le",fr:"sur le point de, bientôt",note:""},
+    {han:"过",py:"guo",fr:"particule d'expérience (déjà fait une fois)",note:"verbe+过"},
+    {han:"已经",py:"yǐjīng",fr:"déjà",note:""},
+    {han:"还没",py:"hái méi",fr:"pas encore",note:""}
+  ],
+  grammar:`
+    <p>Le déroulement d'une action se marque par des particules avant ou après le verbe, jamais par une conjugaison.</p>
+    <ul>
+      <li><span class="mono">在/正在 + verbe</span> = action en cours : <i>我在吃饭。</i> (Je suis en train de manger.)</li>
+      <li><span class="mono">要 + verbe (+了)</span> = futur proche : <i>我要走了。</i> (Je vais partir.)</li>
+      <li><span class="mono">verbe + 过</span> = expérience vécue au moins une fois, sans préciser quand : <i>我去过中国。</i> (Je suis déjà allé en Chine [dans ma vie].)</li>
+      <li><span class="mono">已经...了</span> = déjà accompli : <i>我已经吃了。</i> (J'ai déjà mangé.) ; <span class="mono">还没</span> = pas encore : <i>我还没吃。</i> (Je n'ai pas encore mangé.)</li>
+    </ul>
+    <div class="callout">« 了 » et « 过 » se confondent souvent chez les débutants : 了 marque un fait accompli précis, 过 marque une expérience générale de vie — <i>我吃了</i> (j'ai mangé, maintenant) vs <i>我吃过</i> (j'en ai déjà mangé, un jour, peu importe quand).</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你去过中国吗？",fr:"T'es déjà allé en Chine ?"},
+    {sp:"B",han:"还没，但是我快要去了！",fr:"Pas encore, mais je vais bientôt y aller !"}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 在吃饭 » exprime :",options:["une action passée","une action en cours","une action future"],a:1},
+      {q:"« 过 » exprime surtout :",options:["une expérience vécue au moins une fois","un ordre","une négation"],a:0},
+      {q:"« 还没 » veut dire :",options:["déjà","pas encore","bientôt"],a:1}
+    ],
+    listen:[
+      {han:"已经",options:["déjà","pas encore","bientôt"],a:0},
+      {han:"正在",options:["être en train de","déjà fait","jamais"],a:0}
+    ],
+    fill:[
+      {sentence:"« Je vais partir » se dit 我___走了 (pinyin yào).",answer:"yao",hint:"1 mot"},
+      {sentence:"« Je suis déjà allé en Chine » se dit 我去___中国 (pinyin guo).",answer:"guo",hint:"1 mot"},
+      {sentence:"« Pas encore » se dit 还___ (pinyin méi).",answer:"mei",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:13, level:2,
+  title:"趋向补语",
+  sub:"Compléments de direction",
+  intro:"Après un verbe de mouvement, un petit complément précise la direction par rapport au locuteur — une structure sans vrai équivalent en français.",
+  vocab:[
+    {han:"来",py:"lái",fr:"venir (direction vers le locuteur)",note:""},
+    {han:"去",py:"qù",fr:"aller (direction loin du locuteur)",note:""},
+    {han:"上来 / 上去",py:"shànglái / shàngqù",fr:"monter (vers moi / loin de moi)",note:""},
+    {han:"下来 / 下去",py:"xiàlái / xiàqù",fr:"descendre (vers moi / loin de moi)",note:""},
+    {han:"进来 / 进去",py:"jìnlái / jìnqù",fr:"entrer (vers moi / loin de moi)",note:""},
+    {han:"出来 / 出去",py:"chūlái / chūqù",fr:"sortir (vers moi / loin de moi)",note:""},
+    {han:"回来 / 回去",py:"huílái / huíqù",fr:"revenir/rentrer (vers moi / loin de moi)",note:""}
+  ],
+  grammar:`
+    <p>Structure : <span class="mono">Verbe de mouvement + 来/去</span>, où le choix entre 来 et 去 dépend uniquement de la position du locuteur au moment où il parle.</p>
+    <ul>
+      <li><i>进来！</i> (Entre ! — la personne qui parle est déjà à l'intérieur) vs <i>进去！</i> (Entre ! — la personne qui parle est à l'extérieur, en dehors du lieu visé).</li>
+      <li>Ces compléments peuvent aussi se combiner avec un objet : <i>拿上来</i> (apporte-le en montant), <i>带回去</i> (ramène-le chez toi).</li>
+    </ul>
+    <div class="callout">Le repère n'est jamais absolu : c'est toujours la position du locuteur au moment de parler qui détermine 来 ou 去, même si cette position change d'une phrase à l'autre.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你在哪儿？快上来吧！",fr:"T'es où ? Monte vite (vers moi) !"},
+    {sp:"B",han:"好，我马上上去。",fr:"Ok, j'arrive tout de suite (en montant vers toi)."}
+  ],
+  ex:{
+    mcq:[
+      {q:"Le choix entre 来 et 去 dépend de :",options:["la politesse","la position du locuteur au moment de parler","le temps de l'action"],a:1},
+      {q:"« 进来 » s'utilise quand le locuteur est :",options:["déjà à l'intérieur","à l'extérieur","au loin"],a:0},
+      {q:"« 回去 » signifie :",options:["revenir vers le locuteur","rentrer, loin du locuteur","sortir"],a:1}
+    ],
+    listen:[
+      {han:"下来",options:["descendre vers le locuteur","monter","entrer"],a:0},
+      {han:"出去",options:["sortir, loin du locuteur","revenir","descendre"],a:0}
+    ],
+    fill:[
+      {sentence:"« Monte ! » (vers moi) se dit 上___！(pinyin lái)",answer:"lai",hint:"1 mot"},
+      {sentence:"« Entre ! » (le locuteur est dedans) se dit 进___！(pinyin lái)",answer:"lai",hint:"1 mot"},
+      {sentence:"« Sors ! » (loin du locuteur) se dit 出___！(pinyin qù)",answer:"qu",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:14, level:2,
+  title:"基本连词",
+  sub:"Connecteurs logiques de base",
+  intro:"Comme en vietnamien, le mandarin utilise souvent des connecteurs par paires, employés ensemble dans la même phrase.",
+  vocab:[
+    {han:"因为...所以...",py:"yīnwèi...suǒyǐ...",fr:"parce que...donc...",note:""},
+    {han:"如果...就...",py:"rúguǒ...jiù...",fr:"si...alors...",note:""},
+    {han:"虽然...但是...",py:"suīrán...dànshì...",fr:"bien que...mais...",note:""},
+    {han:"或者",py:"huòzhě",fr:"ou (dans une affirmation)",note:""},
+    {han:"还是",py:"háishi",fr:"ou bien (dans une question)",note:""},
+    {han:"而且",py:"érqiě",fr:"et de plus, en outre",note:""}
+  ],
+  grammar:`
+    <p>Cause/conséquence : <span class="mono">因为...所以...</span> — <i>因为下雨，所以我们在家。</i> (Parce qu'il pleut, donc on reste à la maison.)</p>
+    <ul>
+      <li>Condition : <span class="mono">如果...就...</span> — <i>如果你忙，就别来。</i> (Si tu es occupé, alors ne viens pas.)</li>
+      <li>Concession : <span class="mono">虽然...但是...</span> — <i>虽然贵，但是很好吃。</i> (Bien que cher, c'est très bon.)</li>
+      <li><span class="mono">或者</span> relie deux choix dans une affirmation ; <span class="mono">还是</span> s'utilise surtout dans une question : <i>你要咖啡还是茶？</i> (Tu veux du café ou du thé ?)</li>
+    </ul>
+    <div class="callout">Contrairement au français, on garde souvent les deux mots de la paire (因为...所以...) même si cela semble redondant — les omettre l'un sans l'autre est moins naturel à l'oral.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"因为今天很热，所以我想喝点冷饮。",fr:"Comme il fait très chaud aujourd'hui, j'ai envie d'une boisson fraîche."},
+    {sp:"B",han:"你要果汁还是可乐？",fr:"Tu veux du jus de fruit ou du coca ?"}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 因为...所以... » relie :",options:["une cause et sa conséquence","une condition","une concession"],a:0},
+      {q:"« 还是 » s'utilise surtout :",options:["dans une affirmation","dans une question à choix","pour nier"],a:1},
+      {q:"« 虽然...但是... » exprime :",options:["une condition","une concession","une addition"],a:1}
+    ],
+    listen:[
+      {han:"而且",options:["et de plus","mais","donc"],a:0},
+      {han:"或者",options:["ou (affirmation)","et","donc"],a:0}
+    ],
+    fill:[
+      {sentence:"« Si...alors » se dit 如果...___ (pinyin jiù).",answer:"jiu",hint:"1 mot"},
+      {sentence:"« Bien que » se dit ___然 (pinyin suī).",answer:"sui",hint:"1 mot"},
+      {sentence:"« Ou » dans une question se dit ___是 (pinyin hái).",answer:"hai",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:15, level:2,
+  title:"情态动词",
+  sub:"Les verbes modaux : capacité, permission, obligation",
+  intro:"Comme en français avec « pouvoir/devoir/vouloir », le mandarin utilise des verbes modaux placés avant le verbe principal pour exprimer capacité, permission ou obligation.",
+  vocab:[
+    {han:"会",py:"huì",fr:"savoir (compétence apprise) / il se pourrait que",note:"我会游泳 = je sais nager"},
+    {han:"能",py:"néng",fr:"pouvoir (capacité physique/circonstancielle)",note:""},
+    {han:"可以",py:"kěyǐ",fr:"pouvoir, avoir la permission de",note:""},
+    {han:"应该",py:"yīnggāi",fr:"devoir, il faudrait (conseil/obligation morale)",note:""},
+    {han:"得",py:"děi",fr:"devoir (obligation forte, oral)",note:"ne pas confondre avec 得 (de) de l'unité 13 (complément de degré)"},
+    {han:"要",py:"yào",fr:"vouloir, devoir (déjà vu comme futur proche)",note:""},
+    {han:"不用",py:"búyòng",fr:"ne pas avoir besoin de",note:""}
+  ],
+  grammar:`
+    <p>Les verbes modaux se placent directement avant le verbe principal, sans particule intermédiaire.</p>
+    <ul>
+      <li><span class="mono">会</span> = compétence apprise : <i>我会说中文。</i> (Je sais parler chinois.)</li>
+      <li><span class="mono">能</span> = capacité selon les circonstances : <i>今天我能来。</i> (Aujourd'hui je peux venir.) — la nuance avec 会 est parfois subtile : 会 pour un savoir-faire durable, 能 pour une possibilité ponctuelle.</li>
+      <li><span class="mono">可以</span> = permission : <i>我可以进来吗？</i> (Je peux entrer ?)</li>
+      <li><span class="mono">应该</span> = conseil/obligation morale (plus doux) ; <span class="mono">得 (děi)</span> = obligation plus forte et orale : <i>你应该休息。</i> (Tu devrais te reposer.) vs <i>我得走了。</i> (Je dois vraiment y aller.)</li>
+    </ul>
+    <div class="callout">Négation : 不会 (ne pas savoir faire), 不能 (ne pas pouvoir), 不可以 (interdit), mais on ne nie jamais 得 (děi) directement — on utilise 不用 (pas besoin de) à la place.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你会开车吗？",fr:"Tu sais conduire ?"},
+    {sp:"B",han:"会，但是今天不能开，我得早点休息。",fr:"Oui, mais aujourd'hui je peux pas, je dois me reposer tôt."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 会 » exprime surtout :",options:["une compétence apprise","une permission","une obligation"],a:0},
+      {q:"« 可以 » exprime :",options:["la capacité physique","la permission","l'obligation"],a:1},
+      {q:"« 得 (děi) » exprime :",options:["une obligation forte, orale","une simple possibilité","une permission"],a:0}
+    ],
+    listen:[
+      {han:"应该",options:["devoir, il faudrait","pouvoir","vouloir"],a:0},
+      {han:"不用",options:["ne pas avoir besoin de","devoir absolument","jamais"],a:0}
+    ],
+    fill:[
+      {sentence:"« Je sais parler chinois » se dit 我___说中文 (pinyin huì).",answer:"hui",hint:"1 mot"},
+      {sentence:"« Je peux entrer ? » se dit 我___进来吗？(pinyin kěyǐ)",answer:"keyi",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:16, level:2,
+  title:"的、得、地的区别",
+  sub:"Les trois particules « de »",
+  intro:"的, 得 et 地 se prononcent tous « de » à l'oral, mais jouent des rôles grammaticaux totalement différents — un des pièges classiques du mandarin écrit.",
+  vocab:[
+    {han:"的",py:"de",fr:"particule possessive/attributive (nom+的+nom, adj+的+nom)",note:"我的书 = mon livre"},
+    {han:"得",py:"de",fr:"particule de complément de degré (verbe+得+adjectif)",note:"跑得快 = courir vite — vu à l'unité 19"},
+    {han:"地",py:"de",fr:"particule adverbiale (adjectif+地+verbe)",note:"高兴地说 = dire joyeusement"}
+  ],
+  grammar:`
+    <p>Bien que les trois se prononcent « de », leur position et leur fonction diffèrent nettement :</p>
+    <ul>
+      <li><span class="mono">的</span> relie un déterminant à un nom : <i>我的书</i> (mon livre), <i>漂亮的花</i> (une belle fleur).</li>
+      <li><span class="mono">得</span> relie un verbe à un complément qui décrit le résultat/degré de l'action, toujours après le verbe : <i>他说得很清楚。</i> (Il parle très clairement.)</li>
+      <li><span class="mono">地</span> relie un adjectif (transformé en adverbe) à un verbe qui suit : <i>他高兴地说。</i> (Il a dit ça joyeusement.)</li>
+    </ul>
+    <div class="callout">Astuce pour ne pas se tromper à l'écrit : 的 avant un nom, 地 avant un verbe (l'adverbe décrit l'action à venir), 得 après un verbe (le résultat est déjà là).</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"这是我的手机。",fr:"C'est mon téléphone."},
+    {sp:"B",han:"他跑得很快，而且总是很开心地笑。",fr:"Il court très vite, et en plus il rit toujours joyeusement."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 我的书 » utilise :",options:["的 (possessif)","得 (degré)","地 (adverbial)"],a:0},
+      {q:"« 跑得快 » utilise :",options:["的","得","地"],a:1},
+      {q:"« 高兴地说 » utilise :",options:["的","得","地"],a:2}
+    ],
+    listen:[
+      {han:"漂亮的花",options:["une belle fleur","courir vite","dire joyeusement"],a:0}
+    ],
+    fill:[
+      {sentence:"« Mon livre » se dit 我___书 (particule possessive).",answer:"de",hint:"1 mot"},
+      {sentence:"« Il court très vite » se dit 他跑___很快 (particule de degré).",answer:"de",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:17, level:2,
+  title:"常用介词与动作量",
+  sub:"Prépositions courantes et quantité d'une action (HSK2)",
+  intro:"Un lot de prépositions et de structures très fréquentes du programme HSK2, pour préciser un trajet, une attitude, une fréquence ou une action brève.",
+  vocab:[
+    {han:"从...到...",py:"cóng...dào...",fr:"de...à... (lieu ou temps)",note:""},
+    {han:"往",py:"wǎng",fr:"vers, en direction de",note:""},
+    {han:"对",py:"duì",fr:"envers, à l'égard de",note:"对 + personne + verbe"},
+    {han:"每",py:"měi",fr:"chaque",note:"每 + classificateur + nom"},
+    {han:"第",py:"dì",fr:"préfixe ordinal (premier, deuxième...)",note:"第一 = le premier"},
+    {han:"一下",py:"yíxià",fr:"un instant, un peu (forme de base)",note:"adoucit une action brève"},
+    {han:"看看",py:"kànkan",fr:"jeter un œil, regarder un peu",note:"redoublement du verbe = action légère"}
+  ],
+  grammar:`
+    <p><span class="mono">从A到B</span> précise un trajet ou une durée : <i>从我家到学校很近。</i> (De chez moi à l'école, c'est très proche.)</p>
+    <ul>
+      <li><span class="mono">往 + direction + verbe</span> indique la direction d'un déplacement : <i>往前走。</i> (Avance tout droit.)</li>
+      <li><span class="mono">对 + personne + verbe</span> exprime une attitude envers quelqu'un : <i>他对我很好。</i> (Il est très gentil avec moi.)</li>
+      <li><span class="mono">每 + classificateur + nom</span> = chaque : <i>每个人都来了。</i> (Tout le monde est venu.)</li>
+      <li>Le redoublement d'un verbe (<span class="mono">看看</span>) ou <span class="mono">verbe + 一下</span> adoucissent une action, la rendent plus légère/brève — les deux sont interchangeables dans beaucoup de cas : <i>你看看。</i> ≈ <i>你看一下。</i></li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"从这儿到火车站怎么走？",fr:"D'ici à la gare, comment on fait ?"},
+    {sp:"B",han:"往前走，第二个路口右转就到了。",fr:"Va tout droit, tourne à droite au deuxième carrefour et t'y es."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 从...到... » sert à préciser :",options:["un trajet ou une durée","une émotion","une quantité"],a:0},
+      {q:"« 对我很好 » exprime :",options:["une direction","une attitude envers quelqu'un","une comparaison"],a:1},
+      {q:"« 每个人 » signifie :",options:["quelqu'un","chaque personne, tout le monde","personne"],a:1}
+    ],
+    listen:[
+      {han:"往",options:["vers, en direction de","depuis","malgré"],a:0},
+      {han:"第一",options:["le premier","une fois","tous"],a:0}
+    ],
+    fill:[
+      {sentence:"« Vers » se dit ___ (pinyin wǎng).",answer:"wang",hint:"1 mot"},
+      {sentence:"« Chaque » se dit ___ (pinyin měi).",answer:"mei",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:18, level:2,
+  title:"基础结果补语与双宾语",
+  sub:"Compléments de résultat de base et double objet (HSK2)",
+  intro:"Avant les compléments potentiels plus avancés du niveau 3, HSK2 introduit les compléments de résultat de base et les verbes à double objet les plus courants.",
+  vocab:[
+    {han:"完",py:"wán",fr:"complément de résultat : fini",note:""},
+    {han:"好",py:"hǎo",fr:"complément de résultat : bien fait, prêt",note:"准备好了 = c'est prêt"},
+    {han:"错",py:"cuò",fr:"complément de résultat : mal, faux",note:"写错了 = mal écrit"},
+    {han:"到",py:"dào",fr:"complément de résultat : atteindre",note:""},
+    {han:"见",py:"jiàn",fr:"complément de résultat : percevoir",note:""},
+    {han:"给",py:"gěi",fr:"donner (verbe à double objet)",note:""},
+    {han:"送",py:"sòng",fr:"offrir (verbe à double objet)",note:""}
+  ],
+  grammar:`
+    <p>Un complément de résultat précise l'issue d'une action : <span class="mono">Verbe + 完/好/错/到/见</span> — <i>我准备好了。</i> (Je suis prêt·e.) ; <i>你写错了。</i> (Tu t'es trompé en écrivant.)</p>
+    <ul>
+      <li>Ces compléments seront enrichis au niveau 3 avec les compléments potentiels (verbe+得/不+résultat, pour exprimer la possibilité).</li>
+      <li>Structure à double objet de base : <span class="mono">Sujet + Verbe + Destinataire + Objet</span> — <i>他给我一本书。</i> (Il me donne un livre.)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"你准备好了吗？",fr:"T'es prêt ?"},
+    {sp:"B",han:"好了！我还要送你一个礼物。",fr:"Prêt ! Et je veux encore t'offrir un cadeau."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 写错了 » signifie :",options:["bien écrit","mal écrit","pas encore écrit"],a:1},
+      {q:"« 他给我一本书 » utilise l'ordre :",options:["Verbe+Objet+Destinataire","Verbe+Destinataire+Objet","Destinataire+Verbe+Objet"],a:1}
+    ],
+    listen:[
+      {han:"准备好",options:["être prêt","être fatigué","être en retard"],a:0}
+    ],
+    fill:[
+      {sentence:"« Je suis prêt » se dit 我准备___了 (pinyin hǎo).",answer:"hao",hint:"1 mot"},
+      {sentence:"« Offrir » se dit ___ (pinyin sòng).",answer:"song",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:19, level:2,
+  title:"日常生活词汇",
+  sub:"Vocabulaire de la vie quotidienne",
+  intro:"Un vocabulaire de routine et de loisirs pour mettre en pratique les verbes modaux et les marqueurs temporels de ce niveau.",
+  vocab:[
+    {han:"习惯",py:"xíguàn",fr:"habitude",note:""},
+    {han:"运动",py:"yùndòng",fr:"faire du sport, le sport",note:""},
+    {han:"做饭",py:"zuò fàn",fr:"cuisiner",note:""},
+    {han:"打扫",py:"dǎsǎo",fr:"nettoyer, ranger",note:""},
+    {han:"购物",py:"gòuwù",fr:"faire du shopping",note:""},
+    {han:"休息",py:"xiūxi",fr:"se reposer",note:""},
+    {han:"上班",py:"shàngbān",fr:"aller au travail",note:""},
+    {han:"下班",py:"xiàbān",fr:"finir le travail",note:""},
+    {han:"忙",py:"máng",fr:"occupé",note:""},
+    {han:"有空",py:"yǒukòng",fr:"avoir du temps libre",note:""}
+  ],
+  grammar:`
+    <p>Ce vocabulaire se combine naturellement avec les verbes modaux : <i>我今天不能运动，因为得上班。</i> (Je peux pas faire de sport aujourd'hui, je dois aller au travail.)</p>
+    <ul>
+      <li><span class="mono">有空</span> et <span class="mono">忙</span> sont des antonymes utiles pour organiser un rendez-vous : <i>你有空吗？</i> (T'as du temps libre ?)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"你周末有空吗？",fr:"T'es libre ce week-end ?"},
+    {sp:"B",han:"应该有空，除非公司让我加班。",fr:"Je devrais être libre, sauf si l'entreprise me fait faire des heures sup."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 有空 » est l'antonyme de :",options:["忙","休息","运动"],a:0},
+      {q:"« 打扫 » signifie :",options:["cuisiner","nettoyer, ranger","se reposer"],a:1}
+    ],
+    listen:[
+      {han:"购物",options:["faire du shopping","travailler","se reposer"],a:0},
+      {han:"习惯",options:["habitude","sport","cuisine"],a:0}
+    ],
+    fill:[
+      {sentence:"« Aller au travail » se dit 上___ (pinyin bān).",answer:"ban",hint:"1 mot"},
+      {sentence:"« Se reposer » se dit ___息 (pinyin xiū).",answer:"xiu",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:20, level:2,
+  title:"第二级测验",
+  sub:"Test de révision — tout le niveau HSK2",
+  intro:"Ce test couvre les comparatifs, l'aspect, les compléments de direction, les connecteurs, les verbes modaux, les trois « de », les prépositions courantes et les compléments de résultat de base vus au niveau HSK2.",
+  vocab:[
+    {han:"比 / 没有 / 一样",py:"bǐ / méiyǒu / yíyàng",fr:"comparatifs",note:"unité 9"},
+    {han:"了 / 在 / 过",py:"le / zài / guo",fr:"aspect",note:"unité 10"},
+    {han:"来 / 去",py:"lái / qù",fr:"compléments de direction",note:"unité 11"},
+    {han:"因为...所以... / 虽然...但是...",py:"",fr:"connecteurs",note:"unité 12"},
+    {han:"会 / 能 / 可以 / 应该",py:"",fr:"verbes modaux",note:"unité 13"},
+    {han:"的 / 得 / 地",py:"de / de / de",fr:"les trois « de »",note:"unité 14"},
+    {han:"从...到... / 往 / 对 / 每",py:"",fr:"prépositions courantes",note:"unité 17"},
+    {han:"完 / 好 / 错 / 到 / 见",py:"",fr:"compléments de résultat de base",note:"unité 18"}
+  ],
+  grammar:`
+    <p>Récapitulatif des points clés du niveau HSK2 :</p>
+    <ul>
+      <li>Comparatif : 比 (supériorité) / 没有 (infériorité) / 跟...一样 (égalité) / 最 (superlatif).</li>
+      <li>Aspect : 在/正在 (en cours), 要 (futur proche), 过 (expérience), 已经...了 (accompli).</li>
+      <li>Compléments de direction 来/去 selon la position du locuteur.</li>
+      <li>Connecteurs oraux par paires : 因为...所以..., 如果...就..., 虽然...但是....</li>
+      <li>Verbes modaux : 会 (savoir-faire), 能 (capacité), 可以 (permission), 应该/得 (obligation).</li>
+      <li>的 (possessif, +nom), 得 (degré, après verbe), 地 (adverbial, avant verbe).</li>
+      <li>Prépositions : 从...到... (trajet/durée), 往 (direction), 对 (attitude envers), 每 (chaque).</li>
+      <li>Compléments de résultat de base : 完/好/错/到/见 ; double objet simple (给/送 + destinataire + objet).</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"你会说中文，对吗？",fr:"Tu sais parler chinois, c'est ça ?"},
+    {sp:"B",han:"会一点，但是说得没有你好，因为我学得比较晚。从去年到现在，才学了一年。",fr:"Un peu, mais je parle moins bien que toi, parce que j'ai commencé à apprendre plus tard. De l'an dernier à maintenant, ça ne fait qu'un an que j'apprends."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 他比我高 » exprime :",options:["l'égalité","la supériorité","l'infériorité"],a:1},
+      {q:"« 过 » exprime :",options:["une expérience vécue","une négation","une obligation"],a:0},
+      {q:"« 会 » exprime surtout :",options:["une compétence apprise","une permission","une obligation"],a:0},
+      {q:"« 跑得快 » utilise :",options:["的","得","地"],a:1},
+      {q:"« 从...到... » sert à préciser :",options:["un trajet ou une durée","une émotion","une négation"],a:0},
+      {q:"« 写错了 » signifie :",options:["bien écrit","mal écrit","pas encore écrit"],a:1}
+    ],
+    listen:[
+      {han:"一样",options:["pareil, identique","différent","plus"],a:0},
+      {han:"已经",options:["déjà","pas encore","bientôt"],a:0},
+      {han:"每",options:["chaque","aucun","tous sauf un"],a:0}
+    ],
+    fill:[
+      {sentence:"« Aussi grand que » se dit 跟...___样 (pinyin yí).",answer:"yi",hint:"1 mot"},
+      {sentence:"« Je sais parler chinois » se dit 我___说中文 (pinyin huì).",answer:"hui",hint:"1 mot"},
+      {sentence:"« Il court très vite » se dit 他跑___很快 (particule de degré).",answer:"de",hint:"1 mot"},
+      {sentence:"« Je suis prêt » se dit 我准备___了 (pinyin hǎo).",answer:"hao",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:21, level:3,
+  title:"被动句与使役句",
+  sub:"Le passif (被) et le causatif",
+  intro:"Le mandarin marque le passif avec 被, souvent utilisé pour des événements subis désagréables, et exprime le causatif avec 让/叫/使.",
+  vocab:[
+    {han:"被",py:"bèi",fr:"marqueur du passif (subir)",note:"A 被 B + verbe"},
+    {han:"让",py:"ràng",fr:"laisser, faire faire (causatif oral)",note:""},
+    {han:"叫",py:"jiào",fr:"faire faire, ordonner (causatif oral)",note:"aussi « s'appeler », vu à l'unité 2"},
+    {han:"使",py:"shǐ",fr:"causer, faire que (causatif soutenu)",note:""},
+    {han:"给",py:"gěi",fr:"marqueur du passif alternatif (oral, familier)",note:""}
+  ],
+  grammar:`
+    <p>Structure du passif : <span class="mono">A + 被 + (agent) + verbe</span> — <i>我的手机被偷了。</i> (Mon téléphone s'est fait voler.)</p>
+    <ul>
+      <li>Le passif avec 被 est souvent utilisé pour des événements négatifs ou subis, comme « bị » en vietnamien.</li>
+      <li>Causatif oral : <span class="mono">A + 让/叫 + B + verbe</span> — <i>老板让我加班。</i> (Le patron me fait faire des heures sup.)</li>
+      <li>Causatif soutenu : <span class="mono">使</span> remplace 让/叫 à l'écrit : <i>这件事使他很难过。</i> (Cette affaire l'a beaucoup attristé.)</li>
+    </ul>
+    <div class="callout">À l'oral, on utilise souvent 给 à la place de 被 dans un registre très familier : <i>手机给偷了。</i> (Le téléphone s'est fait voler.)</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你怎么了？看起来很累。",fr:"Qu'est-ce qui t'arrive ? T'as l'air fatigué."},
+    {sp:"B",han:"老板叫我今天加班，被他这么一说，我现在很烦。",fr:"Le patron m'a fait faire des heures sup aujourd'hui, du coup je suis vraiment agacé."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 我的手机被偷了 » implique une nuance :",options:["positive","négative, subie","neutre"],a:1},
+      {q:"« 让/叫 » à l'oral servent à exprimer :",options:["le passif","le causatif (faire faire)","la comparaison"],a:1},
+      {q:"« 使 » est la forme :",options:["orale de 让","soutenue du causatif","du passif uniquement"],a:1}
+    ],
+    listen:[
+      {han:"被",options:["marqueur du passif","marqueur du causatif","marqueur du futur"],a:0},
+      {han:"使",options:["causer, faire que","subir","comparer"],a:0}
+    ],
+    fill:[
+      {sentence:"« Mon téléphone s'est fait voler » se dit 我的手机___偷了 (pinyin bèi).",answer:"bei",hint:"1 mot"},
+      {sentence:"« Le patron me fait faire des heures sup » se dit 老板___我加班 (pinyin ràng).",answer:"rang",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:22, level:3,
+  title:"转述",
+  sub:"Le discours rapporté",
+  intro:"Rapporter les paroles de quelqu'un est plus simple en mandarin qu'en français : aucun changement de temps n'est nécessaire.",
+  vocab:[
+    {han:"说",py:"shuō",fr:"dire",note:""},
+    {han:"问",py:"wèn",fr:"demander",note:""},
+    {han:"告诉",py:"gàosu",fr:"dire à quelqu'un, informer",note:""},
+    {han:"觉得",py:"juéde",fr:"penser, trouver que",note:""},
+    {han:"认为",py:"rènwéi",fr:"considérer que (soutenu)",note:""}
+  ],
+  grammar:`
+    <p>Structure de base : <span class="mono">Sujet + 说/告诉 + (personne) + proposition</span>.</p>
+    <ul>
+      <li><i>他说他很忙。</i> (Il a dit qu'il était très occupé.) — le pronom change, mais aucun temps de verbe à ajuster.</li>
+      <li><span class="mono">告诉</span> introduit toujours un destinataire : <i>她告诉我她要走了。</i> (Elle m'a dit qu'elle allait partir.)</li>
+      <li>Question rapportée : <i>他问我忙不忙。</i> (Il m'a demandé si j'étais occupé ou pas.)</li>
+      <li><span class="mono">觉得</span> (oral) et <span class="mono">认为</span> (soutenu) introduisent une opinion rapportée : <i>我觉得这个主意不错。</i> (Je trouve que cette idée est pas mal.)</li>
+    </ul>
+    <div class="callout">Sans concordance des temps à gérer, rapporter une phrase en mandarin revient surtout à ajuster les pronoms et, si besoin, à garder les marqueurs temporels (了, 过...) déjà présents dans la phrase d'origine.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"他说他明天不能来了。",fr:"Il a dit qu'il ne pourrait pas venir demain."},
+    {sp:"B",han:"是吗？他告诉你为什么了吗？",fr:"Ah bon ? Il t'a dit pourquoi ?"}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 告诉 » nécessite toujours :",options:["un destinataire","un chiffre","une négation"],a:0},
+      {q:"« 认为 » est un registre :",options:["très familier","soutenu","vulgaire"],a:1},
+      {q:"Rapporter une phrase en mandarin nécessite :",options:["de changer le temps du verbe","d'ajuster les pronoms, sans changer le temps","de tout traduire en anglais"],a:1}
+    ],
+    listen:[
+      {han:"觉得",options:["penser, trouver que","dire à quelqu'un","demander"],a:0},
+      {han:"问",options:["demander","dire","informer"],a:0}
+    ],
+    fill:[
+      {sentence:"« Dire à quelqu'un » se dit ___诉 (pinyin gào).",answer:"gao",hint:"1 mot"},
+      {sentence:"« Penser, trouver que » (oral) se dit ___得 (pinyin jué).",answer:"jue",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:23, level:3,
+  title:"结果补语与程度补语",
+  sub:"Compléments de résultat et de degré",
+  intro:"Un petit mot après le verbe précise le résultat de l'action, ou son degré — une structure essentielle pour parler avec précision.",
+  vocab:[
+    {han:"完",py:"wán",fr:"complément de résultat : fini",note:"吃完 = avoir fini de manger"},
+    {han:"懂",py:"dǒng",fr:"complément de résultat : comprendre",note:"听懂 = comprendre en écoutant"},
+    {han:"到",py:"dào",fr:"complément de résultat : atteindre, réussir à",note:"找到 = trouver, réussir à chercher"},
+    {han:"见",py:"jiàn",fr:"complément de résultat : percevoir",note:"看见 = voir, apercevoir"},
+    {han:"得",py:"de",fr:"particule de degré (avant un adjectif/adverbe)",note:"verbe+得+adjectif"},
+    {han:"极了",py:"jíle",fr:"extrêmement (après l'adjectif)",note:"好吃极了 = extrêmement bon"}
+  ],
+  grammar:`
+    <p>Complément de résultat : <span class="mono">Verbe + résultat</span> précise l'issue de l'action — <i>我吃完了。</i> (J'ai fini de manger.) ; <i>你听懂了吗？</i> (Tu as compris [en écoutant] ?)</p>
+    <ul>
+      <li><span class="mono">找到</span> (trouver) implique le succès de la recherche, contrairement à <span class="mono">找</span> (chercher) seul, qui ne dit rien sur le résultat.</li>
+      <li>Complément de degré : <span class="mono">Verbe + 得 + adjectif</span> — <i>他跑得很快。</i> (Il court très vite.)</li>
+      <li><span class="mono">极了</span> intensifie fortement un adjectif, placé juste après : <i>好吃极了！</i> (C'est extrêmement bon !)</li>
+    </ul>
+    <div class="callout">Ne confondez pas 得 (de, particule de degré) avec 的 (de, particule possessive) et 地 (de, particule adverbiale) — les trois se prononcent pareil mais ont des rôles grammaticaux différents.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你的中文说得很好！",fr:"Tu parles très bien chinois !"},
+    {sp:"B",han:"谢谢，不过有时候我还是听不懂。",fr:"Merci, mais parfois j'arrive encore pas à comprendre en écoutant."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 吃完 » signifie :",options:["commencer à manger","avoir fini de manger","refuser de manger"],a:1},
+      {q:"« 找到 » implique :",options:["le succès de la recherche","l'échec de la recherche","une simple action, sans résultat"],a:0},
+      {q:"Le complément de degré se construit avec :",options:["了","得","过"],a:1}
+    ],
+    listen:[
+      {han:"看见",options:["voir, apercevoir","chercher","fermer"],a:0},
+      {han:"极了",options:["extrêmement","un peu","jamais"],a:0}
+    ],
+    fill:[
+      {sentence:"« Comprendre en écoutant » se dit 听___ (pinyin dǒng).",answer:"dong",hint:"1 mot"},
+      {sentence:"« Il court très vite » se dit 他跑___很快 (pinyin de).",answer:"de",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:24, level:3,
+  title:"附加问句与确认",
+  sub:"Questions de confirmation",
+  intro:"Pour vérifier une information, le mandarin utilise plusieurs structures, dont la répétition affirmative-négative du verbe, sans équivalent direct en français.",
+  vocab:[
+    {han:"吧",py:"ba",fr:"particule de suggestion/quasi-certitude",note:"déjà vu à l'unité 5"},
+    {han:"...对吗？",py:"...duì ma?",fr:"c'est bien ça ?",note:""},
+    {han:"是不是",py:"shì bu shì",fr:"est-ce que oui ou non (structure A-non-A)",note:""},
+    {han:"好不好",py:"hǎo bu hǎo",fr:"d'accord ou pas ? (proposition)",note:""},
+    {han:"对不对",py:"duì bu duì",fr:"c'est correct ou pas ?",note:""}
+  ],
+  grammar:`
+    <p>La structure « A-非-A » (répéter le verbe/adjectif à l'affirmatif puis au négatif) est une façon très courante de poser une question fermée, alternative à 吗.</p>
+    <ul>
+      <li><i>你是不是学生？</i> (Tu es étudiant ou pas ?) équivaut à <i>你是学生吗？</i>, mais insiste davantage sur la vérification.</li>
+      <li><span class="mono">...对吗？/...对不对？</span> se placent en fin de phrase pour vérifier un fait précis : <i>他是老师，对吗？</i> (Il est prof, c'est ça ?)</li>
+      <li><span class="mono">好不好？</span> sert à proposer quelque chose et demander l'accord : <i>我们明天见，好不好？</i> (On se voit demain, d'accord ?)</li>
+    </ul>
+    <div class="callout">La structure A-非-A ne fonctionne qu'avec des verbes/adjectifs d'une ou deux syllabes répétables simplement — pour les structures plus longues, 是不是 en tête de phrase est plus naturel.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你是不是法国人？",fr:"T'es français, oui ou non ?"},
+    {sp:"B",han:"对，我是法国人，你呢？",fr:"Oui, je suis français, et toi ?"}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 是不是 » est une structure qu'on appelle :",options:["A-非-A","le passif","le comparatif"],a:0},
+      {q:"« 好不好？ » sert surtout à :",options:["nier une action","proposer et demander l'accord","raconter le passé"],a:1},
+      {q:"« ...对吗？ » sert à :",options:["vérifier un fait précis","donner un ordre","exprimer le futur"],a:0}
+    ],
+    listen:[
+      {han:"对不对",options:["c'est correct ou pas ?","c'est fini ou pas ?","c'est cher ou pas ?"],a:0}
+    ],
+    fill:[
+      {sentence:"« Tu es étudiant ou pas ? » se dit 你是___学生？(pinyin bu shì)",answer:"bu shi",hint:"2 mots"},
+      {sentence:"« D'accord ou pas ? » se dit 好___好？(pinyin bu)",answer:"bu",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:25, level:3,
+  title:"着与存现句",
+  sub:"L'aspect durative 着 et les phrases existentielles",
+  intro:"着 marque qu'une action ou un état persiste dans le temps — un troisième marqueur d'aspect essentiel, complémentaire de 了 et 过.",
+  vocab:[
+    {han:"着",py:"zhe",fr:"particule d'aspect duratif (état/action en train de durer)",note:"门开着 = la porte est ouverte (et le reste)"},
+    {han:"有",py:"yǒu",fr:"il y a (existence)",note:"桌子上有一本书 = il y a un livre sur la table"},
+    {han:"是",py:"shì",fr:"être (identification, aussi utilisé pour l'existence précise)",note:""},
+    {han:"正",py:"zhèng",fr:"justement, en train de (renforce 在/着)",note:""},
+    {han:"躺着",py:"tǎngzhe",fr:"être allongé",note:""},
+    {han:"站着",py:"zhànzhe",fr:"être debout",note:""},
+    {han:"坐着",py:"zuòzhe",fr:"être assis",note:""}
+  ],
+  grammar:`
+    <p><span class="mono">着</span> exprime qu'un état ou une action persiste : <i>他坐着看书。</i> (Il lit assis — l'action de « s'asseoir » persiste pendant qu'il lit.)</p>
+    <ul>
+      <li>Différence avec 在 : 在 décrit une action en cours (« il est en train de »), 着 décrit un état qui perdure (« il est dans l'état de »). On les combine souvent : <i>他正在门口站着。</i></li>
+      <li>Phrase existentielle : <span class="mono">Lieu + 有 + objet</span> — <i>桌子上有一本书。</i> (Il y a un livre sur la table.) — l'objet est indéfini.</li>
+      <li>Avec un objet défini, on utilise plutôt <span class="mono">Lieu + 是 + objet</span> : <i>桌子上是我的书。</i> (Sur la table, c'est mon livre.)</li>
+    </ul>
+    <div class="callout">« 着 » est aussi très fréquent en fin d'impératif poli : <i>拿着！</i> (Tiens, prends ça !) — l'objet reste dans la main du destinataire.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"墙上挂着一张照片，那是谁？",fr:"Il y a une photo accrochée au mur, c'est qui ?"},
+    {sp:"B",han:"那是我奶奶，她正坐着看电视呢。",fr:"C'est ma grand-mère, elle est assise en train de regarder la télé, là."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 着 » exprime :",options:["une action future","un état/une action qui persiste","une négation"],a:1},
+      {q:"« 桌子上有一本书 » utilise 有 car l'objet est :",options:["défini, connu","indéfini","pluriel"],a:1},
+      {q:"« 他坐着看书 » signifie :",options:["Il va s'asseoir pour lire","Il lit, assis","Il a fini de lire"],a:1}
+    ],
+    listen:[
+      {han:"站着",options:["être debout","être assis","être allongé"],a:0}
+    ],
+    fill:[
+      {sentence:"« Il y a un livre sur la table » se dit 桌子上___一本书 (pinyin yǒu).",answer:"you",hint:"1 mot"},
+      {sentence:"« Tiens, prends ça ! » se dit 拿___！(pinyin zhe)",answer:"zhe",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:26, level:3,
+  title:"可能补语",
+  sub:"Les compléments potentiels",
+  intro:"Le complément potentiel permet d'exprimer si une action peut ou non aboutir à son résultat — une extension naturelle des compléments de résultat déjà vus.",
+  vocab:[
+    {han:"听得懂 / 听不懂",py:"tīngdedǒng / tīngbudǒng",fr:"pouvoir/ne pas pouvoir comprendre en écoutant",note:""},
+    {han:"看得见 / 看不见",py:"kàndejiàn / kànbujiàn",fr:"pouvoir/ne pas pouvoir voir",note:""},
+    {han:"来得及 / 来不及",py:"láidejí / láibují",fr:"avoir/ne pas avoir le temps d'arriver à temps",note:""},
+    {han:"做得到 / 做不到",py:"zuòdedào / zuòbudào",fr:"pouvoir/ne pas pouvoir y arriver",note:""},
+    {han:"买得起 / 买不起",py:"mǎideqǐ / mǎibuqǐ",fr:"avoir/ne pas avoir les moyens d'acheter",note:""}
+  ],
+  grammar:`
+    <p>Structure : <span class="mono">Verbe + 得/不 + complément de résultat</span> — insérer 得 (possibilité) ou 不 (impossibilité) entre le verbe et son complément de résultat déjà connu (unité 19).</p>
+    <ul>
+      <li><i>我听得懂中文。</i> (J'arrive à comprendre le chinois en l'écoutant.) vs <i>我听不懂中文。</i> (Je n'arrive pas à comprendre le chinois.)</li>
+      <li><span class="mono">买得起/买不起</span> est très utilisé pour parler du pouvoir d'achat : <i>这个太贵，我买不起。</i> (C'est trop cher, j'ai pas les moyens.)</li>
+      <li>La question se pose souvent avec la forme complète : <i>你听得懂听不懂？</i> ou simplement <i>你听得懂吗？</i></li>
+    </ul>
+    <div class="callout">Ce complément potentiel est différent du complément de degré (unité 14, 得+adjectif) : ici, 得/不 s'insère entre le verbe et son complément de résultat pour exprimer la possibilité.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"电影快开始了，我们来得及吗？",fr:"Le film va bientôt commencer, on va avoir le temps d'arriver ?"},
+    {sp:"B",han:"来得及，别担心，出租车看得见了，就在前面。",fr:"On a le temps, t'en fais pas, je vois le taxi, il est juste devant."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 听得懂 » signifie :",options:["ne pas comprendre","arriver à comprendre en écoutant","refuser d'écouter"],a:1},
+      {q:"« 买不起 » signifie :",options:["ne pas avoir les moyens d'acheter","ne pas vouloir acheter","avoir déjà acheté"],a:0},
+      {q:"Le complément potentiel s'insère :",options:["avant le verbe","entre le verbe et son complément de résultat","en fin de phrase seulement"],a:1}
+    ],
+    listen:[
+      {han:"来得及",options:["avoir le temps d'arriver à temps","être en retard","ne jamais arriver"],a:0}
+    ],
+    fill:[
+      {sentence:"« Je n'arrive pas à comprendre » se dit 我听___懂 (pinyin bu).",answer:"bu",hint:"1 mot"},
+      {sentence:"« Pouvoir voir » se dit 看___见 (pinyin de).",answer:"de",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:27, level:3,
+  title:"对比与顺序副词",
+  sub:"Adverbes de comparaison et d'enchaînement (HSK3)",
+  intro:"Un lot d'adverbes très fréquents du programme HSK3, pour intensifier, enchaîner des actions dans l'ordre, ou nuancer la rapidité d'un événement.",
+  vocab:[
+    {han:"那么 / 这么",py:"nàme / zhème",fr:"si, tellement (intensifie un adjectif)",note:""},
+    {han:"又...又...",py:"yòu...yòu...",fr:"à la fois...et...",note:""},
+    {han:"先...再...",py:"xiān...zài...",fr:"d'abord...ensuite...",note:""},
+    {han:"一边...一边...",py:"yìbiān...yìbiān...",fr:"en même temps que, tout en...",note:""},
+    {han:"才",py:"cái",fr:"seulement alors, pas avant (événement tardif)",note:""},
+    {han:"就",py:"jiù",fr:"déjà, tout de suite (événement précoce)",note:"contraste avec 才"}
+  ],
+  grammar:`
+    <p><span class="mono">那么/这么 + adjectif</span> intensifie fortement : <i>你怎么那么忙？</i> (Pourquoi t'es si occupé ?)</p>
+    <ul>
+      <li><span class="mono">又...又...</span> combine deux qualités simultanées : <i>他又高又帅。</i> (Il est à la fois grand et beau.)</li>
+      <li><span class="mono">先...再...</span> ordonne deux actions dans le temps : <i>先洗手，再吃饭。</i> (D'abord se laver les mains, ensuite manger.)</li>
+      <li><span class="mono">一边...一边...</span> exprime la simultanéité de deux actions faites par la même personne : <i>他一边走一边说话。</i> (Il parle en marchant.)</li>
+      <li><span class="mono">才</span> vs <span class="mono">就</span> : 才 marque qu'un événement arrive tard/difficilement, 就 qu'il arrive tôt/facilement — <i>他八点才到。</i> (Il est arrivé seulement à 8h, tard.) vs <i>他八点就到了。</i> (Il est arrivé dès 8h, tôt.)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"你怎么这么早就到了？",fr:"Comment ça se fait que tu sois déjà arrivé si tôt ?"},
+    {sp:"B",han:"我先坐地铁，再走路过来的，一边走一边听音乐，很快。",fr:"J'ai d'abord pris le métro, puis marché, en écoutant de la musique en même temps, ça a été rapide."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 又...又... » exprime :",options:["une opposition","deux qualités simultanées","une condition"],a:1},
+      {q:"« 才 » marque un événement :",options:["précoce, rapide","tardif, difficile","impossible"],a:1},
+      {q:"« 一边...一边... » exprime :",options:["une succession","la simultanéité de deux actions","une négation"],a:1}
+    ],
+    listen:[
+      {han:"先",options:["d'abord","ensuite","enfin"],a:0},
+      {han:"那么",options:["si, tellement","jamais","peut-être"],a:0}
+    ],
+    fill:[
+      {sentence:"« D'abord...ensuite » se dit 先...___ (pinyin zài).",answer:"zai",hint:"1 mot"},
+      {sentence:"« Tellement » (devant adj) se dit 这___ (pinyin me).",answer:"me",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:28, level:3,
+  title:"复合句型基础",
+  sub:"Structures de phrases complexes de base (HSK3)",
+  intro:"Les premières structures à deux parties qui préparent aux connecteurs plus soutenus des niveaux suivants.",
+  vocab:[
+    {han:"除了...以外",py:"chúle...yǐwài",fr:"à part..., en dehors de...",note:""},
+    {han:"不但...而且...",py:"búdàn...érqiě...",fr:"non seulement...mais aussi... (base)",note:"version de base de 不仅...而且 (niveau 5)"},
+    {han:"只要...就...",py:"zhǐyào...jiù...",fr:"du moment que...alors...",note:""},
+    {han:"只有...才...",py:"zhǐyǒu...cái...",fr:"ce n'est que si...que... (condition unique)",note:""}
+  ],
+  grammar:`
+    <p><span class="mono">除了...以外，大家都...</span> introduit une exception : <i>除了他以外，大家都来了。</i> (À part lui, tout le monde est venu.)</p>
+    <ul>
+      <li><span class="mono">不但...而且...</span> ajoute une information en surenchère : <i>他不但聪明，而且很努力。</i> (Il n'est pas seulement intelligent, mais aussi très travailleur.)</li>
+      <li><span class="mono">只要...就...</span> exprime une condition suffisante, assez souple : <i>只要你努力，就能成功。</i> (Du moment que tu travailles dur, tu peux réussir.)</li>
+      <li><span class="mono">只有...才...</span> exprime une condition nécessaire et unique, plus stricte : <i>只有努力，才能成功。</i> (Ce n'est qu'en travaillant dur qu'on peut réussir.) — contrairement à 只要, il n'y a pas d'autre chemin possible.</li>
+    </ul>
+    <div class="callout">Différence clé : 只要...就... = « il suffit de » (une condition parmi d'autres possibles) ; 只有...才... = « il n'y a que » (la seule condition possible).</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"除了周末以外，我每天都要上班。",fr:"À part le week-end, je travaille tous les jours."},
+    {sp:"B",han:"只要你有空，我们就可以见面，不一定要等周末。",fr:"Du moment que t'as du temps, on peut se voir, pas forcément besoin d'attendre le week-end."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 除了...以外 » introduit :",options:["une exception","une cause","une conclusion"],a:0},
+      {q:"« 只有...才... » exprime :",options:["une condition parmi d'autres possibles","la seule condition possible","une négation"],a:1},
+      {q:"« 不但...而且... » exprime :",options:["une opposition","une surenchère (en plus de)","une condition"],a:1}
+    ],
+    listen:[
+      {han:"只要",options:["du moment que","seulement si (unique)","jamais"],a:0}
+    ],
+    fill:[
+      {sentence:"« Non seulement...mais aussi » (base) se dit 不但...而___ (pinyin qiě).",answer:"qie",hint:"1 mot"},
+      {sentence:"« Ce n'est que si...que » se dit 只有...___ (pinyin cái).",answer:"cai",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:29, level:3,
+  title:"情绪与心理状态词汇",
+  sub:"Vocabulaire des émotions et états psychologiques",
+  intro:"Les émotions se prêtent bien à la pratique du passif 被 et des compléments de degré vus dans ce niveau.",
+  vocab:[
+    {han:"高兴",py:"gāoxìng",fr:"content, joyeux",note:""},
+    {han:"担心",py:"dānxīn",fr:"inquiet, s'inquiéter",note:""},
+    {han:"生气",py:"shēngqì",fr:"en colère",note:""},
+    {han:"惊讶",py:"jīngyà",fr:"surpris",note:""},
+    {han:"失望",py:"shīwàng",fr:"déçu",note:""},
+    {han:"紧张",py:"jǐnzhāng",fr:"anxieux, nerveux",note:""},
+    {han:"害羞",py:"hàixiū",fr:"timide, gêné",note:""},
+    {han:"骄傲",py:"jiāo'ào",fr:"fier",note:""},
+    {han:"无聊",py:"wúliáo",fr:"ennuyeux, qui s'ennuie",note:""},
+    {han:"兴奋",py:"xīngfèn",fr:"excité, enthousiaste",note:""}
+  ],
+  grammar:`
+    <p>Ces adjectifs d'émotion s'utilisent souvent avec un complément de degré : <i>他高兴得跳起来。</i> (Il est si content qu'il a sauté de joie.)</p>
+    <ul>
+      <li>Certains se combinent bien avec 被 pour un événement subi : <i>我被他的话吓到了。</i> (J'ai été choqué par ce qu'il a dit.)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"你今天看起来很紧张。",fr:"T'as l'air très nerveux aujourd'hui."},
+    {sp:"B",han:"对啊，我对考试结果很担心，如果失败了会很失望。",fr:"Ouais, je suis inquiet pour le résultat de l'examen, si j'échoue je serai très déçu."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 生气 » signifie :",options:["surpris","en colère","fier"],a:1},
+      {q:"« 兴奋 » signifie :",options:["excité, enthousiaste","ennuyeux","timide"],a:0}
+    ],
+    listen:[
+      {han:"骄傲",options:["fier","déçu","timide"],a:0},
+      {han:"害羞",options:["timide, gêné","excité","en colère"],a:0}
+    ],
+    fill:[
+      {sentence:"« Inquiet » se dit ___心 (pinyin dān).",answer:"dan",hint:"1 mot"},
+      {sentence:"« Content » se dit ___兴 (pinyin gāo).",answer:"gao",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:30, level:3,
+  title:"第三级测验",
+  sub:"Test de révision — tout le niveau HSK3",
+  intro:"Ce test couvre le passif/causatif, le discours rapporté, les compléments de résultat/degré/potentiel, les questions de confirmation, 着, les adverbes de comparaison et les phrases complexes de base.",
+  vocab:[
+    {han:"被 / 让 / 叫",py:"",fr:"passif et causatif",note:"unité 21"},
+    {han:"说 / 告诉 / 觉得",py:"",fr:"discours rapporté",note:"unité 22"},
+    {han:"完 / 懂 / 得",py:"",fr:"compléments de résultat/degré",note:"unité 23"},
+    {han:"是不是 / 对吗",py:"",fr:"questions de confirmation",note:"unité 24"},
+    {han:"着",py:"zhe",fr:"aspect duratif",note:"unité 25"},
+    {han:"得懂 / 得起 / 得及",py:"",fr:"compléments potentiels",note:"unité 26"},
+    {han:"又...又... / 才 / 就",py:"",fr:"adverbes de comparaison",note:"unité 27"},
+    {han:"除了...以外 / 只有...才...",py:"",fr:"phrases complexes de base",note:"unité 28"}
+  ],
+  grammar:`
+    <p>Récapitulatif des points clés du niveau HSK3 :</p>
+    <ul>
+      <li>被 = subir (souvent négatif) ; 让/叫 (oral) ou 使 (soutenu) = causatif.</li>
+      <li>Discours rapporté : 说/告诉 + proposition, sans concordance des temps.</li>
+      <li>Compléments de résultat (完/懂/到/见) et de degré (verbe+得+adjectif).</li>
+      <li>Questions de confirmation : structure A-非-A (是不是, 好不好), ...对吗？</li>
+      <li>着 = état/action qui persiste ; phrases existentielles avec 有 (indéfini) / 是 (défini).</li>
+      <li>Complément potentiel : verbe+得/不+résultat pour exprimer possibilité/impossibilité.</li>
+      <li>又...又... (deux qualités), 先...再... (séquence), 一边...一边... (simultanéité), 才 (tardif) vs 就 (précoce).</li>
+      <li>除了...以外 (exception), 不但...而且... (surenchère), 只要...就... (condition souple) vs 只有...才... (condition unique).</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"他说他听不懂法语，你能不能帮他翻译？",fr:"Il dit qu'il ne comprend pas le français, tu peux l'aider à traduire ?"},
+    {sp:"B",han:"可以，不过他得坐着听，我说得比较慢，除了这个问题以外，应该没别的困难。",fr:"Oui, mais il doit écouter assis, je parle plutôt lentement, à part ce problème, il ne devrait pas y avoir d'autres difficultés."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 我的手机被偷了 » implique une nuance :",options:["positive","négative, subie","neutre"],a:1},
+      {q:"« 找到 » implique :",options:["le succès de la recherche","l'échec de la recherche","une simple action"],a:0},
+      {q:"« 是不是 » est une structure qu'on appelle :",options:["A-非-A","le passif","le comparatif"],a:0},
+      {q:"« 他坐着看书 » signifie :",options:["Il va s'asseoir pour lire","Il lit, assis","Il a fini de lire"],a:1},
+      {q:"« 才 » marque un événement :",options:["précoce, rapide","tardif, difficile","impossible"],a:1},
+      {q:"« 只有...才... » exprime :",options:["une condition parmi d'autres possibles","la seule condition possible","une négation"],a:1}
+    ],
+    listen:[
+      {han:"觉得",options:["penser, trouver que","dire à quelqu'un","demander"],a:0},
+      {han:"看得见",options:["pouvoir voir","ne pas pouvoir voir","avoir déjà vu"],a:0},
+      {han:"先",options:["d'abord","ensuite","enfin"],a:0}
+    ],
+    fill:[
+      {sentence:"« Mon téléphone s'est fait voler » se dit 我的手机___偷了 (pinyin bèi).",answer:"bei",hint:"1 mot"},
+      {sentence:"« Il court très vite » se dit 他跑___很快 (pinyin de).",answer:"de",hint:"1 mot"},
+      {sentence:"« Il y a un livre sur la table » se dit 桌子上___一本书 (pinyin yǒu).",answer:"you",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:31, level:4,
+  title:"把字句",
+  sub:"La structure 把 — traiter un objet précis",
+  intro:"Le 把字句 est l'une des structures les plus caractéristiques et les plus difficiles du mandarin : elle met en avant ce qu'on fait subir à un objet précis, en déplaçant cet objet avant le verbe.",
+  vocab:[
+    {han:"把",py:"bǎ",fr:"marqueur de la structure « traiter un objet »",note:""},
+    {han:"放",py:"fàng",fr:"poser, mettre",note:""},
+    {han:"关",py:"guān",fr:"fermer",note:""},
+    {han:"打开",py:"dǎkāi",fr:"ouvrir",note:""},
+    {han:"完成",py:"wánchéng",fr:"accomplir, terminer",note:""}
+  ],
+  grammar:`
+    <p>Structure : <span class="mono">Sujet + 把 + objet précis + verbe + complément</span>, au lieu de l'ordre SVO habituel.</p>
+    <ul>
+      <li><i>我把书放在桌子上。</i> (J'ai posé le livre sur la table.) — littéralement « je, [prenant] le livre, l'ai posé sur la table ».</li>
+      <li>On utilise 把 quand on parle d'un objet <b>précis et connu</b> (« le livre », pas « un livre »), et que le verbe a un complément qui décrit ce qu'il devient : <i>把门关上。</i> (Ferme la porte.)</li>
+      <li>Sans 把, la phrase <i>我放书在桌子上</i> sonnerait incomplète/peu naturelle — le 把字句 est souvent obligatoire, pas optionnel, dans ce type de phrase.</li>
+    </ul>
+    <div class="callout">Règle simple pour savoir quand utiliser 把 : si vous « faites quelque chose à » un objet précis et que le verbe ne peut pas rester seul sans complément, pensez au 把字句.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你把作业写完了吗？",fr:"T'as fini d'écrire tes devoirs ?"},
+    {sp:"B",han:"还没，但是我已经把书打开了。",fr:"Pas encore, mais j'ai déjà ouvert le livre."}
+  ],
+  ex:{
+    mcq:[
+      {q:"La structure 把 déplace :",options:["le sujet en fin de phrase","l'objet précis avant le verbe","le verbe en tête de phrase"],a:1},
+      {q:"« 把门关上 » signifie :",options:["Ouvre la porte","Ferme la porte","Regarde la porte"],a:1},
+      {q:"On utilise 把 surtout quand :",options:["l'objet est indéfini (« un »)","l'objet est précis et connu (« le »)","il n'y a pas d'objet"],a:1}
+    ],
+    listen:[
+      {han:"打开",options:["ouvrir","fermer","poser"],a:0},
+      {han:"完成",options:["accomplir, terminer","commencer","oublier"],a:0}
+    ],
+    fill:[
+      {sentence:"« Ferme la porte » se dit ___门关上 (pinyin bǎ).",answer:"ba",hint:"1 mot"},
+      {sentence:"« Poser » se dit ___ (pinyin fàng).",answer:"fang",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:32, level:4,
+  title:"高级比较",
+  sub:"Comparaisons avancées",
+  intro:"Au-delà du comparatif simple avec 比, ce niveau introduit des nuances plus fines : proportionnalité et infériorité marquée.",
+  vocab:[
+    {han:"越来越",py:"yuè lái yuè",fr:"de plus en plus (avec le temps)",note:""},
+    {han:"越...越...",py:"yuè...yuè...",fr:"plus...plus... (proportionnalité)",note:""},
+    {han:"不如",py:"bùrú",fr:"ne pas valoir, être moins bien que",note:""},
+    {han:"比起",py:"bǐqǐ",fr:"comparé à",note:""}
+  ],
+  grammar:`
+    <p><span class="mono">越来越 + adjectif</span> exprime une évolution progressive dans le temps : <i>天气越来越冷。</i> (Il fait de plus en plus froid.)</p>
+    <ul>
+      <li><span class="mono">越...越...</span> exprime une proportionnalité entre deux évolutions : <i>越学越有意思。</i> (Plus on étudie, plus c'est intéressant.)</li>
+      <li><span class="mono">A + 不如 + B</span> exprime que A est moins bien que B, une infériorité plus nuancée que 没有 : <i>这个不如那个好。</i> (Celui-ci est moins bien que celui-là.)</li>
+      <li><span class="mono">比起 + A，B...</span> introduit un point de comparaison en tête de phrase : <i>比起以前，现在方便多了。</i> (Comparé à avant, c'est bien plus pratique maintenant.)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"这个城市越来越贵了。",fr:"Cette ville devient de plus en plus chère."},
+    {sp:"B",han:"是啊，比起以前，生活成本高多了，不过越住越喜欢。",fr:"Ouais, comparé à avant, le coût de la vie est bien plus élevé, mais plus j'y vis, plus j'aime ça."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 越来越冷 » exprime :",options:["une action ponctuelle","une évolution progressive dans le temps","une négation"],a:1},
+      {q:"« 不如 » exprime :",options:["la supériorité","une infériorité nuancée","l'égalité"],a:1},
+      {q:"« 越学越有意思 » exprime :",options:["une proportionnalité entre deux évolutions","une simple négation","une question"],a:0}
+    ],
+    listen:[
+      {han:"比起",options:["comparé à","malgré","à cause de"],a:0}
+    ],
+    fill:[
+      {sentence:"« De plus en plus » se dit 越来___ (pinyin yuè).",answer:"yue",hint:"1 mot"},
+      {sentence:"« Être moins bien que » se dit 不___ (pinyin rú).",answer:"ru",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:33, level:4,
+  title:"书面连词",
+  sub:"Connecteurs du registre écrit",
+  intro:"À l'écrit ou dans un discours soigné, les connecteurs oraux du niveau 2 sont souvent remplacés par des équivalents plus formels.",
+  vocab:[
+    {han:"因此",py:"yīncǐ",fr:"c'est pourquoi (écrit)",note:"remplace 所以"},
+    {han:"然而",py:"rán'ér",fr:"cependant (écrit)",note:"remplace 但是"},
+    {han:"尽管...但是...",py:"jǐnguǎn...dànshì...",fr:"bien que...(écrit)",note:"remplace 虽然"},
+    {han:"为了",py:"wèile",fr:"afin de, dans le but de",note:""},
+    {han:"由于",py:"yóuyú",fr:"en raison de (écrit)",note:"remplace 因为"}
+  ],
+  grammar:`
+    <p>Le passage à un registre écrit/soutenu se fait surtout par un changement de vocabulaire, la structure de phrase restant proche.</p>
+    <ul>
+      <li>Cause/conséquence formelle : <span class="mono">由于...因此...</span> remplace <span class="mono">因为...所以...</span>.</li>
+      <li>Concession formelle : <span class="mono">尽管...但是/然而...</span> remplace <span class="mono">虽然...但是...</span>.</li>
+      <li><span class="mono">为了</span> introduit un but, souvent en tête de phrase : <i>为了健康，他每天运动。</i> (Pour sa santé, il fait du sport tous les jours.)</li>
+    </ul>
+    <div class="callout">Savoir alterner entre connecteurs oraux (niveau 2) et leurs équivalents écrits est ce qui distingue un niveau intermédiaire d'un niveau avancé à l'écrit.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"由于交通问题，会议将延迟开始。",fr:"En raison de problèmes de circulation, la réunion commencera en retard."},
+    {sp:"B",han:"我明白了，然而这样对客户不太好。",fr:"Je comprends, cependant ce n'est pas très bon pour les clients."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 因此 » remplace à l'écrit :",options:["但是","所以","如果"],a:1},
+      {q:"« 尽管...但是... » correspond à l'oral à :",options:["因为...所以...","虽然...但是...","如果...就..."],a:1},
+      {q:"« 为了 » introduit :",options:["une cause","un but","une conclusion"],a:1}
+    ],
+    listen:[
+      {han:"由于",options:["en raison de","malgré","afin de"],a:0}
+    ],
+    fill:[
+      {sentence:"« Cependant » (écrit) se dit ___而 (pinyin rán).",answer:"ran",hint:"1 mot"},
+      {sentence:"« Afin de » se dit 为___ (pinyin le).",answer:"le",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:34, level:4,
+  title:"是...的强调句",
+  sub:"La structure d'emphase 是...的",
+  intro:"Pour souligner le moment, le lieu, la manière ou l'auteur d'une action déjà passée et connue des deux interlocuteurs, le mandarin encadre l'information avec 是...的.",
+  vocab:[
+    {han:"是...的",py:"shì...de",fr:"structure d'emphase (temps/lieu/manière d'un fait passé)",note:""},
+    {han:"怎么",py:"zěnme",fr:"comment (souvent utilisé dans 是...的)",note:""},
+    {han:"什么时候",py:"shénme shíhou",fr:"quand",note:""},
+    {han:"坐",py:"zuò",fr:"prendre (un moyen de transport), s'asseoir",note:""}
+  ],
+  grammar:`
+    <p>Structure : <span class="mono">Sujet + 是 + (info à souligner) + Verbe + 的</span> — utilisée seulement pour une action déjà terminée, dont l'existence n'est pas remise en question, mais dont on précise un détail.</p>
+    <ul>
+      <li><i>我是昨天来的。</i> (C'est hier que je suis venu.) — on sait déjà que la personne est venue ; on précise juste QUAND.</li>
+      <li><i>他是坐火车来的。</i> (C'est en train qu'il est venu.) — précise COMMENT.</li>
+      <li>Différence avec 了 : <i>我昨天来了</i> annonce simplement le fait (je suis venu hier) ; <i>我是昨天来的</i> insiste sur le « hier » comme information nouvelle/importante.</li>
+    </ul>
+    <div class="callout">Cette structure est extrêmement fréquente à l'oral pour répondre à des questions en 什么时候/怎么/在哪儿 portant sur un fait déjà connu.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你是怎么来的？",fr:"T'es venu comment ?"},
+    {sp:"B",han:"我是坐地铁来的，不是开车来的。",fr:"Je suis venu en métro, pas en voiture."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 是...的 » s'utilise pour :",options:["une action future","souligner un détail d'une action passée déjà connue","nier une action"],a:1},
+      {q:"« 我是昨天来的 » insiste sur :",options:["le fait que je suis venu","le moment où je suis venu","la raison de ma venue"],a:1}
+    ],
+    listen:[
+      {han:"什么时候",options:["quand","comment","où"],a:0}
+    ],
+    fill:[
+      {sentence:"« C'est en train qu'il est venu » se dit 他是坐火车来___ (pinyin de).",answer:"de",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:35, level:4,
+  title:"反问句与强调句",
+  sub:"Questions rhétoriques et structures d'emphase",
+  intro:"Pour insister ou exprimer une évidence sous forme de question, le mandarin utilise des structures rhétoriques qui n'attendent pas vraiment de réponse.",
+  vocab:[
+    {han:"难道",py:"nándào",fr:"est-ce que vraiment (question rhétorique, incrédulité)",note:""},
+    {han:"不是...吗？",py:"bú shì...ma?",fr:"n'est-ce pas...? (évidence sous forme de question)",note:""},
+    {han:"连...都/也",py:"lián...dōu/yě",fr:"même... (mise en relief d'un extrême)",note:""},
+    {han:"到底",py:"dàodǐ",fr:"en fin de compte, au juste (insistance)",note:""}
+  ],
+  grammar:`
+    <p><span class="mono">难道</span> introduit une question rhétorique exprimant la surprise ou l'incrédulité : <i>难道你不知道吗？</i> (Tu ne le savais vraiment pas ?)</p>
+    <ul>
+      <li><span class="mono">不是...吗？</span> affirme quelque chose sous forme de question évidente : <i>你不是学生吗？</i> (Tu n'es pas étudiant, si ?)</li>
+      <li><span class="mono">连...都/也</span> met en relief un cas extrême, comme « ngay cả » en vietnamien : <i>连小孩都懂。</i> (Même un enfant comprend ça.)</li>
+      <li><span class="mono">到底</span> renforce une question, exigeant une réponse claire : <i>你到底想要什么？</i> (Qu'est-ce que tu veux, au juste ?)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"你到底去不去？难道你还没决定吗？",fr:"Tu y vas ou pas, au juste ? Tu n'as vraiment pas encore décidé ?"},
+    {sp:"B",han:"连我自己都不知道！",fr:"Même moi je sais pas !"}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 难道 » sert à exprimer :",options:["une certitude neutre","la surprise/l'incrédulité dans une question","un ordre"],a:1},
+      {q:"« 连...都 » sert à :",options:["mettre en relief un cas extrême","nier une action","poser une question fermée"],a:0}
+    ],
+    listen:[
+      {han:"到底",options:["en fin de compte, au juste","jamais","peut-être"],a:0}
+    ],
+    fill:[
+      {sentence:"« Même un enfant comprend » se dit ___小孩都懂 (pinyin lián).",answer:"lian",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:36, level:4,
+  title:"双宾语句",
+  sub:"Les phrases à double objet",
+  intro:"Certains verbes comme « donner » ou « enseigner » peuvent prendre deux objets à la suite — un destinataire et une chose — sans préposition intermédiaire.",
+  vocab:[
+    {han:"给",py:"gěi",fr:"donner",note:"aussi préposition « à/pour »"},
+    {han:"教",py:"jiāo",fr:"enseigner",note:""},
+    {han:"送",py:"sòng",fr:"offrir, accompagner",note:""},
+    {han:"还",py:"huán",fr:"rendre, restituer",note:""},
+    {han:"问",py:"wèn",fr:"demander (déjà vu à l'unité 18)",note:"peut aussi prendre un double objet"}
+  ],
+  grammar:`
+    <p>Structure : <span class="mono">Sujet + Verbe + Destinataire + Objet</span>, sans préposition — <i>他给我一本书。</i> (Il me donne un livre.)</p>
+    <ul>
+      <li><i>老师教我们中文。</i> (Le professeur nous enseigne le chinois.)</li>
+      <li><i>我送她一束花。</i> (Je lui offre un bouquet de fleurs.)</li>
+      <li>Cette structure fonctionne avec un nombre limité de verbes de transfert (donner/enseigner/offrir/rendre/demander) — elle ne s'applique pas à tous les verbes.</li>
+    </ul>
+    <div class="callout">On peut aussi reformuler avec 把 (unité 25) en insistant sur l'objet : <i>我把书给了他。</i> (J'ai donné le livre à lui.) — les deux structures sont possibles selon ce qu'on veut souligner.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你能教我中文吗？",fr:"Tu peux m'enseigner le chinois ?"},
+    {sp:"B",han:"可以，我送你一本词典吧。",fr:"Oui, je vais t'offrir un dictionnaire."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 他给我一本书 » utilise l'ordre :",options:["Verbe+Objet+Destinataire","Verbe+Destinataire+Objet","Destinataire+Verbe+Objet"],a:1},
+      {q:"« 教 » signifie :",options:["apprendre (pour soi)","enseigner","demander"],a:1}
+    ],
+    listen:[
+      {han:"送",options:["offrir, accompagner","rendre","demander"],a:0}
+    ],
+    fill:[
+      {sentence:"« Rendre, restituer » se dit ___ (pinyin huán).",answer:"huan",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:37, level:4,
+  title:"趋向补语进阶与列举",
+  sub:"起来/下去 avancés, et lister sans être exhaustif (HSK4)",
+  intro:"起来 et 下去 étendent le sens des compléments de direction déjà vus vers des usages abstraits très fréquents ; on ajoute aussi comment lister des exemples sans prétendre à l'exhaustivité.",
+  vocab:[
+    {han:"起来",py:"qǐlai",fr:"complément : commencer à (sens abstrait/inchoatif)",note:"天气热起来了 = il commence à faire chaud"},
+    {han:"下去",py:"xiàqu",fr:"complément : continuer à (sens abstrait/continuatif)",note:"说下去 = continue de parler"},
+    {han:"死了",py:"sǐle",fr:"complément d'intensité extrême après adjectif",note:"累死了 = mort de fatigue"},
+    {han:"什么的",py:"shénmede",fr:"et autres, etc. (liste non exhaustive, oral)",note:""},
+    {han:"等 / 等等",py:"děng / děngděng",fr:"etc. (liste non exhaustive, plus neutre/écrit)",note:""},
+    {han:"结果",py:"jiéguǒ",fr:"résultat, en conséquence (connecteur)",note:""},
+    {han:"于是",py:"yúshì",fr:"et alors, du coup (connecteur de succession)",note:""}
+  ],
+  grammar:`
+    <p><span class="mono">起来</span> après un adjectif ou un verbe exprime le début d'un processus : <i>天气热起来了。</i> (Il commence à faire chaud.)</p>
+    <ul>
+      <li><span class="mono">下去</span> exprime la continuation d'une action déjà en cours : <i>请你说下去。</i> (Continue de parler, je t'en prie.)</li>
+      <li><span class="mono">Adjectif + 死了</span> intensifie à l'extrême, très oral : <i>热死了！</i> (On crève de chaud !)</li>
+      <li>Pour lister sans épuiser tous les exemples : <span class="mono">Noun1, Noun2 + 什么的</span> (oral) ou <span class="mono">Noun1、Noun2 + 等/等等</span> (plus neutre) : <i>水果、蔬菜什么的都要买。</i> (Il faut acheter des fruits, des légumes, etc.)</li>
+      <li><span class="mono">结果</span> et <span class="mono">于是</span> relient une cause à sa suite : <i>他没复习，结果没通过考试。</i> (Il n'a pas révisé, résultat il a raté l'examen.)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"天气冷起来了，你多穿点衣服。",fr:"Il commence à faire froid, mets plus de vêtements."},
+    {sp:"B",han:"好，那你继续说下去吧，我在听。",fr:"Ok, bon continue de raconter, j'écoute."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 天气热起来了 » exprime :",options:["le début d'un processus","la fin d'un processus","une négation"],a:0},
+      {q:"« 下去 » après un verbe exprime :",options:["la continuation d'une action","le début d'une action","l'interdiction"],a:0},
+      {q:"« 什么的 » sert à :",options:["nier une liste","lister sans être exhaustif","poser une question"],a:1}
+    ],
+    listen:[
+      {han:"于是",options:["et alors, du coup","mais","parce que"],a:0},
+      {han:"死了",options:["intensité extrême (oral)","négation","question"],a:0}
+    ],
+    fill:[
+      {sentence:"« Continue de parler » se dit 说___ (pinyin xiàqu).",answer:"xiaqu",hint:"1 mot"},
+      {sentence:"« Résultat, en conséquence » se dit ___果 (pinyin jié).",answer:"jie",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:38, level:4,
+  title:"话题延伸词与判断动词",
+  sub:"好像/以为/原来/从来/之一/倍 (HSK4)",
+  intro:"Un lot de mots-outils HSK4 pour nuancer un jugement, exprimer une méprise, ou quantifier une comparaison.",
+  vocab:[
+    {han:"好像",py:"hǎoxiàng",fr:"il semble que, on dirait que",note:""},
+    {han:"以为",py:"yǐwéi",fr:"croire à tort que (souvent contredit ensuite)",note:"différent de 认为 (penser que, sans erreur impliquée)"},
+    {han:"原来",py:"yuánlái",fr:"à l'origine / en fait, il s'avère que",note:""},
+    {han:"从来",py:"cónglái",fr:"jamais / toujours (avec 不/没)",note:"从来不 = ne jamais"},
+    {han:"之一",py:"zhīyī",fr:"l'un/l'une de...",note:"我最好的朋友之一 = l'un de mes meilleurs amis"},
+    {han:"倍",py:"bèi",fr:"fois (multiplicateur)",note:"是...的两倍 = c'est le double de..."}
+  ],
+  grammar:`
+    <p><span class="mono">以为</span> implique presque toujours une croyance erronée, contredite par la suite : <i>我以为你不来了。</i> (Je croyais [à tort] que tu ne venais pas.) — différent de <span class="mono">认为</span> qui est une opinion neutre.</p>
+    <ul>
+      <li><span class="mono">原来</span> marque une découverte/révélation : <i>原来是你！</i> (Ah, c'est toi en fait !) — souvent traduit par « il s'avère que ».</li>
+      <li><span class="mono">从来 + 不/没</span> renforce une négation habituelle ou totale : <i>他从来不迟到。</i> (Il n'est jamais en retard.)</li>
+      <li><span class="mono">之一</span> se place après le nom : <i>这是最好的餐厅之一。</i> (C'est l'un des meilleurs restaurants.)</li>
+      <li><span class="mono">Noun1 + 是 + Noun2 + 的 + Nombre + 倍</span> exprime un multiple : <i>他的工资是我的两倍。</i> (Son salaire est le double du mien.)</li>
+    </ul>
+    <div class="callout">« 以为 » vs « 认为 » est un piège classique : utilisez 以为 seulement quand la croyance s'est révélée fausse.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"咦，原来你也在这儿！我以为你今天不来了。",fr:"Tiens, tu es là en fait ! Je croyais que tu venais pas aujourd'hui."},
+    {sp:"B",han:"我从来不缺席这种聚会，这可是我最喜欢的活动之一。",fr:"Je rate jamais ce genre de soirée, c'est l'une de mes activités préférées."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 以为 » implique généralement :",options:["une opinion neutre","une croyance qui se révèle fausse","un ordre"],a:1},
+      {q:"« 原来 » exprime souvent :",options:["une découverte, une révélation","une négation habituelle","une comparaison"],a:0},
+      {q:"« 是...的两倍 » exprime :",options:["une multiplication par deux","une division par deux","une égalité"],a:0}
+    ],
+    listen:[
+      {han:"从来",options:["jamais/toujours (avec négation)","parfois","souvent"],a:0},
+      {han:"之一",options:["l'un/l'une de...","tous les","aucun"],a:0}
+    ],
+    fill:[
+      {sentence:"« Il semble que » se dit ___像 (pinyin hǎo).",answer:"hao",hint:"1 mot"},
+      {sentence:"« Il n'est jamais en retard » se dit 他___不迟到 (pinyin cónglái).",answer:"conglai",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:39, level:4,
+  title:"社会与环境词汇",
+  sub:"Vocabulaire de la société et de l'environnement",
+  intro:"Un vocabulaire plus abstrait, adapté aux connecteurs écrits soutenus de ce niveau.",
+  vocab:[
+    {han:"环境",py:"huánjìng",fr:"l'environnement",note:""},
+    {han:"污染",py:"wūrǎn",fr:"la pollution",note:""},
+    {han:"资源",py:"zīyuán",fr:"les ressources",note:""},
+    {han:"可持续发展",py:"kě chíxù fāzhǎn",fr:"le développement durable",note:""},
+    {han:"人口",py:"rénkǒu",fr:"la population",note:""},
+    {han:"城市化",py:"chéngshìhuà",fr:"l'urbanisation",note:""},
+    {han:"农村",py:"nóngcūn",fr:"la campagne, le rural",note:""},
+    {han:"气候变化",py:"qìhòu biànhuà",fr:"le changement climatique",note:""},
+    {han:"政策",py:"zhèngcè",fr:"la politique (mesure officielle)",note:""},
+    {han:"解决方案",py:"jiějué fāng'àn",fr:"la solution",note:""}
+  ],
+  grammar:`
+    <p>Ce vocabulaire se combine bien avec les connecteurs écrits : <i>由于污染问题，因此政府需要新的政策。</i> (En raison du problème de pollution, le gouvernement a donc besoin de nouvelles politiques.)</p>
+  `,
+  dialogue:[
+    {sp:"A",han:"城市化对环境的影响越来越大。",fr:"L'impact de l'urbanisation sur l'environnement devient de plus en plus important."},
+    {sp:"B",han:"是啊，因此我们需要可持续发展的解决方案。",fr:"Ouais, c'est pourquoi on a besoin de solutions de développement durable."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 污染 » signifie :",options:["la pollution","les ressources","la solution"],a:0},
+      {q:"« 人口 » signifie :",options:["la population","la politique","l'environnement"],a:0}
+    ],
+    listen:[
+      {han:"气候变化",options:["le changement climatique","la croissance économique","la tradition"],a:0}
+    ],
+    fill:[
+      {sentence:"« La campagne » se dit ___村 (pinyin nóng).",answer:"nong",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:40, level:4,
+  title:"第四级测验",
+  sub:"Test de révision — tout le niveau HSK4",
+  intro:"Ce test couvre 把字句, la comparaison avancée, les connecteurs écrits, 是...的, les questions rhétoriques, la double objet, 起来/下去 et les mots de jugement (好像/以为/原来) vus dans ce niveau.",
+  vocab:[
+    {han:"把",py:"bǎ",fr:"structure de traitement d'un objet précis",note:"unité 31"},
+    {han:"越来越 / 不如",py:"",fr:"comparaison avancée",note:"unité 32"},
+    {han:"因此 / 尽管...但是",py:"",fr:"connecteurs écrits",note:"unité 33"},
+    {han:"是...的",py:"shì...de",fr:"structure d'emphase",note:"unité 34"},
+    {han:"难道 / 连...都",py:"",fr:"questions rhétoriques et emphase",note:"unité 35"},
+    {han:"给 / 教 / 送",py:"",fr:"double objet",note:"unité 36"},
+    {han:"起来 / 下去 / 什么的",py:"",fr:"compléments abstraits et listes",note:"unité 37"},
+    {han:"好像 / 以为 / 原来",py:"",fr:"mots de jugement",note:"unité 38"}
+  ],
+  grammar:`
+    <p>Récapitulatif des points clés du niveau HSK4 :</p>
+    <ul>
+      <li>把字句 : Sujet+把+objet précis+verbe+complément, pour « traiter » un objet spécifique.</li>
+      <li>Comparaison avancée : 越来越 (évolution progressive), 越...越... (proportionnalité), 不如 (infériorité nuancée).</li>
+      <li>Connecteurs écrits : 因此/由于 (cause-conséquence formelle), 尽管...但是/然而... (concession formelle).</li>
+      <li>是...的 : souligne un détail (temps/lieu/manière) d'une action passée déjà connue.</li>
+      <li>难道/不是...吗 (question rhétorique) ; 连...都/也 (mise en relief d'un extrême).</li>
+      <li>Double objet : Verbe+Destinataire+Objet (给/教/送/还).</li>
+      <li>起来 (début d'un processus), 下去 (continuation), 什么的/等等 (liste non exhaustive).</li>
+      <li>好像 (il semble que), 以为 (croire à tort), 原来 (il s'avère que), 从来 (jamais/toujours), 之一 (l'un de), 倍 (multiplicateur).</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"这份报告是你写的吗？难道你一个人完成的？",fr:"Ce rapport, c'est toi qui l'as écrit ? T'as vraiment fini ça tout seul ?"},
+    {sp:"B",han:"对，我把所有资料都看了一遍，连周末都在工作。原来我以为一天就能写完，结果花了一个星期。",fr:"Oui, j'ai relu tous les documents, j'ai même travaillé le week-end. En fait je croyais pouvoir finir en un jour, mais du coup ça a pris une semaine."}
+  ],
+  ex:{
+    mcq:[
+      {q:"La structure 把 déplace :",options:["le sujet en fin de phrase","l'objet précis avant le verbe","le verbe en tête de phrase"],a:1},
+      {q:"« 越来越冷 » exprime :",options:["une action ponctuelle","une évolution progressive dans le temps","une négation"],a:1},
+      {q:"« 是...的 » s'utilise pour :",options:["une action future","souligner un détail d'une action passée déjà connue","nier une action"],a:1},
+      {q:"« 连...都 » sert à :",options:["mettre en relief un cas extrême","nier une action","poser une question fermée"],a:0},
+      {q:"« 天气热起来了 » exprime :",options:["le début d'un processus","la fin d'un processus","une négation"],a:0},
+      {q:"« 以为 » implique généralement :",options:["une opinion neutre","une croyance qui se révèle fausse","un ordre"],a:1}
+    ],
+    listen:[
+      {han:"由于",options:["en raison de","malgré","afin de"],a:0},
+      {han:"难道",options:["est-ce que vraiment (incrédulité)","bien sûr que","jamais"],a:0},
+      {han:"原来",options:["il s'avère que, en fait","jamais","toujours"],a:0}
+    ],
+    fill:[
+      {sentence:"« Ferme la porte » se dit ___门关上 (pinyin bǎ).",answer:"ba",hint:"1 mot"},
+      {sentence:"« C'est en train qu'il est venu » se dit 他是坐火车来___ (pinyin de).",answer:"de",hint:"1 mot"},
+      {sentence:"« Continue de parler » se dit 说___ (pinyin xiàqu).",answer:"xiaqu",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:41, level:5,
+  title:"正式与非正式语体",
+  sub:"Basculer entre registre formel et familier",
+  intro:"Un même message se dit très différemment selon qu'on s'adresse à un supérieur, un inconnu, ou un ami proche.",
+  vocab:[
+    {han:"您",py:"nín",fr:"vous (poli, singulier)",note:"déjà vu à l'unité 2"},
+    {han:"请问",py:"qǐngwèn",fr:"puis-je vous demander (formule polie)",note:""},
+    {han:"...一下",py:"...yíxià",fr:"un instant, un peu (adoucit une demande)",note:"等一下 = attends un instant"},
+    {han:"麻烦你",py:"máfan nǐ",fr:"désolé de te déranger, s'il te plaît",note:""},
+    {han:"呗",py:"bei",fr:"particule très familière (« voilà, quoi »)",note:"minimise/évidence, registre décontracté"},
+    {han:"嘛",py:"ma",fr:"particule familière d'évidence",note:"différent du 吗 interrogatif"}
+  ],
+  grammar:`
+    <p>Le passage au registre formel se marque par le choix du pronom, des formules d'ouverture, et des particules finales.</p>
+    <ul>
+      <li><span class="mono">请问</span> ouvre poliment une question à un inconnu : <i>请问，洗手间在哪儿？</i> (Excusez-moi, où sont les toilettes ?)</li>
+      <li><span class="mono">verbe + 一下</span> adoucit une demande, la rend plus légère : <i>你可以帮我一下吗？</i> (Tu peux m'aider un peu ?)</li>
+      <li><span class="mono">呗</span> et <span class="mono">嘛</span> sont des particules très familières, à réserver aux amis proches : <i>没事儿，去呗！</i> (Pas de souci, vas-y, quoi !)</li>
+    </ul>
+    <div class="callout">« 麻烦你 » est une formule extrêmement utile et polie au quotidien en Chine — un bon réflexe pour toute demande de service, même simple.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"请问，您知道地铁站怎么走吗？",fr:"Excusez-moi, savez-vous comment aller à la station de métro ?"},
+    {sp:"B",han:"知道，麻烦你等我一下，我带你去。",fr:"Oui, attendez-moi un instant s'il vous plaît, je vous y emmène."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 请问 » s'utilise pour :",options:["donner un ordre","ouvrir poliment une question","refuser"],a:1},
+      {q:"« 呗 » et « 嘛 » sont un registre :",options:["très formel","très familier, entre proches","administratif"],a:1},
+      {q:"« Verbe + 一下 » sert à :",options:["renforcer un ordre","adoucir une demande","nier une action"],a:1}
+    ],
+    listen:[
+      {han:"麻烦你",options:["désolé de te déranger","félicitations","au revoir"],a:0}
+    ],
+    fill:[
+      {sentence:"« Vous » poli se dit ___ (pinyin nín).",answer:"nin",hint:"1 mot"},
+      {sentence:"« Puis-je vous demander » se dit 请___ (pinyin wèn).",answer:"wen",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:42, level:5,
+  title:"成语与俗语",
+  sub:"Idiomes en 4 caractères et expressions courantes",
+  intro:"Les 成语 (chengyu), expressions figées de 4 caractères souvent issues de récits classiques, sont omniprésents en mandarin — les connaître rend le discours naturel et cultivé.",
+  vocab:[
+    {han:"马马虎虎",py:"mǎmǎhūhū",fr:"comme ci comme ça / négligent",note:"litt. « cheval-cheval-tigre-tigre »"},
+    {han:"入乡随俗",py:"rùxiāngsuísú",fr:"à Rome, fais comme les Romains",note:"litt. « entrer au village, suivre les coutumes »"},
+    {han:"一举两得",py:"yī jǔ liǎng dé",fr:"faire d'une pierre deux coups",note:"litt. « un geste, deux gains »"},
+    {han:"画蛇添足",py:"huàshétiānzú",fr:"en faire trop, ajouter du superflu",note:"litt. « peindre un serpent en ajoutant des pattes »"},
+    {han:"半途而废",py:"bàntú'érfèi",fr:"abandonner à mi-chemin",note:""}
+  ],
+  grammar:`
+    <p>Un chengyu s'insère directement dans une phrase comme un adjectif ou une expression toute faite, sans grammaire particulière à ajouter.</p>
+    <ul>
+      <li><i>他做事马马虎虎。</i> (Il fait les choses de façon négligente.)</li>
+      <li>La plupart des chengyu viennent de récits ou fables classiques — connaître l'histoire d'origine aide à mémoriser le sens (画蛇添足 vient d'une fable où quelqu'un, ayant gagné une course, ajoute des pattes à son dessin de serpent et perd le concours).</li>
+    </ul>
+    <div class="callout">Utiliser un chengyu au bon moment impressionne toujours un interlocuteur chinois — mais mieux vaut bien en comprendre le sens figuré avant de s'en servir, comme pour les proverbes vietnamiens.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你觉得这个计划怎么样？",fr:"Tu penses quoi de ce plan ?"},
+    {sp:"B",han:"马马虎虎吧，我觉得有点画蛇添足。",fr:"Comme ci comme ça, je trouve qu'il y a un peu trop de superflu."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 马马虎虎 » signifie :",options:["excellent","comme ci comme ça, négligent","catastrophique"],a:1},
+      {q:"« 一举两得 » signifie :",options:["perdre son temps","faire d'une pierre deux coups","tout recommencer"],a:1},
+      {q:"« 半途而废 » signifie :",options:["réussir brillamment","abandonner à mi-chemin","commencer tard"],a:1}
+    ],
+    listen:[
+      {han:"入乡随俗",options:["à Rome, fais comme les Romains","jamais content","toujours pressé"],a:0}
+    ],
+    fill:[
+      {sentence:"« Comme ci comme ça » se dit 马___虎虎 (pinyin mǎ).",answer:"ma",hint:"1 mot"},
+      {sentence:"« Faire d'une pierre deux coups » se dit 一举两___ (pinyin dé).",answer:"de",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:43, level:5,
+  title:"复杂句型",
+  sub:"Phrases complexes à connecteurs combinés",
+  intro:"Le niveau avancé se reconnaît à la capacité d'enchaîner plusieurs idées dans une même phrase avec des connecteurs combinés.",
+  vocab:[
+    {han:"不仅...而且...",py:"bùjǐn...érqiě...",fr:"non seulement...mais aussi...",note:""},
+    {han:"一...就...",py:"yī...jiù...",fr:"dès que...alors...",note:""},
+    {han:"除了...以外",py:"chúle...yǐwài",fr:"à part..., en dehors de...",note:""},
+    {han:"无论...都...",py:"wúlùn...dōu...",fr:"peu importe..., dans tous les cas...",note:""}
+  ],
+  grammar:`
+    <p><span class="mono">不仅...而且...</span> ajoute une information en surenchère : <i>她不仅聪明，而且很努力。</i> (Elle n'est pas seulement intelligente, mais aussi très travailleuse.)</p>
+    <ul>
+      <li><span class="mono">一...就...</span> exprime une succession immédiate : <i>我一到家就洗澡。</i> (Dès que j'arrive chez moi, je prends une douche.)</li>
+      <li><span class="mono">除了...以外</span> introduit une exception ou un ajout : <i>除了他以外，大家都来了。</i> (À part lui, tout le monde est venu.)</li>
+      <li><span class="mono">无论...都...</span> exprime une généralisation malgré les circonstances : <i>无论多忙，他都会锻炼。</i> (Peu importe à quel point il est occupé, il fait toujours du sport.)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"这家餐厅不仅便宜，而且很好吃，除了周一以外每天都开。",fr:"Ce resto n'est pas seulement pas cher, il est aussi très bon, et il est ouvert tous les jours sauf le lundi."},
+    {sp:"B",han:"太好了，那我们一有空就去吧！",fr:"Super, alors dès qu'on a un moment de libre, allons-y !"}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 不仅...而且... » exprime :",options:["une opposition","une surenchère (en plus de)","une condition"],a:1},
+      {q:"« 一...就... » exprime :",options:["une succession immédiate","une négation","une comparaison"],a:0},
+      {q:"« 无论...都... » exprime :",options:["une généralisation malgré les circonstances","une exception unique","une simple question"],a:0}
+    ],
+    listen:[
+      {han:"除了",options:["à part, en dehors de","à cause de","grâce à"],a:0}
+    ],
+    fill:[
+      {sentence:"« Non seulement...mais aussi » se dit 不仅...而___ (pinyin qiě).",answer:"qie",hint:"1 mot"},
+      {sentence:"« Peu importe » se dit ___论 (pinyin wú).",answer:"wu",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:44, level:5,
+  title:"让步结构",
+  sub:"Structures de concession renforcée",
+  intro:"Au-delà de 虽然...但是... (niveau 2), ce niveau explore des concessions plus fortes ou plus nuancées, utiles pour un discours argumentatif soutenu.",
+  vocab:[
+    {han:"即使...也...",py:"jíshǐ...yě...",fr:"même si...quand même... (concession hypothétique)",note:""},
+    {han:"哪怕...也...",py:"nǎpà...yě...",fr:"même si, quand bien même (plus emphatique)",note:""},
+    {han:"不管...都...",py:"bùguǎn...dōu...",fr:"peu importe... (proche de 无论)",note:""},
+    {han:"再...也...",py:"zài...yě...",fr:"aussi...que ce soit, ...quand même",note:"再忙也要吃饭 = même très occupé, il faut manger"}
+  ],
+  grammar:`
+    <p><span class="mono">即使...也...</span> exprime une concession hypothétique (même dans un cas qui ne s'est pas forcément produit) : <i>即使下雨，我也会去。</i> (Même s'il pleut, j'irai quand même.)</p>
+    <ul>
+      <li><span class="mono">哪怕</span> est plus emphatique, souvent utilisé pour un cas extrême : <i>哪怕只有一分钟，我也想见你。</i> (Même si ce n'est qu'une minute, je veux te voir.)</li>
+      <li><span class="mono">不管...都...</span> est proche de 无论...都... (niveau 5, unité 38 - déjà vu) : généralisation malgré les circonstances.</li>
+      <li><span class="mono">再...也...</span> insiste sur un degré extrême qui n'empêche pas la conséquence : <i>再累也要坚持。</i> (Même très fatigué, il faut persévérer.)</li>
+    </ul>
+    <div class="callout">Nuance : 虽然...但是... porte sur un fait réel et connu, alors que 即使...也... porte souvent sur une hypothèse, réelle ou non.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"即使很难，我们也不能放弃。",fr:"Même si c'est difficile, on ne peut pas abandonner."},
+    {sp:"B",han:"对，哪怕只剩一点希望，也值得坚持。",fr:"Oui, même s'il ne reste qu'un peu d'espoir, ça vaut le coup de persévérer."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 即使...也... » exprime :",options:["une cause","une concession hypothétique","une simultanéité"],a:1},
+      {q:"« 再...也... » insiste sur :",options:["un degré extrême qui n'empêche pas la conséquence","une simple négation","une question"],a:0}
+    ],
+    listen:[
+      {han:"哪怕",options:["même si, quand bien même","jamais","toujours"],a:0}
+    ],
+    fill:[
+      {sentence:"« Même s'il pleut, j'irai quand même » se dit 即使下雨，我___会去 (pinyin yě).",answer:"ye",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:45, level:5,
+  title:"谦辞与敬辞",
+  sub:"Vocabulaire humble et honorifique",
+  intro:"Le mandarin soutenu dispose d'un vocabulaire spécial pour s'abaisser poliment (谦辞) ou honorer son interlocuteur (敬辞) — un registre social très marqué, utile dans un contexte professionnel ou avec des aînés.",
+  vocab:[
+    {han:"贵",py:"guì",fr:"préfixe honorifique : votre (précieux)",note:"贵公司 = votre entreprise (honorifique)"},
+    {han:"敝",py:"bì",fr:"préfixe humble : mon (humble, modeste)",note:"敝人 = moi-même (très formel/humble)"},
+    {han:"请教",py:"qǐngjiào",fr:"solliciter respectueusement un conseil",note:""},
+    {han:"拜托",py:"bàituō",fr:"je vous prie, je compte sur vous",note:""},
+    {han:"久仰",py:"jiǔyǎng",fr:"j'ai beaucoup entendu parler de vous (en bien)",note:"formule de première rencontre formelle"},
+    {han:"多谢",py:"duōxiè",fr:"merci beaucoup (plus formel que 谢谢)",note:""}
+  ],
+  grammar:`
+    <p>Le chinois formel utilise des préfixes qui élèvent l'interlocuteur (敬辞) ou abaissent poliment le locuteur (谦辞), une politesse asymétrique assez éloignée du français.</p>
+    <ul>
+      <li><span class="mono">贵</span> honore ce qui appartient à l'interlocuteur : <i>贵姓？</i> (Quel est votre [précieux] nom ?, façon très polie de demander le nom.)</li>
+      <li><span class="mono">敝</span> abaisse humblement ce qui appartient au locuteur : <i>敝公司</i> (mon [humble] entreprise) — surtout à l'écrit/discours très formel aujourd'hui.</li>
+      <li><span class="mono">请教</span> et <span class="mono">拜托</span> sont très utiles au quotidien professionnel : <i>可以请教您一个问题吗？</i> (Puis-je solliciter respectueusement votre avis sur une question ?)</li>
+    </ul>
+    <div class="callout">Ce registre est plus vivant en contexte professionnel, avec des personnes âgées, ou à Taïwan/Hong Kong qu'en Chine continentale décontractée — mais le reconnaître à l'écrit reste indispensable pour un niveau avancé.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"久仰久仰！请问贵姓？",fr:"Enchanté, j'ai beaucoup entendu parler de vous ! Puis-je vous demander votre nom ?"},
+    {sp:"B",han:"敝姓王，有个问题想请教您。",fr:"Mon nom de famille est Wang, j'aimerais solliciter votre avis sur une question."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 贵 » comme préfixe sert à :",options:["s'abaisser humblement","honorer l'interlocuteur","nier"],a:1},
+      {q:"« 敝 » comme préfixe sert à :",options:["honorer l'interlocuteur","s'abaisser humblement, poliment","exprimer la colère"],a:1},
+      {q:"« 请教 » signifie :",options:["ordonner","solliciter respectueusement un conseil","refuser"],a:1}
+    ],
+    listen:[
+      {han:"拜托",options:["je vous prie, je compte sur vous","merci beaucoup","au revoir"],a:0}
+    ],
+    fill:[
+      {sentence:"« Quel est votre nom ? » (très poli) se dit ___姓？(pinyin guì)",answer:"gui",hint:"1 mot"},
+      {sentence:"« Merci beaucoup » (formel) se dit 多___ (pinyin xiè).",answer:"xie",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:46, level:5,
+  title:"成语与比喻进阶",
+  sub:"Second lot de chengyu et métaphores",
+  intro:"Un second lot d'expressions idiomatiques, pour enrichir encore le naturel du discours et comprendre les métaphores fréquentes dans les médias.",
+  vocab:[
+    {han:"守株待兔",py:"shǒuzhūdàitù",fr:"attendre passivement un coup de chance",note:"litt. « garder un arbre en attendant un lapin »"},
+    {han:"塞翁失马",py:"sàiwēngshīmǎ",fr:"un mal peut cacher un bien (à malheur, bonheur)",note:"litt. « le vieil homme de la frontière perd son cheval »"},
+    {han:"对牛弹琴",py:"duìniútánqín",fr:"parler dans le vide à quelqu'un qui ne peut pas comprendre",note:"litt. « jouer du luth devant un bœuf »"},
+    {han:"井底之蛙",py:"jǐngdǐzhīwā",fr:"avoir une vision très limitée du monde",note:"variante de 坐井观天, équivalent à « ếch ngồi đáy giếng » en vietnamien"},
+    {han:"雪中送炭",py:"xuězhōngsòngtàn",fr:"aider quelqu'un dans le besoin, au bon moment",note:"litt. « envoyer du charbon sous la neige »"}
+  ],
+  grammar:`
+    <p>Ces chengyu image des situations de vie et s'utilisent pour commenter avec sagesse ou ironie, comme les proverbes vus au niveau 5 (unité 19).</p>
+    <ul>
+      <li><span class="mono">塞翁失马</span> vient d'une célèbre fable taoïste où chaque « malheur » se révèle finalement porteur de chance — souvent raccourci en <i>塞翁失马，焉知非福</i> (qui sait si ce n'est pas une chance ?).</li>
+      <li><span class="mono">井底之蛙</span> est l'équivalent exact de l'expression vietnamienne « ếch ngồi đáy giếng » — une belle passerelle entre les deux langues si tu les apprends en parallèle.</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"他还是老样子，从不出去看看外面的世界，真是井底之蛙。",fr:"Il est toujours pareil, il ne sort jamais voir le monde extérieur, c'est vraiment une vision limitée."},
+    {sp:"B",han:"别这么说，也许塞翁失马，焉知非福。",fr:"Dis pas ça, qui sait, à malheur bonheur."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 井底之蛙 » critique :",options:["la générosité","une vision du monde très limitée","la rapidité"],a:1},
+      {q:"« 塞翁失马 » signifie :",options:["un mal peut cacher un bien","tout est toujours perdu","rien ne change jamais"],a:0},
+      {q:"« 雪中送炭 » signifie :",options:["aider quelqu'un dans le besoin, au bon moment","abandonner quelqu'un","se moquer de quelqu'un"],a:0}
+    ],
+    listen:[
+      {han:"对牛弹琴",options:["parler dans le vide, incompris","parler avec sagesse","chanter juste"],a:0}
+    ],
+    fill:[
+      {sentence:"« Une vision très limitée du monde » se dit 井底之___ (pinyin wā).",answer:"wa",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:47, level:5,
+  title:"原因与假设高级结构",
+  sub:"之所以...是因为, 万一, 一旦...就, 宁可...也 (HSK5)",
+  intro:"Des structures plus élaborées pour exprimer une cause, une hypothèse extrême ou une préférence forte — typiques d'un discours argumentatif de niveau avancé.",
+  vocab:[
+    {han:"之所以...是因为...",py:"zhīsuǒyǐ...shì yīnwèi...",fr:"si...c'est parce que... (cause après effet)",note:"inverse l'ordre habituel : annonce le fait, puis sa cause"},
+    {han:"万一",py:"wànyī",fr:"au cas où, si jamais (hypothèse improbable)",note:""},
+    {han:"一旦...就...",py:"yídàn...jiù...",fr:"une fois que...alors...",note:""},
+    {han:"宁可...也...",py:"nìngkě...yě...",fr:"préférer...plutôt que...",note:""},
+    {han:"不是...就是...",py:"búshì...jiùshì...",fr:"si c'est pas...c'est que...(alternative binaire)",note:""}
+  ],
+  grammar:`
+    <p><span class="mono">之所以...是因为...</span> annonce d'abord le fait à expliquer, puis sa cause — l'inverse de 因为...所以... : <i>我之所以迟到，是因为堵车。</i> (Si je suis en retard, c'est parce qu'il y avait des embouteillages.)</p>
+    <ul>
+      <li><span class="mono">万一 + hypothèse improbable</span> : <i>万一下雨怎么办？</i> (Et si jamais il pleut, on fait quoi ?)</li>
+      <li><span class="mono">一旦...就...</span> marque un basculement net une fois une condition remplie : <i>一旦决定了，就不要后悔。</i> (Une fois la décision prise, ne regrette pas.)</li>
+      <li><span class="mono">宁可...也...</span> exprime une préférence ferme, même au prix d'un sacrifice : <i>他宁可辞职，也不愿意做这件事。</i> (Il préfère démissionner plutôt que de faire ça.)</li>
+      <li><span class="mono">不是...就是...</span> présente deux possibilités exhaustives : <i>他不是在家，就是在办公室。</i> (Il est soit chez lui, soit au bureau.)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"我之所以还没决定，是因为万一选错了怎么办。",fr:"Si je n'ai pas encore décidé, c'est parce que je me dis, et si jamais je me trompe."},
+    {sp:"B",han:"一旦你决定了，就宁可坚持到底，也别半途而废。",fr:"Une fois que t'as décidé, préfère tenir bon jusqu'au bout plutôt que d'abandonner à mi-chemin."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 之所以...是因为... » présente d'abord :",options:["la cause, puis le fait","le fait, puis sa cause","une question"],a:1},
+      {q:"« 万一 » introduit :",options:["une certitude","une hypothèse improbable","une habitude"],a:1},
+      {q:"« 宁可...也... » exprime :",options:["une préférence ferme, même coûteuse","une obligation","une interdiction"],a:0}
+    ],
+    listen:[
+      {han:"一旦",options:["une fois que","jamais","toujours"],a:0}
+    ],
+    fill:[
+      {sentence:"« Au cas où » se dit ___一 (pinyin wàn).",answer:"wan",hint:"1 mot"},
+      {sentence:"« Soit...soit... » se dit 不是...___是 (pinyin jiù).",answer:"jiu",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:48, level:5,
+  title:"程度与被动高级表达",
+  sub:"得不得了, 将, 别说...就是, 受, 化 (HSK5)",
+  intro:"Des nuances de degré extrême, un futur plus formel, et une forme de passif soutenue, pour enrichir le registre soutenu de ce niveau.",
+  vocab:[
+    {han:"得不得了",py:"de bùdéliǎo",fr:"extrêmement, au possible (après adjectif)",note:"高兴得不得了 = extrêmement content"},
+    {han:"得很",py:"de hěn",fr:"très (après adjectif, un peu soutenu)",note:""},
+    {han:"将 / 将要 / 将会",py:"jiāng / jiāngyào / jiānghuì",fr:"marqueur de futur soutenu (remplace 会/要)",note:""},
+    {han:"别说...就是...",py:"biéshuō...jiùshì...",fr:"sans même parler de...même...",note:"structure « à plus forte raison »"},
+    {han:"受",py:"shòu",fr:"marqueur de passif soutenu : subir/recevoir",note:"受尊重 = être respecté"},
+    {han:"-化",py:"-huà",fr:"suffixe : -iser, transformer en",note:"现代化 = moderniser, déjà vu en vocabulaire"}
+  ],
+  grammar:`
+    <p><span class="mono">Adjectif + 得不得了/得很</span> intensifie fortement, à l'écrit comme à l'oral soutenu : <i>这个题目简单得很。</i> (Ce problème est vraiment très simple.)</p>
+    <ul>
+      <li><span class="mono">将/将要/将会</span> remplace 会/要 dans un registre plus formel, souvent journalistique : <i>比赛结果将在月底公布。</i> (Le résultat sera annoncé fin du mois.)</li>
+      <li><span class="mono">别说...就是...</span> renforce un argument par l'absurde : <i>别说一百块，就是一块钱我也不会给你。</i> (Sans même parler de cent yuans, même un seul je ne te le donnerai pas.)</li>
+      <li><span class="mono">受 + verbe</span> forme un passif soutenu, souvent positif : <i>他很受尊重。</i> (Il est très respecté.)</li>
+    </ul>
+    <div class="callout">« 受 » comme passif soutenu se combine surtout avec des verbes abstraits positifs ou neutres (受欢迎, 受尊重, 受影响) — contrairement à 被, qui reste le passif de référence pour les événements négatifs concrets.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"这个消息将会影响很多人。",fr:"Cette nouvelle va affecter beaucoup de gens."},
+    {sp:"B",han:"是啊，别说普通员工，就是老板也受影响了，大家都紧张得不得了。",fr:"Ouais, sans même parler des employés normaux, même le patron est affecté, tout le monde est extrêmement nerveux."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 得不得了 » exprime :",options:["un degré modéré","un degré extrême","une négation"],a:1},
+      {q:"« 将/将要 » remplace dans un registre formel :",options:["会/要 (futur)","了 (accompli)","吗 (question)"],a:0},
+      {q:"« 受尊重 » utilise 受 comme :",options:["un passif soutenu, souvent positif","un causatif","un comparatif"],a:0}
+    ],
+    listen:[
+      {han:"将会",options:["marqueur de futur soutenu","marqueur de passé","marqueur de négation"],a:0}
+    ],
+    fill:[
+      {sentence:"« Extrêmement content » se dit 高兴___不得了 (pinyin de).",answer:"de",hint:"1 mot"},
+      {sentence:"« Être respecté » se dit ___尊重 (pinyin shòu).",answer:"shou",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:49, level:5,
+  title:"文化与习俗词汇",
+  sub:"Vocabulaire de la culture et des coutumes",
+  intro:"Un vocabulaire culturel qui accompagne bien le registre formel/honorifique et les chengyu de ce niveau.",
+  vocab:[
+    {han:"风俗",py:"fēngsú",fr:"la coutume",note:""},
+    {han:"传统",py:"chuántǒng",fr:"la tradition",note:""},
+    {han:"节日",py:"jiérì",fr:"la fête, le jour férié",note:""},
+    {han:"信仰",py:"xìnyǎng",fr:"la croyance, le culte",note:""},
+    {han:"世代",py:"shìdài",fr:"la génération",note:""},
+    {han:"价值观",py:"jiàzhíguān",fr:"les valeurs (morales)",note:""},
+    {han:"礼貌",py:"lǐmào",fr:"la politesse",note:""},
+    {han:"尊重",py:"zūnzhòng",fr:"respecter",note:""}
+  ],
+  grammar:`
+    <p>Ce vocabulaire se combine bien avec le registre formel (unité 33) : <i>我们应该尊重贵国的风俗。</i> (Nous devrions respecter les coutumes de votre pays.)</p>
+  `,
+  dialogue:[
+    {sp:"A",han:"每个世代的价值观都不太一样。",fr:"Les valeurs de chaque génération sont assez différentes."},
+    {sp:"B",han:"对，但是礼貌和尊重这些传统还是应该保留。",fr:"Oui, mais la politesse et le respect, ces traditions-là, devraient quand même être préservées."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 节日 » signifie :",options:["la coutume","la fête, le jour férié","la génération"],a:1},
+      {q:"« 尊重 » signifie :",options:["ignorer","respecter","critiquer"],a:1}
+    ],
+    listen:[
+      {han:"传统",options:["la tradition","la modernité","l'économie"],a:0}
+    ],
+    fill:[
+      {sentence:"« La coutume » se dit 风___ (pinyin sú).",answer:"su",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:50, level:5,
+  title:"第五级测验",
+  sub:"Test de révision — tout le niveau HSK5",
+  intro:"Ce test couvre le registre formel/familier, les chengyu, les phrases complexes, la concession renforcée, le langage honorifique, les structures causales avancées et les expressions de degré extrême vues dans ce niveau.",
+  vocab:[
+    {han:"您 / 请问 / 一下",py:"",fr:"registre formel",note:"unité 41"},
+    {han:"马马虎虎 / 一举两得",py:"",fr:"chengyu",note:"unité 42"},
+    {han:"不仅...而且 / 一...就",py:"",fr:"phrases complexes",note:"unité 43"},
+    {han:"即使...也 / 哪怕",py:"",fr:"concession renforcée",note:"unité 44"},
+    {han:"贵 / 敝 / 请教",py:"",fr:"vocabulaire humble/honorifique",note:"unité 45"},
+    {han:"井底之蛙 / 塞翁失马",py:"",fr:"chengyu avancés",note:"unité 46"},
+    {han:"之所以...是因为 / 万一 / 一旦",py:"",fr:"causes et hypothèses avancées",note:"unité 47"},
+    {han:"得不得了 / 将 / 受",py:"",fr:"degré extrême et passif soutenu",note:"unité 48"}
+  ],
+  grammar:`
+    <p>Récapitulatif des points clés du niveau HSK5 :</p>
+    <ul>
+      <li>Registre formel : 您/请问/一下/麻烦你 ; particules très familières 呗/嘛 réservées aux proches.</li>
+      <li>Chengyu (4 caractères) : expressions figées à apprendre comme des blocs, souvent liées à des fables classiques.</li>
+      <li>Phrases complexes : 不仅...而且..., 一...就..., 除了...以外, 无论...都....</li>
+      <li>Concession renforcée : 即使...也..., 哪怕...也..., 再...也....</li>
+      <li>Vocabulaire honorifique/humble : 贵 (honore l'autre), 敝 (abaisse le locuteur), 请教/拜托 (formules de politesse professionnelle).</li>
+      <li>之所以...是因为... (effet puis cause), 万一 (hypothèse improbable), 一旦...就... (une fois que), 宁可...也... (préférence ferme).</li>
+      <li>Degré extrême : 得不得了/得很 ; futur soutenu 将/将要 ; passif soutenu 受 ; 别说...就是... (à plus forte raison).</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"贵公司即使很忙，也一直很有礼貌，真是雪中送炭。",fr:"Votre entreprise, même très occupée, reste toujours très polie, c'est vraiment de l'aide au bon moment."},
+    {sp:"B",han:"不仅如此，我们也一直尊重每一位客户的传统，别说老客户，就是新客户我们也受到很好的对待。",fr:"Non seulement ça, mais on respecte aussi toujours les traditions de chaque client, sans même parler des anciens clients, même les nouveaux sont très bien traités."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 呗 » et « 嘛 » sont un registre :",options:["très formel","très familier, entre proches","administratif"],a:1},
+      {q:"« 马马虎虎 » signifie :",options:["excellent","comme ci comme ça, négligent","catastrophique"],a:1},
+      {q:"« 即使...也... » exprime :",options:["une cause","une concession hypothétique","une simultanéité"],a:1},
+      {q:"« 贵 » comme préfixe sert à :",options:["s'abaisser humblement","honorer l'interlocuteur","nier"],a:1},
+      {q:"« 之所以...是因为... » présente d'abord :",options:["la cause, puis le fait","le fait, puis sa cause","une question"],a:1},
+      {q:"« 得不得了 » exprime :",options:["un degré modéré","un degré extrême","une négation"],a:1}
+    ],
+    listen:[
+      {han:"麻烦你",options:["désolé de te déranger","félicitations","au revoir"],a:0},
+      {han:"哪怕",options:["même si, quand bien même","jamais","toujours"],a:0},
+      {han:"一旦",options:["une fois que","jamais","toujours"],a:0}
+    ],
+    fill:[
+      {sentence:"« Vous » poli se dit ___ (pinyin nín).",answer:"nin",hint:"1 mot"},
+      {sentence:"« Une vision très limitée du monde » se dit 井底之___ (pinyin wā).",answer:"wa",hint:"1 mot"},
+      {sentence:"« Être respecté » se dit ___尊重 (pinyin shòu).",answer:"shou",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:51, level:6,
+  title:"语气词的细微差别",
+  sub:"Nuances des particules modales",
+  intro:"De petites particules en fin de phrase expriment des nuances fines d'attitude — évidence, minimisation, insistance rhétorique.",
+  vocab:[
+    {han:"呀",py:"ya",fr:"variante euphonique de 啊 (après voyelle)",note:""},
+    {han:"啊",py:"a",fr:"particule d'exclamation/adoucissement",note:""},
+    {han:"罢了",py:"bàle",fr:"seulement, rien de plus (minimise)",note:""},
+    {han:"而已",py:"éryǐ",fr:"seulement, c'est tout (soutenu)",note:"synonyme plus formel de 罢了"},
+    {han:"究竟",py:"jiūjìng",fr:"en fin de compte, au juste (insistance interrogative)",note:""}
+  ],
+  grammar:`
+    <p>Ces particules ne changent pas le sens de base d'une phrase, mais l'attitude du locuteur — un aspect subtil, souvent le dernier maîtrisé.</p>
+    <ul>
+      <li><span class="mono">罢了/而已</span> minimisent ce qui vient d'être dit : <i>我只是开玩笑罢了。</i> (Je plaisantais, c'est tout.)</li>
+      <li><span class="mono">究竟</span> renforce une question, exigeant une réponse claire : <i>你究竟想说什么？</i> (Qu'est-ce que tu veux dire, au juste ?)</li>
+      <li><span class="mono">啊/呀</span> adoucissent une exclamation ou une question, la rendant plus vivante : <i>是啊！</i> (Ah oui, en effet !)</li>
+    </ul>
+    <div class="callout">Ces particules sont parmi les derniers éléments qu'un apprenant maîtrise naturellement — elles s'acquièrent surtout par l'écoute intensive de locuteurs natifs.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"你究竟想不想去？",fr:"Tu veux y aller ou pas, au juste ?"},
+    {sp:"B",han:"想啊！我只是有点累罢了。",fr:"Bien sûr que oui ! Je suis juste un peu fatigué, c'est tout."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 罢了 » et « 而已 » servent à :",options:["insister fortement","minimiser ce qui vient d'être dit","poser une question"],a:1},
+      {q:"« 究竟 » renforce :",options:["une exclamation","une question, exigeant une réponse claire","une négation"],a:1}
+    ],
+    listen:[
+      {han:"而已",options:["seulement, c'est tout","beaucoup","jamais"],a:0}
+    ],
+    fill:[
+      {sentence:"« Seulement, c'est tout » (soutenu) se dit ___已 (pinyin ér).",answer:"er",hint:"1 mot"},
+      {sentence:"« En fin de compte » se dit ___竟 (pinyin jiū).",answer:"jiu",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:52, level:6,
+  title:"书面语与口语词汇对比",
+  sub:"Vocabulaire écrit vs oral",
+  intro:"Comme pour les mots Hán Việt en vietnamien, le mandarin possède une couche de vocabulaire plus formelle (书面语, langue écrite) qui coexiste avec des équivalents oraux plus quotidiens.",
+  vocab:[
+    {han:"但是 / 然而",py:"dànshì / rán'ér",fr:"mais (oral / soutenu)",note:""},
+    {han:"因为 / 由于",py:"yīnwèi / yóuyú",fr:"parce que (oral / soutenu)",note:""},
+    {han:"可是 / 不过",py:"kěshì / búguò",fr:"mais, cependant (oral, nuances différentes)",note:""},
+    {han:"现在 / 目前",py:"xiànzài / mùqián",fr:"maintenant (oral / soutenu-formel)",note:""},
+    {han:"觉得 / 认为",py:"juéde / rènwéi",fr:"penser que (oral / soutenu)",note:""}
+  ],
+  grammar:`
+    <p>Le mandarin écrit/formel (书面语) privilégie souvent des mots différents de ceux de l'oral quotidien (口语), même pour une notion identique.</p>
+    <ul>
+      <li>Cette couche formelle domine dans la presse, les rapports officiels et les discours — reconnaître ces équivalences aide énormément à lire des textes chinois soignés.</li>
+      <li>À l'oral, mélanger un mot trop soutenu (目前, 由于) sonne parfois pompeux entre amis ; à l'écrit, l'inverse (现在, 因为) peut sembler trop familier dans un rapport.</li>
+    </ul>
+    <div class="callout">Un bon réflexe de lecture avancée : repérer ces doublons oral/écrit permet de "traduire" mentalement un texte formel vers une version plus digeste, et inversement d'écrire un texte plus soigné.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"目前的情况怎么样？",fr:"Quelle est la situation actuellement ?"},
+    {sp:"B",han:"现在还好，不过我们仍然需要小心。",fr:"Ça va pour l'instant, mais on doit quand même rester prudents."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 目前 » est la forme soutenue de :",options:["现在","以前","以后"],a:0},
+      {q:"« 由于 » est la forme soutenue de :",options:["因为","但是","而且"],a:0},
+      {q:"Le vocabulaire 书面语 domine surtout dans :",options:["les conversations entre amis","la presse et les textes officiels","les comptines enfantines"],a:1}
+    ],
+    listen:[
+      {han:"认为",options:["considérer que (soutenu)","penser que (oral)","dire que"],a:0}
+    ],
+    fill:[
+      {sentence:"« Maintenant » (soutenu) se dit ___前 (pinyin mù).",answer:"mu",hint:"1 mot"},
+      {sentence:"« Cependant » (soutenu) se dit ___而 (pinyin rán).",answer:"ran",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:53, level:6,
+  title:"阅读理解：真实文本分析",
+  sub:"Compréhension d'un texte authentique — synthèse finale",
+  intro:"Cette dernière unité rassemble les structures des niveaux précédents (把字句, connecteurs soutenus, compléments de résultat, chengyu) dans un court texte à lire et analyser.",
+  vocab:[
+    {han:"改革开放",py:"gǎigé kāifàng",fr:"la réforme et l'ouverture (politique économique chinoise)",note:""},
+    {han:"变化",py:"biànhuà",fr:"le changement",note:""},
+    {han:"家乡",py:"jiāxiāng",fr:"le pays natal, la ville natale",note:""},
+    {han:"亲切",py:"qīnqiè",fr:"chaleureux, cordial",note:""}
+  ],
+  grammar:`
+    <p>Voici un court texte réunissant plusieurs structures vues dans les unités précédentes. Lisez-le, puis répondez aux questions.</p>
+    <div class="callout">
+      <p style="margin:0 0 8px;"><b>我的家乡</b></p>
+      <p style="margin:0 0 8px;" class="han">我出生在一个小城市，那里虽然不大，但是有很多好吃的东西。由于改革开放，这座城市这些年变化很大，越来越现代化了。我把小时候常去的那家面馆的地址写在笔记本上，因为我怕以后找不到。虽然城市变化很快，然而人与人之间的关系还是跟以前一样亲切。</p>
+      <p style="margin:0;font-size:.85rem;color:var(--ink-soft);"><i>Traduction : Je suis né dans une petite ville — bien que petite, elle regorge de bonnes choses à manger. En raison de la réforme et de l'ouverture économique, cette ville a beaucoup changé ces dernières années, devenant de plus en plus moderne. J'ai noté dans mon carnet l'adresse du restaurant de nouilles que je fréquentais enfant, car j'ai peur de ne plus le retrouver plus tard. Bien que la ville change vite, les relations entre les gens restent aussi chaleureuses qu'avant.</i></p>
+    </div>
+    <ul>
+      <li>Repérez : un connecteur soutenu de concession (虽然...但是/然而...), une structure 把 (把地址写在...), un mot de vocabulaire soutenu (由于), et une comparaison d'égalité (跟...一样).</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"Note",han:"Cette unité utilise le texte ci-dessus comme dialogue de référence — relisez-le avant de faire les exercices.",fr:""}
+  ],
+  ex:{
+    mcq:[
+      {q:"Dans le texte, « 由于 » exprime :",options:["une cause","une conséquence","une condition"],a:0},
+      {q:"« 把小时候常去的那家面馆的地址写在笔记本上 » utilise :",options:["le passif 被","la structure 把","le comparatif 比"],a:1},
+      {q:"« 跟以前一样 » exprime :",options:["une comparaison d'égalité","une comparaison de supériorité","une négation"],a:0}
+    ],
+    listen:[
+      {han:"变化",options:["le changement","la tradition","le marché"],a:0}
+    ],
+    fill:[
+      {sentence:"« De plus en plus moderne » se dit 越来越___代化 (pinyin xiàn).",answer:"xian",hint:"1 mot"},
+      {sentence:"« Bien que...cependant » se dit 虽然...___而 (pinyin rán).",answer:"ran",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:54, level:6,
+  title:"古汉语残留结构",
+  sub:"Traces du chinois classique dans le mandarin moderne",
+  intro:"Le chinois classique (文言文) a laissé des traces dans de nombreuses expressions figées et structures administratives du mandarin moderne — les reconnaître aide à lire des textes soignés ou officiels.",
+  vocab:[
+    {han:"之",py:"zhī",fr:"particule classique équivalente à 的",note:"survit dans des expressions figées : 总之 (en somme)"},
+    {han:"乎",py:"hū",fr:"particule interrogative/exclamative classique",note:"survit dans : 在乎 (se soucier de), 似乎 (il semble que)"},
+    {han:"者",py:"zhě",fr:"celui qui... (nominalise un verbe, classique)",note:"survit dans : 作者 (l'auteur), 读者 (le lecteur)"},
+    {han:"也",py:"yě",fr:"particule de fin d'assertion classique",note:"différent du 也 moderne (« aussi »)"},
+    {han:"其",py:"qí",fr:"son/sa/leur (classique)",note:"survit dans : 其他 (les autres), 其中 (parmi eux)"},
+    {han:"以",py:"yǐ",fr:"avec, au moyen de, afin de (classique)",note:"survit dans : 以为 (croire que), 以便 (afin de)"}
+  ],
+  grammar:`
+    <p>Le mandarin moderne (白话文) a largement remplacé la grammaire classique, mais des centaines de mots composés modernes contiennent encore des particules classiques figées.</p>
+    <ul>
+      <li><span class="mono">者</span> transforme un verbe en « celui qui fait l'action » : <i>作者</i> (celui qui écrit = l'auteur), <i>读者</i> (celui qui lit = le lecteur), <i>消费者</i> (celui qui consomme = le consommateur).</li>
+      <li><span class="mono">之</span> fonctionne comme 的 dans des expressions figées et soutenues : <i>总之</i> (en somme), <i>反之</i> (inversement), <i>之一</i> (l'un de...).</li>
+      <li><span class="mono">其</span> remplace un possessif de la 3e personne dans un style soutenu : <i>其他</i> (les autres), <i>其实</i> (en fait).</li>
+    </ul>
+    <div class="callout">Ces éléments classiques ne s'utilisent presque jamais librement en mandarin moderne — on les apprend comme faisant partie de mots composés figés, pas comme une grammaire active à reproduire.</div>
+  `,
+  dialogue:[
+    {sp:"A",han:"这篇文章的作者是谁？",fr:"Qui est l'auteur de cet article ?"},
+    {sp:"B",han:"不知道，总之内容写得很好，读者应该会喜欢。",fr:"Je sais pas, en tout cas c'est bien écrit, les lecteurs devraient aimer."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 者 » sert à former :",options:["un adjectif","« celui qui fait l'action » (auteur, lecteur...)","une négation"],a:1},
+      {q:"« 总之 » signifie :",options:["en somme","jamais","peut-être"],a:0},
+      {q:"« 其他 » signifie :",options:["les autres","moi-même","personne"],a:0}
+    ],
+    listen:[
+      {han:"作者",options:["l'auteur","le lecteur","l'éditeur"],a:0}
+    ],
+    fill:[
+      {sentence:"« Le lecteur » se dit 读___ (pinyin zhě).",answer:"zhe",hint:"1 mot"},
+      {sentence:"« En fait » se dit ___实 (pinyin qí).",answer:"qi",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:55, level:6,
+  title:"公文与书面用语",
+  sub:"Registre administratif et officiel écrit",
+  intro:"Les documents officiels, rapports et communiqués chinois utilisent un registre encore plus formel que le 书面语 courant, avec ses propres formules figées.",
+  vocab:[
+    {han:"兹",py:"zī",fr:"par la présente (ouverture de document officiel)",note:"très soutenu, quasi classique"},
+    {han:"鉴于",py:"jiànyú",fr:"étant donné que, considérant que",note:""},
+    {han:"综上所述",py:"zōngshàngsuǒshù",fr:"en résumé de ce qui précède",note:"formule de conclusion de rapport"},
+    {han:"特此",py:"tècǐ",fr:"c'est pourquoi, par la présente (formule administrative)",note:""},
+    {han:"敬请",py:"jìngqǐng",fr:"prière de, veuillez (très formel)",note:""},
+    {han:"如下",py:"rúxià",fr:"comme suit",note:""}
+  ],
+  grammar:`
+    <p>Ce registre administratif se rencontre dans les rapports d'entreprise, les documents gouvernementaux et les communiqués officiels.</p>
+    <ul>
+      <li><span class="mono">鉴于...，特此...</span> structure typique d'un document officiel : « Étant donné que..., nous [faisons ceci] par la présente. »</li>
+      <li><span class="mono">综上所述</span> introduit la conclusion d'un rapport ou d'un essai argumentatif : <i>综上所述，这个方案是可行的。</i> (En résumé, ce projet est réalisable.)</li>
+      <li><span class="mono">敬请 + verbe</span> est une formule de politesse très formelle : <i>敬请配合。</i> (Merci de bien vouloir coopérer.)</li>
+    </ul>
+    <div class="callout">Ce registre n'est presque jamais utilisé à l'oral — il sert uniquement à reconnaître et éventuellement rédiger des documents très formels (contrats, communiqués, rapports).</div>
+  `,
+  dialogue:[
+    {sp:"Note",han:"鉴于近期天气状况，公司决定延期开业，特此通知。敬请谅解。",fr:"Étant donné les conditions météorologiques récentes, l'entreprise a décidé de reporter son ouverture, ce dont nous informons par la présente. Merci de votre compréhension."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 鉴于 » signifie :",options:["étant donné que","malgré","afin de"],a:0},
+      {q:"« 综上所述 » introduit :",options:["une introduction","une conclusion de rapport","une question"],a:1},
+      {q:"Ce registre administratif s'utilise :",options:["surtout à l'oral entre amis","dans les documents officiels","jamais en Chine"],a:1}
+    ],
+    listen:[
+      {han:"特此",options:["c'est pourquoi, par la présente","jamais","peut-être"],a:0}
+    ],
+    fill:[
+      {sentence:"« Comme suit » se dit 如___ (pinyin xià).",answer:"xia",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:56, level:6,
+  title:"第二篇真实文本分析",
+  sub:"Analyse d'un second texte authentique — registre journalistique",
+  intro:"Un second texte, de registre journalistique cette fois, pour mettre en pratique le vocabulaire administratif, les structures classiques et les connecteurs soutenus vus dans ce niveau.",
+  vocab:[
+    {han:"据统计",py:"jù tǒngjì",fr:"selon les statistiques",note:"formule d'ouverture journalistique"},
+    {han:"值得注意的是",py:"zhíde zhùyì de shì",fr:"il est à noter que",note:""},
+    {han:"显著",py:"xiǎnzhù",fr:"notable, marqué",note:""},
+    {han:"推动",py:"tuīdòng",fr:"promouvoir, impulser",note:""},
+    {han:"挑战",py:"tiǎozhàn",fr:"le défi",note:""}
+  ],
+  grammar:`
+    <p>Voici un court extrait de style journalistique. Lisez-le et repérez les structures des unités précédentes.</p>
+    <div class="callout">
+      <p style="margin:0 0 8px;"><b>中国南方城市化：机遇与挑战</b></p>
+      <p style="margin:0 0 8px;" class="han">据统计，中国南方城市近十年的城市化速度显著加快。一方面，这一进程推动了经济发展；另一方面，它也带来了不少挑战，如环境污染和住房紧张。值得注意的是，许多地方政府正在推动可持续发展政策，鉴于气候变化的压力，这已成为当务之急。综上所述，城市化虽然带来了机遇，但也需要更全面的解决方案。</p>
+      <p style="margin:0;font-size:.85rem;color:var(--ink-soft);"><i>Traduction : Selon les statistiques, la vitesse d'urbanisation des villes du Sud de la Chine s'est nettement accélérée ces dix dernières années. D'un côté, ce processus a stimulé le développement économique ; d'un autre côté, il a aussi apporté son lot de défis, comme la pollution environnementale et la tension sur le logement. Il est à noter que de nombreux gouvernements locaux promeuvent des politiques de développement durable, ce qui, étant donné la pression du changement climatique, est devenu une priorité urgente. En résumé, l'urbanisation apporte des opportunités mais nécessite aussi des solutions plus globales.</i></p>
+    </div>
+  `,
+  dialogue:[
+    {sp:"Note",han:"Cette unité utilise le texte ci-dessus comme dialogue de référence — relisez-le avant de faire les exercices.",fr:""}
+  ],
+  ex:{
+    mcq:[
+      {q:"Dans le texte, « 一方面...另一方面... » sert à :",options:["nier un fait","présenter deux facettes d'un phénomène","poser une question"],a:1},
+      {q:"« 鉴于 » dans le texte introduit :",options:["une date","une justification/un contexte","une liste"],a:1},
+      {q:"« 综上所述 » introduit :",options:["une introduction","une conclusion","une question"],a:1}
+    ],
+    listen:[
+      {han:"挑战",options:["le défi","la solution","la tradition"],a:0}
+    ],
+    fill:[
+      {sentence:"« Selon les statistiques » se dit 据___ (pinyin tǒngjì).",answer:"tongji",hint:"1 mot"},
+      {sentence:"« Notable, marqué » se dit ___著 (pinyin xiǎn).",answer:"xian",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:57, level:6,
+  title:"书面推理连词",
+  sub:"总之, 以免, 何况, 是否, 一来...二来 (HSK6)",
+  intro:"Des connecteurs de raisonnement supplémentaires du programme HSK6, pour conclure, mettre en garde, ou renforcer un argument à l'écrit soutenu.",
+  vocab:[
+    {han:"总之",py:"zǒngzhī",fr:"en somme, bref (conclusion)",note:""},
+    {han:"以免",py:"yǐmiǎn",fr:"afin d'éviter que, de peur que",note:""},
+    {han:"何况",py:"hékuàng",fr:"à plus forte raison, sans même parler de",note:"souvent avec 连...都/也"},
+    {han:"是否",py:"shìfǒu",fr:"si (oui ou non) — forme soutenue de 是不是",note:""},
+    {han:"与否",py:"yǔfǒu",fr:"ou non (suffixe, très soutenu)",note:"成功与否 = que ce soit un succès ou non"},
+    {han:"一来...二来...",py:"yīlái...èrlái...",fr:"pour une raison...pour une autre...",note:""}
+  ],
+  grammar:`
+    <p><span class="mono">总之</span> introduit une conclusion générale après plusieurs arguments : <i>总之，这个计划风险太大。</i> (Bref, ce projet est trop risqué.)</p>
+    <ul>
+      <li><span class="mono">以免</span> introduit ce qu'on veut éviter, souvent après un conseil : <i>早点出发，以免堵车。</i> (Pars tôt, pour éviter les embouteillages.)</li>
+      <li><span class="mono">连...都...，何况...</span> renforce un argument : <i>连小李都同意了，何况小张？</i> (Même Xiao Li a accepté, alors Xiao Zhang, à plus forte raison.)</li>
+      <li><span class="mono">是否</span> remplace 是不是 à l'écrit formel : <i>我不知道他是否会来。</i> (Je ne sais pas s'il viendra ou non.)</li>
+      <li><span class="mono">一来...二来...</span> énumère deux raisons : <i>一来太贵，二来太远，我们决定不去了。</i> (D'une part c'est trop cher, d'autre part trop loin, on a décidé de ne pas y aller.)</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"我不确定这个方案是否可行，一来预算有限，二来时间也不够。",fr:"Je ne suis pas sûr que ce plan soit faisable, d'une part le budget est limité, d'autre part il n'y a pas assez de temps."},
+    {sp:"B",han:"总之，我们得早点决定，以免耽误整个项目。",fr:"Bref, il faut décider tôt, pour éviter de retarder tout le projet."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 总之 » sert à :",options:["introduire une conclusion générale","poser une question","nier un fait"],a:0},
+      {q:"« 以免 » introduit :",options:["ce qu'on veut éviter","une certitude","une comparaison"],a:0},
+      {q:"« 是否 » est la forme soutenue de :",options:["是不是","为什么","怎么样"],a:0}
+    ],
+    listen:[
+      {han:"何况",options:["à plus forte raison","peut-être","jamais"],a:0}
+    ],
+    fill:[
+      {sentence:"« En somme, bref » se dit ___之 (pinyin zǒng).",answer:"zong",hint:"1 mot"},
+      {sentence:"« Afin d'éviter que » se dit 以___ (pinyin miǎn).",answer:"mian",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:58, level:6,
+  title:"正式句式结构进阶",
+  sub:"所...的, 以...为..., 与其...不如, 按照/根据, -性 (HSK6)",
+  intro:"Des structures très formelles, fréquentes dans les textes académiques, juridiques ou journalistiques les plus soutenus.",
+  vocab:[
+    {han:"所...的",py:"suǒ...de",fr:"nominalisateur formel (ce que...)",note:"他所说的话 = ce qu'il a dit"},
+    {han:"以...为...",py:"yǐ...wéi...",fr:"prendre...comme..., considérer...comme...",note:"以此为主 = considérer cela comme principal"},
+    {han:"与其...不如...",py:"yǔqí...bùrú...",fr:"plutôt que...,il vaut mieux...",note:""},
+    {han:"按照",py:"ànzhào",fr:"conformément à, selon",note:""},
+    {han:"根据",py:"gēnjù",fr:"selon, sur la base de (souvent avec des faits/données)",note:""},
+    {han:"-性",py:"-xìng",fr:"suffixe nominalisant abstrait : -ité, caractère de",note:"可能性 = la possibilité"}
+  ],
+  grammar:`
+    <p><span class="mono">所 + verbe + 的</span> nominalise formellement une action : <i>他所说的话很有道理。</i> (Ce qu'il a dit est très sensé.) — un cran plus soutenu que 说的话 seul.</p>
+    <ul>
+      <li><span class="mono">以...为...</span> établit une base ou une priorité : <i>这家公司以亚洲市场为主。</i> (Cette entreprise se concentre principalement sur le marché asiatique.)</li>
+      <li><span class="mono">与其...不如...</span> compare deux options pour recommander la seconde : <i>与其等待，不如主动出击。</i> (Plutôt que d'attendre, mieux vaut prendre les devants.)</li>
+      <li><span class="mono">按照</span> (conformité à une règle/un plan) et <span class="mono">根据</span> (basé sur des faits/données) se ressemblent mais ne sont pas interchangeables : <i>按照规定</i> (conformément au règlement) vs <i>根据数据</i> (sur la base des données).</li>
+      <li><span class="mono">-性</span> forme des noms abstraits à partir d'adjectifs/verbes : <i>可能性</i> (possibilité), <i>重要性</i> (importance).</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"根据最新数据，这个方案的可行性很高。",fr:"Selon les données les plus récentes, la faisabilité de ce plan est élevée."},
+    {sp:"B",han:"与其继续讨论，不如按照计划直接开始吧。",fr:"Plutôt que de continuer à débattre, autant commencer directement selon le plan."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 所说的话 » utilise 所 pour :",options:["nier une action","nominaliser formellement l'action","poser une question"],a:1},
+      {q:"« 与其...不如... » sert à :",options:["comparer deux options pour en recommander une","nier les deux options","poser une condition"],a:0},
+      {q:"« 根据 » s'utilise plutôt avec :",options:["des règles/un règlement","des faits/données","des sentiments"],a:1}
+    ],
+    listen:[
+      {han:"按照",options:["conformément à, selon","malgré","à cause de"],a:0}
+    ],
+    fill:[
+      {sentence:"« La possibilité » se dit 可能___ (pinyin xìng).",answer:"xing",hint:"1 mot"},
+      {sentence:"« Plutôt que...il vaut mieux » se dit 与其...___如 (pinyin bù).",answer:"bu",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:59, level:6,
+  title:"学术与专业词汇",
+  sub:"Vocabulaire académique et spécialisé",
+  intro:"Le vocabulaire de la recherche et de l'analyse, en lien avec les registres écrits et classiques vus dans ce niveau.",
+  vocab:[
+    {han:"论文",py:"lùnwén",fr:"le mémoire, la thèse, l'article académique",note:""},
+    {han:"假设",py:"jiǎshè",fr:"l'hypothèse",note:""},
+    {han:"方法",py:"fāngfǎ",fr:"la méthode",note:""},
+    {han:"数据",py:"shùjù",fr:"les données",note:""},
+    {han:"结论",py:"jiélùn",fr:"la conclusion",note:""},
+    {han:"理论",py:"lǐlùn",fr:"la théorie",note:""},
+    {han:"实践",py:"shíjiàn",fr:"la pratique",note:""},
+    {han:"概念",py:"gàiniàn",fr:"le concept, la notion",note:""},
+    {han:"分析",py:"fēnxī",fr:"analyser, l'analyse",note:""},
+    {han:"评估",py:"pínggū",fr:"évaluer, l'évaluation",note:""}
+  ],
+  grammar:`
+    <p>Ce vocabulaire académique se combine bien avec les connecteurs soutenus déjà vus : <i>鉴于现有数据，我们可以得出以下结论。</i> (Étant donné les données disponibles, nous pouvons tirer la conclusion suivante.)</p>
+  `,
+  dialogue:[
+    {sp:"A",han:"你的论文用了什么研究方法？",fr:"Ton mémoire utilise quelle méthode de recherche ?"},
+    {sp:"B",han:"我结合了理论分析和实际数据。",fr:"J'ai combiné l'analyse théorique et des données réelles."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 假设 » signifie :",options:["l'hypothèse","la conclusion","les données"],a:0},
+      {q:"« 评估 » signifie :",options:["évaluer","ignorer","copier"],a:0}
+    ],
+    listen:[
+      {han:"概念",options:["le concept, la notion","la donnée","la méthode"],a:0}
+    ],
+    fill:[
+      {sentence:"« La méthode » se dit ___法 (pinyin fāng).",answer:"fang",hint:"1 mot"},
+      {sentence:"« Analyser » se dit ___析 (pinyin fēn).",answer:"fen",hint:"1 mot"}
+    ]
+  }
+},
+{
+  id:60, level:6,
+  title:"第六级测验",
+  sub:"Test de révision — tout le niveau HSK6",
+  intro:"Ce test final couvre les nuances modales, le vocabulaire écrit/oral, la lecture de texte, le chinois classique, le registre administratif, le vocabulaire académique, les connecteurs de raisonnement et les structures formelles avancées vus dans ce niveau.",
+  vocab:[
+    {han:"罢了 / 而已 / 究竟",py:"",fr:"nuances modales",note:"unité 51"},
+    {han:"但是 / 然而 / 目前",py:"",fr:"vocabulaire écrit vs oral",note:"unité 52"},
+    {han:"之 / 者 / 其",py:"",fr:"traces du chinois classique",note:"unité 54"},
+    {han:"鉴于 / 综上所述",py:"",fr:"registre administratif",note:"unité 55"},
+    {han:"论文 / 数据 / 结论",py:"",fr:"vocabulaire académique",note:"unité 57"},
+    {han:"总之 / 以免 / 何况",py:"",fr:"connecteurs de raisonnement",note:"unité 57"},
+    {han:"所...的 / 以...为 / 与其...不如",py:"",fr:"structures formelles avancées",note:"unité 58"}
+  ],
+  grammar:`
+    <p>Récapitulatif des points clés du niveau HSK6 :</p>
+    <ul>
+      <li>Particules modales fines : 罢了/而已 (minimisent), 究竟 (insiste sur une question), 啊/呀 (adoucissent).</li>
+      <li>Vocabulaire écrit (书面语) vs oral (口语) : 然而/但是, 由于/因为, 目前/现在...</li>
+      <li>Traces du chinois classique dans des mots composés modernes : 者 (celui qui...), 之 (particule figée), 其 (son/leur, soutenu).</li>
+      <li>Registre administratif : 鉴于...特此..., 综上所述 (conclusion de rapport), 敬请 (formule très polie).</li>
+      <li>Connecteurs de raisonnement : 总之 (en somme), 以免 (afin d'éviter), 何况 (à plus forte raison), 是否/与否 (si, forme soutenue).</li>
+      <li>Structures formelles avancées : 所...的 (nominalisateur formel), 以...为... (considérer comme), 与其...不如... (plutôt que), -性 (suffixe abstrait).</li>
+      <li>Lecture de texte authentique : repérer les structures des niveaux précédents dans un texte réel, journalistique ou narratif.</li>
+    </ul>
+  `,
+  dialogue:[
+    {sp:"A",han:"这篇论文的作者综上所述，认为城市化带来的挑战值得注意，与其忽视问题，不如尽早解决。",fr:"En résumé, l'auteur de cet article académique estime que les défis apportés par l'urbanisation méritent d'être notés, plutôt que d'ignorer le problème, mieux vaut le résoudre au plus tôt."},
+    {sp:"B",han:"是啊，鉴于数据显示的趋势，这已经不只是理论问题而已，总之，我们得重视起来。",fr:"Ouais, étant donné la tendance montrée par les données, ce n'est déjà plus juste une question théorique, bref, il faut qu'on prenne ça au sérieux."}
+  ],
+  ex:{
+    mcq:[
+      {q:"« 罢了 » et « 而已 » servent à :",options:["insister fortement","minimiser ce qui vient d'être dit","poser une question"],a:1},
+      {q:"« 目前 » est la forme soutenue de :",options:["现在","以前","以后"],a:0},
+      {q:"« 者 » sert à former :",options:["une négation","« celui qui fait l'action »","un pluriel"],a:1},
+      {q:"« 综上所述 » introduit :",options:["une introduction","une conclusion","une question"],a:1},
+      {q:"« 总之 » sert à :",options:["introduire une conclusion générale","poser une question","nier un fait"],a:0},
+      {q:"« 与其...不如... » sert à :",options:["comparer deux options pour en recommander une","nier les deux options","poser une condition"],a:0}
+    ],
+    listen:[
+      {han:"鉴于",options:["étant donné que","malgré","afin de"],a:0},
+      {han:"分析",options:["analyser","ignorer","conclure"],a:0},
+      {han:"何况",options:["à plus forte raison","peut-être","jamais"],a:0}
+    ],
+    fill:[
+      {sentence:"« En fin de compte » se dit ___竟 (pinyin jiū).",answer:"jiu",hint:"1 mot"},
+      {sentence:"« Le lecteur » se dit 读___ (pinyin zhě).",answer:"zhe",hint:"1 mot"},
+      {sentence:"« Les données » se dit ___据 (pinyin shù).",answer:"shu",hint:"1 mot"},
+      {sentence:"« La possibilité » se dit 可能___ (pinyin xìng).",answer:"xing",hint:"1 mot"}
+    ]
+  }
+}
+];
+
+/* ---------------------------------------------------------
+   ÉTAT & RENDU
+--------------------------------------------------------- */
+const doneUnits = new Set();
+let currentUnit = 1;
+const levelNames = {
+  1:"HSK 1 — 入门 (Débutant)",
+  2:"HSK 2 — 初级进阶 (Élémentaire)",
+  3:"HSK 3 — 中级 (Intermédiaire)",
+  4:"HSK 4 — 中高级 (Intermédiaire supérieur)",
+  5:"HSK 5 — 高级 (Avancé)",
+  6:"HSK 6 — 高级语法 (proche du C1)"
+};
+
+function norm(s){
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase().trim().replace(/\s+/g,' ');
+}
+
+function renderSidebar(){
+  const wrap = document.getElementById('unitListWrap');
+  wrap.innerHTML = '';
+  const levels = [...new Set(units.map(u=>u.level))];
+  levels.forEach(lvl=>{
+    const label = document.createElement('div');
+    label.className = 'level-label';
+    label.textContent = levelNames[lvl] || `Niveau ${lvl}`;
+    wrap.appendChild(label);
+    const track = document.createElement('div');
+    track.className = 'unit-track';
+    units.filter(u=>u.level===lvl).forEach(u=>{
+      const btn = document.createElement('button');
+      btn.className = 'unit-item' + (u.id===currentUnit?' active':'') + (doneUnits.has(u.id)?' done':'');
+      btn.innerHTML = `Unité ${u.id} — ${u.title}<small>${u.sub}</small>` + (doneUnits.has(u.id)?'<span class="unit-check">✓</span>':'');
+      btn.onclick = ()=>{ currentUnit = u.id; renderAll(); document.getElementById('sidebar').classList.remove('open'); window.scrollTo(0,0); };
+      track.appendChild(btn);
+    });
+    wrap.appendChild(track);
+  });
+}
+
+function renderMain(){
+  const u = units.find(x=>x.id===currentUnit);
+  const main = document.getElementById('main');
+
+  let vocabRows = u.vocab.map(v=>`
+    <tr>
+      <td><div class="han-cell"><button class="audio-btn" onclick="speak('${v.han.replace(/'/g,"\\'")}')" title="Écouter">\uD83D\uDD0A</button><span class="han-word han">${v.han}</span></div></td>
+      <td class="py">${v.py||''}</td>
+      <td>${v.fr}</td>
+      <td class="note">${v.note||''}</td>
+    </tr>`).join('');
+
+  let dialogueHtml = u.dialogue.map(d=>`
+    <div class="dialogue-line">
+      <div class="speaker">${d.sp} :</div>
+      <div class="h han">${d.han}<button class="audio-btn" onclick="speak('${d.han.replace(/'/g,"\\'")}')" title="Écouter">\uD83D\uDD0A</button></div>
+      <div class="fr">${d.fr}</div>
+    </div>`).join('');
+
+  let mcqHtml = u.ex.mcq.map((m,i)=>`
+    <div class="exercise">
+      <div class="q">${i+1}. ${m.q}</div>
+      <div class="options">
+        ${m.options.map((opt,j)=>`<button class="opt-btn" data-ex="mcq${i}" data-idx="${j}" onclick="checkMcq(${i},${j})">${opt}</button>`).join('')}
+      </div>
+    </div>`).join('');
+
+  let listenHtml = u.ex.listen.map((l,i)=>{
+    const word = l.word || l.han;
+    return `
+    <div class="exercise">
+      <div class="q">${i+1}. <button class="big-audio-btn" onclick="speak('${word.replace(/'/g,"\\'")}')" style="margin-bottom:0;">\uD83D\uDD0A Écouter le mot</button></div>
+      <div class="options">
+        ${l.options.map((opt,j)=>`<button class="opt-btn" data-ex="listen${i}" data-idx="${j}" onclick="checkListen(${i},${j})">${opt}</button>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+
+  let fillHtml = u.ex.fill.map((f,i)=>`
+    <div class="exercise">
+      <div class="q">${i+1}. ${f.sentence}</div>
+      <div class="fill-row">
+        <input type="text" id="fill${i}" placeholder="${f.hint||''}">
+        <button class="check-btn" onclick="checkFill(${i})">Vérifier</button>
+      </div>
+      <div class="fb" id="fillfb${i}"></div>
+    </div>`).join('');
+
+  const totalEx = u.ex.mcq.length + u.ex.listen.length + u.ex.fill.length;
+
+  main.innerHTML = `
+    <div class="unit-header">
+      <span class="eyebrow">${(levelNames[u.level]||'').split('—')[0].trim()} · Unité ${u.id}/${units.length}</span>
+      <h2 class="han">${u.title}</h2>
+      <p class="sub">${u.sub}</p>
+    </div>
+
+    <section class="block">
+      <p>${u.intro}</p>
+    </section>
+
+    <section class="block">
+      <h3>词汇 — Vocabulaire (${u.vocab.length} mots)</h3>
+      <div class="audio-note">🔊 Cliquez sur l'icône pour entendre la prononciation (synthèse vocale du navigateur — la qualité dépend des voix chinoises installées sur votre appareil).</div>
+      <table class="vocab-table">
+        <thead><tr><th>汉字</th><th>Pinyin</th><th>Français</th><th>Note</th></tr></thead>
+        <tbody>${vocabRows}</tbody>
+      </table>
+    </section>
+
+    <section class="block">
+      <h3>语法 — Grammaire</h3>
+      <div class="grammar-body">${u.grammar}</div>
+    </section>
+
+    <section class="block">
+      <h3>对话 — Dialogue</h3>
+      ${dialogueHtml}
+    </section>
+
+    <section class="block">
+      <h3>练习 — Choix multiple</h3>
+      ${mcqHtml}
+    </section>
+
+    <section class="block">
+      <h3>练习 — Écoute et choisis</h3>
+      ${listenHtml}
+    </section>
+
+    <section class="block">
+      <h3>练习 — Complétez (pinyin)</h3>
+      ${fillHtml}
+      <div class="score-bar">
+        <span>Score de l'unité</span>
+        <span class="num" id="scoreDisplay">0 / ${totalEx}</span>
+      </div>
+    </section>
+
+    <div style="display:flex;justify-content:space-between;margin-top:10px;">
+      <button class="check-btn" style="background:var(--jade-light)" onclick="goRel(-1)" ${u.id===1?'disabled':''}>← Unité précédente</button>
+      <button class="check-btn" onclick="goRel(1)" ${u.id===units.length?'disabled':''}>Unité suivante →</button>
+    </div>
+  `;
+  window._score = {correct:0, total: totalEx, answered:0};
+}
+
+function goRel(dir){
+  const idx = units.findIndex(x=>x.id===currentUnit);
+  const next = units[idx+dir];
+  if(next){ currentUnit = next.id; renderAll(); window.scrollTo(0,0); }
+}
+
+function updateScore(){
+  document.getElementById('scoreDisplay').textContent = `${window._score.correct} / ${window._score.total}`;
+  if(window._score.answered >= window._score.total){
+    if(window._score.correct / window._score.total >= 0.6){
+      doneUnits.add(currentUnit);
+      renderSidebar();
+    }
+  }
+}
+
+function checkMcq(qIndex, choiceIndex){
+  const u = units.find(x=>x.id===currentUnit);
+  const m = u.ex.mcq[qIndex];
+  const btns = document.querySelectorAll(`[data-ex="mcq${qIndex}"]`);
+  if(btns[0].disabled) return;
+  btns.forEach((b,j)=>{
+    b.disabled = true;
+    if(j===m.a) b.classList.add('correct');
+    else if(j===choiceIndex) b.classList.add('wrong');
+  });
+  window._score.answered++;
+  if(choiceIndex===m.a) window._score.correct++;
+  updateScore();
+}
+
+function checkListen(qIndex, choiceIndex){
+  const u = units.find(x=>x.id===currentUnit);
+  const m = u.ex.listen[qIndex];
+  const btns = document.querySelectorAll(`[data-ex="listen${qIndex}"]`);
+  if(btns[0].disabled) return;
+  btns.forEach((b,j)=>{
+    b.disabled = true;
+    if(j===m.a) b.classList.add('correct');
+    else if(j===choiceIndex) b.classList.add('wrong');
+  });
+  window._score.answered++;
+  if(choiceIndex===m.a) window._score.correct++;
+  updateScore();
+}
+
+function checkFill(i){
+  const u = units.find(x=>x.id===currentUnit);
+  const f = u.ex.fill[i];
+  const input = document.getElementById('fill'+i);
+  const fb = document.getElementById('fillfb'+i);
+  if(input.disabled) return;
+  const isCorrect = norm(input.value) === norm(f.answer);
+  input.disabled = true;
+  input.classList.add(isCorrect?'correct':'wrong');
+  fb.textContent = isCorrect ? '✓ Correct !' : `✗ Réponse attendue : ${f.answer}`;
+  fb.className = 'fb ' + (isCorrect?'ok-fb':'bad-fb');
+  window._score.answered++;
+  if(isCorrect) window._score.correct++;
+  updateScore();
+}
+
+function renderAll(){
+  renderSidebar();
+  renderMain();
+}
+
+document.getElementById('menuBtn').onclick = ()=>{
+  document.getElementById('sidebar').classList.toggle('open');
+};
+
+if('speechSynthesis' in window){
+  window.speechSynthesis.onvoiceschanged = ()=>{ window.speechSynthesis.getVoices(); };
+}
+
+renderAll();
+
+// Register service worker for offline/installable PWA support
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch((err) => {
+      console.warn('Service worker registration failed:', err);
+    });
+  });
+}
+</script>
+</body>
+</html>
